@@ -19,5 +19,14 @@ namespace FitnessTracker.Infrastructure.Data.Models
 
         [ForeignKey(nameof(GymId))]
         public Gym Gym { get; set; } = null!;
+
+
+        [Required]
+        [Comment("Start date od membership")]
+        public DateTime StartDate { get; set; }
+
+        [Required]
+        [Comment("End date of membership")]
+        public DateTime EndDate { get; set; }
     }
 }

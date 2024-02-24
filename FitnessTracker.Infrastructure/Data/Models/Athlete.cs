@@ -49,8 +49,6 @@ namespace FitnessTracker.Infrastructure.Data.Models
 
         public virtual ICollection<Workout> Workouts { get; set; } = new List<Workout>();
 
-        public virtual ICollection<Membership> Memberships { get; set; } = new List<Membership>();
-
         public virtual ICollection<AthleteGym> AthletesGym { get; set; } = new List<AthleteGym>();
     }
 }

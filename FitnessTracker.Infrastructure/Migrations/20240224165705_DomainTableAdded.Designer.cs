@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(FitnessTrackerDbContext))]
-    [Migration("20240224163201_DomainTableAdded")]
+    [Migration("20240224165705_DomainTableAdded")]
     partial class DomainTableAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,6 +86,14 @@ namespace FitnessTracker.Infrastructure.Migrations
                     b.Property<int>("GymId")
                         .HasColumnType("int")
                         .HasComment("Gym identifier");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("End date of membership");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2")
+                        .HasComment("Start date od membership");
 
                     b.HasKey("AthleteId", "GymId");
 
@@ -211,41 +219,6 @@ namespace FitnessTracker.Infrastructure.Migrations
                     b.ToTable("Intensities");
 
                     b.HasComment("Intensity of a performed exercise.");
-                });
-
-            modelBuilder.Entity("FitnessTracker.Infrastructure.Data.Models.Membership", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AthleteId")
-                        .HasColumnType("int")
-                        .HasComment("Athlete identifier");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("End date of membership");
-
-                    b.Property<int>("GymId")
-                        .HasColumnType("int")
-                        .HasComment("Gym identifier");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2")
-                        .HasComment("Start date od membership");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AthleteId");
-
-                    b.HasIndex("GymId");
-
-                    b.ToTable("Memberships");
-
-                    b.HasComment("Athlete membership");
                 });
 
             modelBuilder.Entity("FitnessTracker.Infrastructure.Data.Models.Workout", b =>
@@ -535,25 +508,6 @@ namespace FitnessTracker.Infrastructure.Migrations
                     b.Navigation("Workout");
                 });
 
-            modelBuilder.Entity("FitnessTracker.Infrastructure.Data.Models.Membership", b =>
-                {
-                    b.HasOne("FitnessTracker.Infrastructure.Data.Models.Athlete", "Athlete")
-                        .WithMany("Memberships")
-                        .HasForeignKey("AthleteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FitnessTracker.Infrastructure.Data.Models.Gym", "Gym")
-                        .WithMany("Memberships")
-                        .HasForeignKey("GymId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Athlete");
-
-                    b.Navigation("Gym");
-                });
-
             modelBuilder.Entity("FitnessTracker.Infrastructure.Data.Models.Workout", b =>
                 {
                     b.HasOne("FitnessTracker.Infrastructure.Data.Models.Athlete", "Athlete")
@@ -628,8 +582,6 @@ namespace FitnessTracker.Infrastructure.Migrations
                 {
                     b.Navigation("AthletesGym");
 
-                    b.Navigation("Memberships");
-
                     b.Navigation("Workouts");
                 });
 
@@ -641,8 +593,6 @@ namespace FitnessTracker.Infrastructure.Migrations
             modelBuilder.Entity("FitnessTracker.Infrastructure.Data.Models.Gym", b =>
                 {
                     b.Navigation("AthletesGyms");
-
-                    b.Navigation("Memberships");
 
                     b.Navigation("Workouts");
                 });

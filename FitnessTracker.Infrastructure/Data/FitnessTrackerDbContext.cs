@@ -28,8 +28,6 @@ namespace FitnessTracker.Infrastructure.Data
 
         public DbSet<Gym> Gyms { get; set; }
 
-        public DbSet<Membership> Memberships { get; set; }
-
         public DbSet<AthleteGym> AthletesGyms { get; set; }
     }
 }

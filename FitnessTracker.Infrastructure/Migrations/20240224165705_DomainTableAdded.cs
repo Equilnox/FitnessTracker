@@ -74,7 +74,9 @@ namespace FitnessTracker.Infrastructure.Migrations
                 columns: table => new
                 {
                     AthleteId = table.Column<int>(type: "int", nullable: false, comment: "Athlete identifier"),
-                    GymId = table.Column<int>(type: "int", nullable: false, comment: "Gym identifier")
+                    GymId = table.Column<int>(type: "int", nullable: false, comment: "Gym identifier"),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Start date od membership"),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "End date of membership")
                 },
                 constraints: table =>
                 {
@@ -92,35 +94,6 @@ namespace FitnessTracker.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Memberships",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Start date od membership"),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "End date of membership"),
-                    GymId = table.Column<int>(type: "int", nullable: false, comment: "Gym identifier"),
-                    AthleteId = table.Column<int>(type: "int", nullable: false, comment: "Athlete identifier")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Memberships", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Memberships_Athletes_AthleteId",
-                        column: x => x.AthleteId,
-                        principalTable: "Athletes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Memberships_Gyms_GymId",
-                        column: x => x.GymId,
-                        principalTable: "Gyms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                },
-                comment: "Athlete membership");
 
             migrationBuilder.CreateTable(
                 name: "Workouts",
@@ -203,16 +176,6 @@ namespace FitnessTracker.Infrastructure.Migrations
                 column: "WorkoutId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Memberships_AthleteId",
-                table: "Memberships",
-                column: "AthleteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Memberships_GymId",
-                table: "Memberships",
-                column: "GymId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Workouts_AthleteId",
                 table: "Workouts",
                 column: "AthleteId");
@@ -230,9 +193,6 @@ namespace FitnessTracker.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Intensities");
-
-            migrationBuilder.DropTable(
-                name: "Memberships");
 
             migrationBuilder.DropTable(
                 name: "Exercises");
