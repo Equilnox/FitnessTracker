@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class FitnessTrackerDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public FitnessTrackerDbContext(DbContextOptions<FitnessTrackerDbContext> options)
             : base(options)
         {
         }
