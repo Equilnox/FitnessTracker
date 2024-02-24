@@ -1,6 +1,7 @@
-﻿using FitnessTracker.Data;
+﻿using FitnessTracker.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Microsoft.Extensions.DependencyInjection
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FitnessTracker.Data
+namespace FitnessTracker.Infrastructure.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
