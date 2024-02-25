@@ -142,7 +142,6 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
             };
 
             TestUserTwo.PasswordHash = hasher.HashPassword(TestUserOne, "1234tesT");
-
         }
 
         private void SeedAthletes()

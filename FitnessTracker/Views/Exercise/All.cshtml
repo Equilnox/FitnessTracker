@@ -1,0 +1,44 @@
+﻿@model List<ExerciseViewModel>
+
+@{
+	ViewBag.Title = "All exercises.";
+}
+
+<h2 class ="text-center">@ViewBag.Title</h2>
+<hr />
+
+@{
+    var muscleGroups = new List<string>();
+
+    muscleGroups.Add(MuscleGroup.CompoundMove.ToString());
+    muscleGroups.Add(MuscleGroup.ChestMuscles.ToString());
+    muscleGroups.Add(MuscleGroup.BackMuscles.ToString());
+    muscleGroups.Add(MuscleGroup.ArmsMuscles.ToString());
+    muscleGroups.Add(MuscleGroup.LegsMuscles.ToString());
+    muscleGroups.Add(MuscleGroup.AbdominalMuscles.ToString());
+
+    foreach(var muscleGroup in muscleGroups)
+    {
+        <ol class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">@muscleGroup</div>
+                    @foreach (var item in Model)
+                    {   
+                        if (item.MuscleGroup == muscleGroup.ToString())
+                        {
+                            <ol class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">@item.Name</div>
+                                        @item.Description
+                                    </div>
+                                </li>
+                            </ol>
+                        }
+                    }
+                </div>
+            </li>
+        </ol>
+    }
+}
