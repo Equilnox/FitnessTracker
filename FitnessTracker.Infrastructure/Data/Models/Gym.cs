@@ -18,7 +18,7 @@ namespace FitnessTracker.Infrastructure.Data.Models
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength()]
+        [MaxLength(GymAddressMaxLength)]
         [Comment("Gym address")]
         public string Address { get; set; } = string.Empty;
 
