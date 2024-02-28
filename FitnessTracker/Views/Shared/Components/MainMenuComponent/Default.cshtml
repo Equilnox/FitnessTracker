@@ -5,4 +5,19 @@
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="Exercise" asp-action="All">All exercises</a>
     </li>
+    <li class="nav-item dropdown">
+        <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Exercises
+        </button>
+        <ul class="dropdown-menu dropdown-menu-light">
+            <li><a class="dropdown-item" asp-area="" asp-controller="Exercise" asp-action="All">All exercises</a></li>
+
+            @foreach (MuscleGroup muscleGroup in Enum.GetValues(typeof(MuscleGroup)))
+            {
+                <li>
+                    <a class="dropdown-item" asp-area="" asp-controller="Exercise" asp-action="PerMuscleGroup" asp-route-_muscleGroup="@((int)muscleGroup)">@muscleGroup.ToString()</a>
+                </li>
+            }
+        </ul>
+    </li>
 </ul>

@@ -1,0 +1,28 @@
+﻿@model List<ExerciseViewModel>
+
+@{
+    var muscleGroupe = @Model.First().MuscleGroup;
+    ViewBag.Title = "Exercises " + muscleGroupe;
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@foreach (var item in Model)
+{
+    <div class="row row-cols-1 row-cols-md-3 g-1">
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5 class="fw-bold text-center">@item.Name</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-warp text-truncate" style="max-width: 500px">@item.Description</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="Details" asp-route-name="@item.Name">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ }
