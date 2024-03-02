@@ -1,9 +1,12 @@
 ﻿@model ExerciseViewModel
 
-<div class="row row-cols-1 row-cols-md-1 g-1">
-    <div class="col">
-        <h5 class="fw-bold text-center">@Model.Name</h5>
-        <hr />
-        <p class="text style="max-width: auto">@Model.Description</p>
-    </div>
+<h2 class="fw-bold text-center">@Model.Name</h2>
+<hr	/>
+<div class="clearfix">
+	<svg class="bd-placeholder-img col-md-6 float-md-end mb-3 ms-md-3" width="100%" height="210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive floated image" preserveAspectRatio="xMidYMid slice" focusable="false">
+		<title>Placeholder</title>
+		<rect width="100%" height="100%" fill="#868e96"></rect>
+		<text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive floated image</text>
+	</svg>
+	<p class="text" style="max-width: auto">@Model.Description</p>
 </div>
