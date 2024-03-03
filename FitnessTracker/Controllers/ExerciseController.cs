@@ -21,7 +21,7 @@ namespace FitnessTracker.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            List<ExerciseViewModel> model = await GetAllExercises();
+            List<ExerciseViewModel> model = await GetAll();
 
             return View(model);
         }
@@ -38,7 +38,7 @@ namespace FitnessTracker.Controllers
 
             var muscleGroup = specifiedMuscleGroup.ToString();
 
-            var all = await GetAllExercises();
+            var all = await GetAll();
 
             var model = all.Where(ms => ms.MuscleGroup == muscleGroup).ToList();
 
@@ -47,7 +47,7 @@ namespace FitnessTracker.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var exerciseList = await GetAllExercises();
+            var exerciseList = await GetAll();
 
             var model = exerciseList.FirstOrDefault(e => e.Id == id);
 
@@ -64,35 +64,84 @@ namespace FitnessTracker.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateExercise(ExerciseFormModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				model = new ExerciseFormModel();
+
+				return View(model);
+			}
+
+			int newExerciseID = await AddNew(model);
+
+			return RedirectToAction(nameof(Details), new { id = newExerciseID });
+		}
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            var modelName = model.Name.Count();
-            var modelDescription = model.Description.Count();
+			var exerciseToEdit = await data.Exercises.FindAsync(id);
 
-            if (!ModelState.IsValid)
+            if (exerciseToEdit == null)
             {
-                model = new ExerciseFormModel();
-
-                return View(model);
+                return BadRequest();
             }
 
-            var newExercise = new Exercise()
+			var model = new ExerciseFormModel()
             {
-                Name = model.Name,
-                Description = model.Description,
-				MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup)
+                Id = exerciseToEdit.Id,
+                Name = exerciseToEdit.Name,
+                Description = exerciseToEdit.Description,
+                MuscleGroup = exerciseToEdit.MuscleGroup.ToString()
             };
 
-            await data.AddAsync(newExercise);
-            await data.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Details), new { id = newExercise.Id });
+            return View(model);
         }
 
-        private async Task<List<ExerciseViewModel>> GetAllExercises()
+        [HttpPost]
+        public async Task<IActionResult> Edit(ExerciseFormModel model)
+        {
+            var editedExercise = await data.Exercises.FindAsync(model.Id);
+
+            if (editedExercise == null)
+            {
+                return BadRequest();
+            }
+
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+            editedExercise.Name = model.Name;
+            editedExercise.Description = model.Description;
+            editedExercise.MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup);
+
+            await data.SaveChangesAsync();
+
+			return RedirectToAction(nameof(Details), new { id = editedExercise.Id });
+        }
+
+		private async Task<int> AddNew(ExerciseFormModel model)
+		{
+			var newExercise = new Exercise()
+			{
+				Name = model.Name,
+				Description = model.Description,
+				MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup)
+			};
+
+			await data.AddAsync(newExercise);
+			await data.SaveChangesAsync();
+
+			return newExercise.Id;
+		}
+
+		private async Task<List<ExerciseViewModel>> GetAll()
         {
             return await data.Exercises
                             .Select(e => new ExerciseViewModel
-                            {
+							{
                                 Id = e.Id,
                                 Name = e.Name,
                                 Description = e.Description,

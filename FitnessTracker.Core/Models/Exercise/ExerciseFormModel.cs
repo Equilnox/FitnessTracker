@@ -6,6 +6,8 @@ namespace FitnessTracker.Core.Models.Exercise
 {
 	public class ExerciseFormModel
 	{
+		public int Id { get; set; }
+
 		[Required(ErrorMessage = RequiredFieldMessage)]
 		[StringLength(ExerciseNameMaxLength, MinimumLength = ExerciseNameMinLength, ErrorMessage = StringLengthMessage)]
 		public string Name { get; set; } = string.Empty;
