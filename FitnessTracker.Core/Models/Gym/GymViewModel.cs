@@ -1,4 +1,4 @@
-﻿namespace FitnessTracker.Core.Models
+﻿namespace FitnessTracker.Core.Models.Gym
 {
     public class GymViewModel
     {
