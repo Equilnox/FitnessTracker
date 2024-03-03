@@ -6,7 +6,7 @@
 
 <div class="d-grid gap-5 d-md-flex justify-content-md-center">
 <h2 class ="text-center">@ViewBag.Title</h2>
-<a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="CreateExercise">Add Exercise</a>
+<a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="Create">Add Exercise</a>
 </div>
 <hr />
 
@@ -16,27 +16,27 @@
         <li class="list-group-item justify-content-between">
             <div class="ms-1 me-auto">
                 <h4 class="fw-bold">@muscleGroup</h4>
-                    <div class="container text-center">
-                    <div class="row row-cols-auto row-cols-md-3 g-4">
-                @foreach (var item in Model)
-                {   
-                            @if (item.MuscleGroup == muscleGroup.ToString())
-                            {
-                                <div class="card h-100">
-                                    <div class="card-header">
-                                        <h5 class="fw-bold text-center">@item.Name</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text text-warp text-truncate" style="max-width: 500px">@item.Description</p>
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                            <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                        </div>
+                <div class="container text-center">
+                <div class="row row-cols-auto row-cols-md-3 g-4">
+                    @foreach (var item in Model)
+                    {   
+                        @if (item.MuscleGroup == muscleGroup.ToString())
+                        {
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <h5 class="fw-bold text-center">@item.Name</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text text-warp text-truncate" style="max-width: 500px">@item.Description</p>
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="Details" asp-route-id="@item.Id">Details</a>
                                     </div>
                                 </div>
-                            }
-                }
-                    </div>
-                    </div>
+                            </div>
+                        }
+                    }
+                </div>
+                </div>
             </div>
         </li>
     </ol>
