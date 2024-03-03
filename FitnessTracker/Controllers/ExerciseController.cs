@@ -55,7 +55,7 @@ namespace FitnessTracker.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateExercise()
+        public IActionResult Create()
         {
             var model = new ExerciseFormModel();
 
@@ -63,7 +63,7 @@ namespace FitnessTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateExercise(ExerciseFormModel model)
+        public async Task<IActionResult> Create(ExerciseFormModel model)
 		{
 			if (!ModelState.IsValid)
 			{
