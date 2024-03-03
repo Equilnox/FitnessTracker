@@ -1,4 +1,7 @@
-﻿using FitnessTracker.Infrastructure.Data;
+﻿using FitnessTracker.Core.Contracts;
+using FitnessTracker.Core.Services;
+using FitnessTracker.Infrastructure.Data;
+using FitnessTracker.Infrastructure.Data.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +12,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IExerciseService, ExerciseService>();
+
             return services;
         }
 
@@ -17,6 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection
             var connectionString = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<FitnessTrackerDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
