@@ -17,12 +17,5 @@ namespace FitnessTracker.Core.Models.Athlete
         public int Seconds { get; set; }
 
         public int WorkoutId { get; set; }
-
-        public double Intensity()
-        {
-            double intensity = LiftedWeight*Repetitions*Sets/Seconds;
-
-            return intensity;
-        }
     }
 }
