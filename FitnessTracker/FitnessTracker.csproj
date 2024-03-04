@@ -19,8 +19,4 @@
     <ProjectReference Include="..\FitnessTracker.Core\FitnessTracker.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Gym\" />
-  </ItemGroup>
-
 </Project>
