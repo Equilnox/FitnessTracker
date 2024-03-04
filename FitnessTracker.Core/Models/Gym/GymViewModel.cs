@@ -8,8 +8,6 @@
 
         public string Address { get; set; } = string.Empty;
 
-        public string Owner { get; set; } = string.Empty;
-
         public string PhoneNumber { get; set; } = string.Empty;
 
         public string PricePerMonth { get; set; } = string.Empty;
