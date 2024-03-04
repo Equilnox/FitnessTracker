@@ -1,0 +1,36 @@
+﻿@model List<GymViewModel>
+
+@{
+	ViewBag.Title = "Gyms";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="accordion" id="accordionExample">
+    @foreach(var item in Model)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    @item.Name
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <svg class="bd-placeholder-img float-md-top" width="100%" height="210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive floated image" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#868e96"></rect>
+                    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive floated image</text>
+                </svg>
+                <div class="accordion-body">
+                    <p class="card-text text-warp text-truncate" style="max-width: 500px">Address: @item.Address</p>
+                    <p class="card-text text--warp text-truncate" style="max-width: 500px">Phone number: @item.PhoneNumber</p>
+                    <p class="card-text text--warp text-truncate" style="max-width: 500px">Price per month: @item.PricePerMonth lv.</p>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
