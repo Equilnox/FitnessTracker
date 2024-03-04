@@ -1,9 +1,7 @@
 ﻿using FitnessTracker.Infrastructure.Data.Models.Enums;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
 
 namespace FitnessTracker.Infrastructure.Data.Models
 {
