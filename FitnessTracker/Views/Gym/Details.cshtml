@@ -1,0 +1,57 @@
+﻿@model GymDetailViewModel
+
+<h2 class="text-center">@Model.Name</h2>
+<hr />
+<svg class="bd-placeholder-img float-md-top" width="100%" height="210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive floated image" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <title>Placeholder</title>
+    <rect width="100%" height="100%" fill="#868e96"></rect>
+    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive floated image</text>
+</svg>
+<hr />
+<div class="d-grid gap-5 d-md-flex justify-content-md-between">
+    <p class="text">Address: @Model.Address</p>
+    <p class="text">Phone number: @Model.PhoneNumber</p>
+    <p class="text">Price per month: @Model.PricePerMonth</p>
+    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id">Edit gym details</a>
+</div>
+<hr />
+<div class="d-grid gap-5 d-md-flex justify-content-md-between">
+    <h2 class="text-center">Members</h2>
+    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="AddMember">Add member</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Hight</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Start date</th>
+            <th scope="col">Expire date</th>
+            <th scope="col">Renew</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var member in Model.Members)
+        {   
+            <tr>
+                <td>@member.Name</td>
+                <td>@member.Height</td>
+                <td>@member.Weight</td>
+                <td>@member.StartDate.ToShortDateString()</td>
+                <td>
+                    @if (member.EndDate < DateTime.Now)
+                    {
+                        <p class="text-danger">@member.EndDate.ToShortDateString()</p>
+                    }
+                    else
+                    {
+                        @member.EndDate.ToShortDateString()
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Renew" asp-asp-route-id="@member.MemberId">Renew</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

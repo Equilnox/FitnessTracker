@@ -3,11 +3,6 @@ using FitnessTracker.Core.Models.Gym;
 using FitnessTracker.Infrastructure.Data.Common;
 using FitnessTracker.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FitnessTracker.Core.Services
 {
@@ -36,9 +31,49 @@ namespace FitnessTracker.Core.Services
             return model;
         }
 
-        public Task<GymViewModel> GetGymAsync(int id)
+        public async Task<GymDetailViewModel> GetGymAsync(int id)
         {
-            throw new NotImplementedException();
+            var gyms = await repository.AllReadOnly<Gym>()
+                .Select(g => new GymDetailViewModel
+                {
+                    Id = id,
+                    Name = g.Name,
+                    Address = g.Address,
+                    PhoneNumber = g.PhoneNumber,
+                    PricePerMonth = g.PricePerMonth.ToString(),
+                })
+                .ToListAsync();
+
+            var model = gyms.Find(g => g.Id == id);
+
+            var members = await GetMembersAsync(id);
+
+            if(members.Any())
+            {
+                model.Members = members;
+            }
+
+            return model;
+        }
+
+        public async Task<IEnumerable<GymMembersViewModel>> GetMembersAsync(int gymId)
+        {
+            var allMembers = await repository.AllReadOnly<AthleteGym>()
+                .Select(a => new GymMembersViewModel
+                {
+                    MemberId = a.AthleteId,
+                    GymId = a.GymId,
+                    Name = $"{a.Athlete.FirstName} {a.Athlete.LastName}",
+                    Height = a.Athlete.Height,
+                    Weight = a.Athlete.Weight,
+                    StartDate = a.StartDate,
+                    EndDate = a.EndDate
+                })
+                .ToListAsync();
+
+            var members = allMembers.Where(g => g.GymId == gymId);
+
+            return members;
         }
     }
 }
