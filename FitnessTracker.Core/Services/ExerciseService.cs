@@ -50,12 +50,12 @@ namespace FitnessTracker.Core.Services
 			return exercisesPerMuscleGroup;
 		}
 
-		public async Task<Exercise> FindExercise(int id)
+		public async Task<Exercise> FindExerciseAsync(int id)
 		{
 			return await repository.All<Exercise>().FirstOrDefaultAsync(e => e.Id == id);
 		}
 
-		public async Task<ExerciseViewModel> FindAsync(int id)
+		public async Task<ExerciseViewModel> FindExerciseAsNotracingAsync(int id)
 		{
 			var exercises = await GetAllAsync();
 
