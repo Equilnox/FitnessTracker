@@ -42,7 +42,7 @@ namespace FitnessTracker.Controllers
 
 		public async Task<IActionResult> Details(int id)
         {
-			var model = await service.FindAsync(id);
+			var model = await service.FindExerciseAsNotracingAsync(id);
 
             if(model == null)
             {
@@ -78,7 +78,7 @@ namespace FitnessTracker.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-			var exerciseToEdit = await service.FindAsync(id);
+			var exerciseToEdit = await service.FindExerciseAsync(id);
 
             if (exerciseToEdit == null)
             {
@@ -99,7 +99,7 @@ namespace FitnessTracker.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ExerciseFormModel model)
 		{
-			Exercise? editedExercise = await service.FindExercise(model.Id);
+			Exercise? editedExercise = await service.FindExerciseAsync(model.Id);
 
 			if (editedExercise == null)
 			{
