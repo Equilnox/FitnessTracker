@@ -4,9 +4,13 @@
     {
         public int Id { get; set; }
 
+        public int AthleteId { get; set; }
+
         public string WorkoutType { get; set; } = string.Empty;
 
         public string Date { get; set; } = string.Empty;
+
+        public string GymName { get; set; } = string.Empty;
 
         public IEnumerable<AthleteExerciseIntensity> Exercises { get; set; } = new List<AthleteExerciseIntensity>();
     }

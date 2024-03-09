@@ -1,6 +1,4 @@
-﻿using FitnessTracker.Infrastructure.Data.Models;
-
-namespace FitnessTracker.Core.Models.Athlete
+﻿namespace FitnessTracker.Core.Models.Athlete
 {
     public class AthleteViewModel
     {
@@ -22,6 +20,6 @@ namespace FitnessTracker.Core.Models.Athlete
 
         public virtual IEnumerable<AthleteWorkoutsViewModel> Workouts { get; set; } = new List<AthleteWorkoutsViewModel>();
 
-        public virtual IEnumerable<AthleteGym> AthletesGym { get; set; } = new List<AthleteGym>();
+        public virtual IEnumerable<AthleteGymsViewModel> AthletesGym { get; set; } = new List<AthleteGymsViewModel>();
     }
 }

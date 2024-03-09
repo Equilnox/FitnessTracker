@@ -6,6 +6,8 @@
 
         public int GymId { get; set; }
 
+        public string GymName { get; set; } = string.Empty;
+
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
