@@ -9,9 +9,9 @@ namespace FitnessTracker.Core.Contracts
 
 		Task<IEnumerable<ExerciseViewModel>> GetAllPerMuscleGroupAsync(int muscleGroup);
 
-		Task<Exercise> FindExercise(int id);
+		Task<Exercise> FindExerciseAsync(int id);
 
-		Task<ExerciseViewModel> FindAsync(int id);
+		Task<ExerciseViewModel> FindExerciseAsNotracingAsync(int id);
 
 		void AddNewAsync(ExerciseFormModel model);
 
