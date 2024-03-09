@@ -64,7 +64,7 @@ namespace FitnessTracker.Core.Services
 			return exercise;
 		}
 
-		public async void AddNewAsync(ExerciseFormModel model)
+		public void AddNewAsync(ExerciseFormModel model)
 		{
 			var newExercise = new Exercise()
 			{
