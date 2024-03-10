@@ -1,10 +1,5 @@
 ﻿using FitnessTracker.Core.Models.Gym;
-using FitnessTracker.Infrastructure.Data.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FitnessTracker.Infrastructure.Data.Models;
 
 namespace FitnessTracker.Core.Contracts
 {
@@ -15,5 +10,7 @@ namespace FitnessTracker.Core.Contracts
         Task<GymDetailViewModel> GetGymAsync(int id);
 
         Task<IEnumerable<GymMembersViewModel>> GetMembersAsync(int gymId);
+
+        Task RenewAsync(GymMembershipRenewFormModel model);
     }
 }
