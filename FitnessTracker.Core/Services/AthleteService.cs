@@ -101,9 +101,17 @@ namespace FitnessTracker.Core.Services
 
             foreach(var workout in workouts)
             {
-                var exercisesForThisWorkout = exercisesForWorkouts.Select(e => e).Where(e => e.WorkoutId == workout.Id);
+                var exercisesForThisWorkout = new List<AthleteExerciseIntensity> ();
 
-                workout.Exercises.ToList().AddRange(exercisesForThisWorkout);
+                foreach(var exercise in exercisesForWorkouts)
+                {
+                    if (exercise.WorkoutId == workout.Id)
+                    {
+                        exercisesForThisWorkout.Add(exercise);
+                    }
+                }
+
+                workout.Exercises = exercisesForThisWorkout;
             }
 
             return workouts;

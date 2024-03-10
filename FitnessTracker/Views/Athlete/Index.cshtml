@@ -28,7 +28,7 @@
     </div>
     <div class="col">
         <hr />
-        <p class="text-lg-center">Gym memberships.</p>
+        <h4 class="text-lg-center">Gym memberships.</h4>
         <table class="table">
             <thead>
                 <tr>
@@ -60,24 +60,24 @@
         <hr />
     </div>
 </div>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Workout Type</th>
-                <th scope="col">On Date</th>
-                <th scope="col">At Gym</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var item in Model.Workouts)
-            {
-                <tr>
-                    <td>@item.WorkoutType</td>
-                    <td>@item.Date</td>
-                    <td>@item.GymName</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="d-grid gap-5 d-md-flex justify-content-md-between">
+    <h2 class="text-center">Workouts</h2>
+    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Workout" asp-action="Create">Add Workout</a>
 </div>
+<div></div>
+@foreach (var workout in Model.Workouts)
+{
+    <div class="card">
+        <div class="card-header">
+            @workout.WorkoutType ; Date of workout: @workout.Date ; Performed at gym: @workout.GymName
+        </div>
+        <div class="card-body">
+        <ul class="list-group list-group-flush">
+            @foreach (var exercise in workout.Exercises)
+            {
+                <li class="list-group-item">Exercise name: @exercise.ExerciseName ; Exercise Sets: @exercise.Sets ; Exercise Repetitions: @exercise.Repetitions ; Average time per set: @exercise.Seconds</li>
+            }
+        </ul>
+        </div>
+    </div>
+}
