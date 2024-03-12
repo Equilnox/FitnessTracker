@@ -148,7 +148,7 @@ namespace FitnessTracker.Core.Services
             return exercises;
         }
 
-        public void AddNewAthleteAsync(AthleteCreateFormModel model, string userId)
+        public async Task AddNewAthleteAsync(AthleteCreateFormModel model, string userId)
         {
             Athlete athlete = new Athlete()
             {
@@ -158,6 +158,12 @@ namespace FitnessTracker.Core.Services
 			};
 
             repository.AddAsync(athlete);
+
+            await SaveAsync();
+        }
+
+        public async Task SaveAsync()
+        {
             repository.SaveAsync();
         }
     }

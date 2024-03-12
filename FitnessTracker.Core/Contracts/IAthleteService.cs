@@ -14,6 +14,8 @@ namespace FitnessTracker.Core.Contracts
 
         Task<IEnumerable<AthleteExerciseIntensity>> GetExercisesForWorkoutsAsync(IEnumerable<int> workoutIds);
 
-        void AddNewAthleteAsync(AthleteCreateFormModel model, string userId);
+        Task AddNewAthleteAsync(AthleteCreateFormModel model, string userId);
+
+        Task SaveAsync();
     }
 }
