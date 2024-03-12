@@ -1,9 +1,8 @@
 ﻿using FitnessTracker.Core.Models.Gym;
-using FitnessTracker.Infrastructure.Data.Models;
 
 namespace FitnessTracker.Core.Contracts
 {
-    public interface IGymService
+	public interface IGymService
     {
         Task<IEnumerable<GymViewModel>> GetAllAsync();
 
