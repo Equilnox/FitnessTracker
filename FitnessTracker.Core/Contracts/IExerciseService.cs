@@ -13,8 +13,8 @@ namespace FitnessTracker.Core.Contracts
 
 		Task<ExerciseViewModel> FindExerciseAsNotracingAsync(int id);
 
-		void AddNewAsync(ExerciseFormModel model);
+		Task AddNewAsync(ExerciseFormModel model);
 
-		void SaveAsync();
+		Task SaveAsync();
 	}
 }

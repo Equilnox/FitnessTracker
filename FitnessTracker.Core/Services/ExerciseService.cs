@@ -64,7 +64,7 @@ namespace FitnessTracker.Core.Services
 			return exercise;
 		}
 
-		public void AddNewAsync(ExerciseFormModel model)
+		public async Task AddNewAsync(ExerciseFormModel model)
 		{
 			var newExercise = new Exercise()
 			{
@@ -74,10 +74,10 @@ namespace FitnessTracker.Core.Services
 			};
 
 			repository.AddAsync(newExercise);
-			SaveAsync();
+			await SaveAsync();
 		}
 
-		public void SaveAsync()
+		public async Task SaveAsync()
 		{
 			repository.SaveAsync();
 		}
