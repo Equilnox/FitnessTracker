@@ -9,7 +9,5 @@ namespace FitnessTracker.Core.Contracts
         Task<GymDetailViewModel> GetGymAsync(int id);
 
         Task<IEnumerable<GymMembersViewModel>> GetMembersAsync(int gymId);
-
-        Task RenewAsync(GymMembershipRenewFormModel model);
     }
 }

@@ -75,18 +75,5 @@ namespace FitnessTracker.Core.Services
 
             return members;
         }
-
-        public async Task RenewAsync(GymMembershipRenewFormModel model)
-        {
-            var memberships = await repository.All<AthleteGym>()
-                .Select(ag => ag).ToListAsync();
-
-            var membershipOfAthlete = memberships.Find(m => m.AthleteId == model.AthleteId && m.GymId == model.GymId);
-
-            membershipOfAthlete.StartDate = DateTime.Parse(model.StartDate);
-            membershipOfAthlete.EndDate = DateTime.Parse(model.EndDate);
-
-            repository.SaveAsync();
-        }
     }
 }
