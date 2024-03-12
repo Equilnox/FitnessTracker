@@ -1,5 +1,5 @@
 ﻿using FitnessTracker.Core.Contracts;
-using FitnessTracker.Core.Models.Gym;
+using FitnessTracker.Core.Models.AthleteGym;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessTracker.Controllers

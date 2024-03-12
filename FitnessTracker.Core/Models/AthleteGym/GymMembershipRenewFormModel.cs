@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FitnessTracker.Core.Models.Gym
+namespace FitnessTracker.Core.Models.AthleteGym
 {
     public class GymMembershipRenewFormModel
     {

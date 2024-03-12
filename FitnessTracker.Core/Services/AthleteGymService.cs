@@ -1,12 +1,12 @@
 ﻿using FitnessTracker.Core.Contracts;
-using FitnessTracker.Core.Models.Gym;
+using FitnessTracker.Core.Models.AthleteGym;
 using FitnessTracker.Infrastructure.Data.Common;
 using FitnessTracker.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Core.Services
 {
-	internal class AthleteGymService : IAthleteGymService
+    public class AthleteGymService : IAthleteGymService
 	{
 		private readonly IRepository repository;
 
