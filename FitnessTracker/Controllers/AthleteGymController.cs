@@ -43,5 +43,59 @@ namespace FitnessTracker.Controllers
 
 			return RedirectToAction("Details", "Gym", new { id = model.GymId });;
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> AddMember(int gymId)
+		{
+			var newMember = new NewMembershipFormModel()
+			{
+				GymId = gymId
+			};
+
+			return View(newMember);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> AddMember(NewMembershipFormModel model)
+		{
+			int gymId = model.GymId;
+
+			if (await service.AthleteExists(model.UserEmail) == false)
+			{
+				//TODO Add Error Message!!
+				model = new NewMembershipFormModel()
+				{
+					GymId = gymId
+				};
+
+				return View(model);
+			}
+
+			var athleteId = await service.GetAthleteId(model.UserEmail);
+
+			if(athleteId <= 0)
+			{
+
+				//TODO Add Error Message!!
+				model = new NewMembershipFormModel()
+				{
+					GymId = gymId
+				};
+
+				return View(model);
+			}
+
+			if (!ModelState.IsValid)
+			{
+				model = new NewMembershipFormModel()
+				{
+					GymId = gymId
+				};
+
+				return View(model);
+			}
+
+			return BadRequest();
+		}
 	}
 }

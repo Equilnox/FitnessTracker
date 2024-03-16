@@ -42,7 +42,7 @@ namespace FitnessTracker.Controllers
 
 		public async Task<IActionResult> Details(int id)
         {
-			var model = await service.FindExerciseAsNotracingAsync(id);
+			var model = await service.FindExerciseAsNoTracingAsync(id);
 
             if(model == null)
             {
@@ -70,7 +70,7 @@ namespace FitnessTracker.Controllers
 				return View(model);
 			}
 
-			service.AddNewAsync(model);
+			await service.AddNewAsync(model);
 
 			return RedirectToAction(nameof(All));
 		}
@@ -115,7 +115,7 @@ namespace FitnessTracker.Controllers
 			editedExercise.Description = model.Description;
 			editedExercise.MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup);
 
-			service.SaveAsync();
+			await service.SaveAsync();
 
 			return RedirectToAction(nameof(Details), new { id = editedExercise.Id });
 		}
