@@ -17,7 +17,7 @@
 <hr />
 <div class="d-grid gap-5 d-md-flex justify-content-md-between">
     <h2 class="text-center">Members</h2>
-    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="AddMember">Add member</a>
+    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="AddMember" asp-route-gymId="@Model.Id">Add member</a>
 </div>
 <table class="table">
     <thead>
