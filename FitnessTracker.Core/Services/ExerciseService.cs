@@ -52,14 +52,20 @@ namespace FitnessTracker.Core.Services
 
 		public async Task<Exercise> FindExerciseAsync(int id)
 		{
-			return await repository.All<Exercise>().FirstOrDefaultAsync(e => e.Id == id);
+			return await repository.All<Exercise>().FirstAsync(e => e.Id == id);
 		}
 
-		public async Task<ExerciseViewModel> FindExerciseAsNotracingAsync(int id)
+		public async Task<ExerciseViewModel> FindExerciseAsNoTracingAsync(int id)
 		{
-			var exercises = await GetAllAsync();
-
-			var exercise = exercises.FirstOrDefault(e => e.Id == id);
+			var exercise = await repository.AllReadOnly<Exercise>()
+				.Select(e => new ExerciseViewModel
+				{
+					Id = e.Id,
+					Name = e.Name,
+					Description = e.Description,
+					MuscleGroup = e.MuscleGroup.ToString(),
+				})
+				.FirstAsync(e => e.Id == id);
 
 			return exercise;
 		}
@@ -73,13 +79,13 @@ namespace FitnessTracker.Core.Services
 				MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup)
 			};
 
-			repository.AddAsync(newExercise);
+			await repository.AddAsync(newExercise);
 			await SaveAsync();
 		}
 
 		public async Task SaveAsync()
 		{
-			repository.SaveAsync();
+			await repository.SaveAsync();
 		}
 	}
 }
