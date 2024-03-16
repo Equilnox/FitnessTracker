@@ -157,14 +157,14 @@ namespace FitnessTracker.Core.Services
                 UserId = userId
 			};
 
-            repository.AddAsync(athlete);
+            await repository.AddAsync(athlete);
 
             await SaveAsync();
         }
 
         public async Task SaveAsync()
         {
-            repository.SaveAsync();
+            await repository.SaveAsync();
         }
     }
 }

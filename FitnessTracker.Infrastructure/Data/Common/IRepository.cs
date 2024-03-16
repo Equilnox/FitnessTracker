@@ -6,8 +6,8 @@
 
 		IQueryable<T> AllReadOnly<T>() where T : class;
 
-		void AddAsync<T>(T entity) where T : class;
+		Task AddAsync<T>(T entity) where T : class;
 
-		void SaveAsync();
+		Task SaveAsync();
 	}
 }

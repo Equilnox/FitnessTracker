@@ -26,14 +26,14 @@ namespace FitnessTracker.Infrastructure.Data.Common
 			return DbSet<T>().AsNoTracking();
 		}
 
-		public void SaveAsync()
+		public async Task SaveAsync()
 		{
-			context.SaveChangesAsync();
+			await context.SaveChangesAsync();
 		}
 
-		public void AddAsync<T>(T entity) where T : class
+		public async Task AddAsync<T>(T entity) where T : class
 		{
-			context.AddAsync(entity);
+			await context.AddAsync(entity);
 		}
 	}
 }
