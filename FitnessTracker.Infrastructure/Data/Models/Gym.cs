@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
@@ -23,9 +24,12 @@ namespace FitnessTracker.Infrastructure.Data.Models
         public string Address { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(GymOwnerMaxLength)]
-        [Comment("Gym owner full name.")]
-        public string Owner { get; set; } = string.Empty;
+        [MaxLength(UserIdMaxLength)]
+        [Comment("Gym owner Identifier.")]
+        public string OwnerId { get; set; } = string.Empty;
+
+        [ForeignKey(nameof(OwnerId))]
+        public IdentityUser Owner { get; set; } = null!;
 
         [Required]
         [MaxLength(GymPhoneNumberMaxLength)]
