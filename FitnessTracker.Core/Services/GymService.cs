@@ -15,7 +15,11 @@ namespace FitnessTracker.Core.Services
             repository = _repository;
         }
 
-        public async Task<IEnumerable<GymViewModel>> GetAllAsync()
+		/// <summary>
+		/// Return all Gyms.
+		/// </summary>
+		/// <returns></returns>
+		public async Task<IEnumerable<GymViewModel>> GetAllAsync()
         {
             var model = await repository.AllReadOnly<Gym>()
                 .Select(g => new GymViewModel
@@ -31,7 +35,12 @@ namespace FitnessTracker.Core.Services
             return model;
         }
 
-        public async Task<GymDetailViewModel> GetGymAsync(int id)
+		/// <summary>
+		/// Return specific Gym.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public async Task<GymDetailViewModel> GetGymAsync(int id)
         {
             var gyms = await repository.AllReadOnly<Gym>()
                 .Select(g => new GymDetailViewModel
@@ -56,7 +65,12 @@ namespace FitnessTracker.Core.Services
             return model;
         }
 
-        public async Task<IEnumerable<GymMembersViewModel>> GetMembersAsync(int gymId)
+		/// <summary>
+		/// Return Athletes Memberships, who have joined the gym.
+		/// </summary>
+		/// <param name="gymId"></param>
+		/// <returns></returns>
+		public async Task<IEnumerable<GymMembersViewModel>> GetMembersAsync(int gymId)
         {
             var allMembers = await repository.AllReadOnly<AthleteGym>()
                 .Select(a => new GymMembersViewModel

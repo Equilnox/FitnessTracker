@@ -16,12 +16,22 @@ namespace FitnessTracker.Core.Services
             repository = _repository;
         }
 
-        public async Task<bool> ExistsById(string UserId)
+		/// <summary>
+		/// Check if athlete exists.
+		/// </summary>
+		/// <param name="UserId"></param>
+		/// <returns></returns>
+		public async Task<bool> ExistsById(string UserId)
         {
             return await repository.AllReadOnly<Athlete>().AnyAsync(a => a.UserId == UserId);
         }
 
-        public async Task<AthleteViewModel> GetAthlete(string userId)
+		/// <summary>
+		/// Return athlete data.
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		public async Task<AthleteViewModel> GetAthlete(string userId)
         {
             var athletes = await repository.AllReadOnly<Athlete>()
                 .Select(a => new AthleteViewModel
@@ -52,7 +62,12 @@ namespace FitnessTracker.Core.Services
             return athlete;
         }
 
-        public async Task<IEnumerable<AthleteGymsViewModel>> GetGymMembershipsAsync(int id)
+		/// <summary>
+		/// Return Athletes memberships.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public async Task<IEnumerable<AthleteGymsViewModel>> GetGymMembershipsAsync(int id)
         {
             var memberships = await repository.AllReadOnly<AthleteGym>()
                 .Select(m => new AthleteGymsViewModel
@@ -75,7 +90,12 @@ namespace FitnessTracker.Core.Services
             return memberships;
         }
 
-        public async Task<IEnumerable<AthleteWorkoutsViewModel>> GetAthleteWorkoutsAsync(int id)
+		/// <summary>
+		/// Return Athlete workouts.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		public async Task<IEnumerable<AthleteWorkoutsViewModel>> GetAthleteWorkoutsAsync(int id)
         {
             var workouts = await repository.AllReadOnly<Workout>()
                 .Select(w => new AthleteWorkoutsViewModel
@@ -117,7 +137,12 @@ namespace FitnessTracker.Core.Services
             return workouts;
         }
 
-        public async Task<IEnumerable<AthleteExerciseIntensity>> GetExercisesForWorkoutsAsync(IEnumerable<int> workoutIds)
+		/// <summary>
+		/// Return exercises for a workout.
+		/// </summary>
+		/// <param name="workoutIds"></param>
+		/// <returns></returns>
+		public async Task<IEnumerable<AthleteExerciseIntensity>> GetExercisesForWorkoutsAsync(IEnumerable<int> workoutIds)
         {
             var exercisesFromDB = await repository.AllReadOnly<Intensity>()
                 .Select(e => new AthleteExerciseIntensity
@@ -148,7 +173,13 @@ namespace FitnessTracker.Core.Services
             return exercises;
         }
 
-        public async Task AddNewAthleteAsync(AthleteCreateFormModel model, string userId)
+		/// <summary>
+		/// Create new Athlete entity after register.
+		/// </summary>
+		/// <param name="model"></param>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		public async Task AddNewAthleteAsync(AthleteCreateFormModel model, string userId)
         {
             Athlete athlete = new Athlete()
             {
@@ -162,7 +193,11 @@ namespace FitnessTracker.Core.Services
             await SaveAsync();
         }
 
-        public async Task SaveAsync()
+		/// <summary>
+		/// Save asynchronously new Athlete Entity.
+		/// </summary>
+		/// <returns></returns>
+		public async Task SaveAsync()
         {
             await repository.SaveAsync();
         }

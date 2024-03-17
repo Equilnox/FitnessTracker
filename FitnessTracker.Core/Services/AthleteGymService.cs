@@ -15,6 +15,12 @@ namespace FitnessTracker.Core.Services
 			repository = _repository;
 		}
 
+		/// <summary>
+		/// Create new Athlete membership.
+		/// </summary>
+		/// <param name="model"></param>
+		/// <param name="athleteId"></param>
+		/// <returns></returns>
 		public async Task AddNewMember(NewMembershipFormModel model, int athleteId)
 		{
 			AthleteGym member = new AthleteGym()
@@ -29,6 +35,11 @@ namespace FitnessTracker.Core.Services
 			await repository.SaveAsync();
 		}
 
+		/// <summary>
+		/// Update the Start and End date for athlete membership.
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
 		public async Task RenewAsync(GymMembershipRenewFormModel model)
 		{
 			var athleteMemberships = await repository.All<AthleteGym>()
@@ -41,6 +52,11 @@ namespace FitnessTracker.Core.Services
 			await repository.SaveAsync();
 		}
 
+		/// <summary>
+		/// Performs a Check if Athlete is Registered.
+		/// </summary>
+		/// <param name="userEmail"></param>
+		/// <returns></returns>
 		public async Task<bool> AthleteExists(string userEmail)
 		{
 			string normalizedUserEmail = userEmail.ToUpper();
@@ -52,6 +68,11 @@ namespace FitnessTracker.Core.Services
 			return athletes.Any(u => u == normalizedUserEmail);
 		}
 
+		/// <summary>
+		/// Return Athlete's Id. If there are more then one Athlete with the Same Email returns 0.
+		/// </summary>
+		/// <param name="userEmail"></param>
+		/// <returns></returns>
 		public async Task<int> GetAthleteId(string userEmail)
 		{
 			string normalizedUserEmail = userEmail.ToUpper();
