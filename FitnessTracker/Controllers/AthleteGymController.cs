@@ -95,7 +95,9 @@ namespace FitnessTracker.Controllers
 				return View(model);
 			}
 
-			return BadRequest();
+			await service.AddNewMember(model, athleteId);
+
+			return RedirectToAction("Details", "Gym", new { id = model.GymId });
 		}
 	}
 }
