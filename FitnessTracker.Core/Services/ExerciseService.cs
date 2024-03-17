@@ -16,6 +16,10 @@ namespace FitnessTracker.Core.Services
 			repository = _repository;
 		}
 
+		/// <summary>
+		/// Return all exercises, with tracking.
+		/// </summary>
+		/// <returns></returns>
 		public async Task<IEnumerable<ExerciseViewModel>> GetAllAsync()
 		{
 			return await repository.AllReadOnly<Exercise>()
@@ -29,6 +33,11 @@ namespace FitnessTracker.Core.Services
 				.ToListAsync();
 		}
 
+		/// <summary>
+		/// Return all exercises for specific muscle group.
+		/// </summary>
+		/// <param name="_muscleGroup"></param>
+		/// <returns></returns>
 		public async Task<IEnumerable<ExerciseViewModel>> GetAllPerMuscleGroupAsync(int _muscleGroup)
 		{
 			var specifiedMuscleGroup = (MuscleGroup)_muscleGroup;
@@ -50,11 +59,21 @@ namespace FitnessTracker.Core.Services
 			return exercisesPerMuscleGroup;
 		}
 
+		/// <summary>
+		/// Return specific exercise, with tracking.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public async Task<Exercise> FindExerciseAsync(int id)
 		{
 			return await repository.All<Exercise>().FirstAsync(e => e.Id == id);
 		}
 
+		/// <summary>
+		/// Return specific exercise, without tracking.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public async Task<ExerciseViewModel> FindExerciseAsNoTracingAsync(int id)
 		{
 			var exercise = await repository.AllReadOnly<Exercise>()
@@ -65,11 +84,17 @@ namespace FitnessTracker.Core.Services
 					Description = e.Description,
 					MuscleGroup = e.MuscleGroup.ToString(),
 				})
+				.AsNoTracking()
 				.FirstAsync(e => e.Id == id);
 
 			return exercise;
 		}
 
+		/// <summary>
+		/// Add new exercise.
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
 		public async Task AddNewAsync(ExerciseFormModel model)
 		{
 			var newExercise = new Exercise()
@@ -83,6 +108,10 @@ namespace FitnessTracker.Core.Services
 			await SaveAsync();
 		}
 
+		/// <summary>
+		/// Save asynchronously new Exercise Entity.
+		/// </summary>
+		/// <returns></returns>
 		public async Task SaveAsync()
 		{
 			await repository.SaveAsync();
