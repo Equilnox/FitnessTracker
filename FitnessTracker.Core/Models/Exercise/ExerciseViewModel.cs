@@ -1,10 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
-using static FitnessTracker.Infrastructure.Data.Constrains.ErrorMessages;
-
-namespace FitnessTracker.Core.Models.Exercise
+﻿namespace FitnessTracker.Core.Models.Exercise
 {
-    public class ExerciseViewModel
+	public class ExerciseViewModel
     {
         public int Id { get; set; }
 
