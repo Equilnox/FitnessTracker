@@ -48,7 +48,7 @@ namespace FitnessTracker.Controllers
                 return View(model);
             }
 
-            service.AddNewAthleteAsync(model, userId);
+            await service.AddNewAthleteAsync(model, userId);
 
             return RedirectToAction(nameof(Index));
         }
