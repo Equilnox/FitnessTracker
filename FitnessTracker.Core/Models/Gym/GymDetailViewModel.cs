@@ -31,6 +31,16 @@
         public string PricePerMonth { get; set; } = string.Empty;
 
         /// <summary>
+        /// Property for Gym Owner Identifier.
+        /// </summary>
+        public string OwnerId { get; set; } = null!;
+
+        /// <summary>
+        /// Property for Owner full name.
+        /// </summary>
+        public GymOwner Owner {  get; set; } = null!;
+
+        /// <summary>
         /// Collection of Gym Members.
         /// </summary>
         public IEnumerable<GymMembersViewModel> Members { get; set; } = new List<GymMembersViewModel>();
