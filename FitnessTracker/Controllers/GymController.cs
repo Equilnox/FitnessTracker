@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Core.Contracts;
+using FitnessTracker.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessTracker.Controllers
@@ -23,7 +24,11 @@ namespace FitnessTracker.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
+			var userId = User.Id();
+
 			var model = await service.GetGymAsync(id);
+
+			ViewBag.UserId = userId;
 
 			return View(model);
 		}

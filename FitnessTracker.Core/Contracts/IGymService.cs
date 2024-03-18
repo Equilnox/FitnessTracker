@@ -23,5 +23,7 @@ namespace FitnessTracker.Core.Contracts
         /// <param name="gymId"></param>
         /// <returns></returns>
         Task<IEnumerable<GymMembersViewModel>> GetMembersAsync(int gymId);
+
+        Task<GymOwner> GetOwnerName(string UserId);
     }
 }

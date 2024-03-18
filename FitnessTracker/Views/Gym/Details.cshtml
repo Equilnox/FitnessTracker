@@ -8,50 +8,59 @@
     <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive floated image</text>
 </svg>
 <hr />
-<div class="d-grid gap-5 d-md-flex justify-content-md-between">
+<div class="d-grid gap-2 d-md-flex justify-content-md-between">
+    <h6 class="text">Owner: @Model.Owner.FirstName @Model.Owner.LastName</h6>
     <p class="text">Address: @Model.Address</p>
     <p class="text">Phone number: @Model.PhoneNumber</p>
-    <p class="text">Price per month: @Model.PricePerMonth</p>
-    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id">Edit gym details</a>
+    @if(Model.OwnerId == ViewBag.UserId)
+    {   
+        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id">Edit gym details</a>
+    }
 </div>
-<hr />
-<div class="d-grid gap-5 d-md-flex justify-content-md-between">
-    <h2 class="text-center">Members</h2>
-    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="AddMember" asp-route-gymId="@Model.Id">Add member</a>
+<div class="d-grid gap-2 d-md-flex justify-content-md-between">
+    <p class="text">Price per month: @Model.PricePerMonth lv.</p>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Hight</th>
-            <th scope="col">Weight</th>
-            <th scope="col">Start date</th>
-            <th scope="col">Expire date</th>
-            <th scope="col">Renew</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var member in Model.Members)
-        {   
+@if(Model.OwnerId == ViewBag.UserId)
+{
+    <hr />
+    <div class="d-grid gap-5 d-md-flex justify-content-md-between">
+        <h2 class="text-center">Members</h2>
+        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="AddMember" asp-route-gymId="@Model.Id">Add member</a>
+    </div>
+    <table class="table">
+        <thead>
             <tr>
-                <td>@member.Name</td>
-                <td>@member.Height</td>
-                <td>@member.Weight</td>
-                <td>@member.StartDate.ToShortDateString()</td>
-                <td>
-                    @if (member.EndDate < DateTime.Now)
-                    {
-                        <p class="text-danger">@member.EndDate.ToShortDateString()</p>
-                    }
-                    else
-                    {
-                        @member.EndDate.ToShortDateString()
-                    }
-                </td>
-                <td>
-                    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="Renew" asp-route-athleteId="@member.MemberId" asp-route-gymId="@Model.Id">Renew</a>
-                </td>
+                <th scope="col">Name</th>
+                <th scope="col">Hight</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Start date</th>
+                <th scope="col">Expire date</th>
+                <th scope="col">Renew</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var member in Model.Members)
+            {
+                <tr>
+                    <td>@member.Name</td>
+                    <td>@member.Height</td>
+                    <td>@member.Weight</td>
+                    <td>@member.StartDate.ToShortDateString()</td>
+                    <td>
+                        @if (member.EndDate < DateTime.Now)
+                        {
+                            <p class="text-danger">@member.EndDate.ToShortDateString()</p>
+                        }
+                        else
+                        {
+                            @member.EndDate.ToShortDateString()
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="Renew" asp-route-athleteId="@member.MemberId" asp-route-gymId="@Model.Id">Renew</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
