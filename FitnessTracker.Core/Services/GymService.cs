@@ -68,12 +68,27 @@ namespace FitnessTracker.Core.Services
             return model;
         }
 
-		/// <summary>
-		/// Return Athletes Memberships, who have joined the gym.
-		/// </summary>
-		/// <param name="gymId"></param>
-		/// <returns></returns>
-		public async Task<IEnumerable<GymMembersViewModel>> GetMembersAsync(int gymId)
+        public async Task<int> GetGymIdByUserIdAsync(string userId)
+        {
+            var gymId = await repository.AllReadOnly<Gym>()
+                .Where(g => g.OwnerId == userId)
+                .Select(g => g.Id)
+                .ToListAsync();
+
+            if(gymId.Count == 1)
+            {
+                return gymId.First();
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Return Athletes Memberships, who have joined the gym.
+        /// </summary>
+        /// <param name="gymId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<GymMembersViewModel>> GetMembersAsync(int gymId)
         {
             var allMembers = await repository.AllReadOnly<AthleteGym>()
                 .Select(a => new GymMembersViewModel

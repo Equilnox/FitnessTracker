@@ -32,5 +32,20 @@ namespace FitnessTracker.Controllers
 
 			return View(model);
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> MyGym()
+		{
+			var userId = User.Id();
+
+			var gymId = await service.GetGymIdByUserIdAsync(userId);
+
+			if(gymId != 0)
+			{
+				return RedirectToAction(nameof(Details), new { id = gymId });
+			}
+
+			return Unauthorized();
+		}
 	}
 }
