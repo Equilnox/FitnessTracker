@@ -68,6 +68,11 @@ namespace FitnessTracker.Core.Services
             return model;
         }
 
+        /// <summary>
+        /// Method returns Gym Id by receiving User Id.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<int> GetGymIdByUserIdAsync(string userId)
         {
             var gymId = await repository.AllReadOnly<Gym>()
@@ -108,6 +113,11 @@ namespace FitnessTracker.Core.Services
             return members;
         }
 
+        /// <summary>
+        /// Method returns Gym Owner First and Last Name by receiving User Id.
+        /// </summary>
+        /// <param name="UserId"></param>
+        /// <returns></returns>
 		public async Task<GymOwner> GetOwnerName(string UserId)
 		{
 			var owner = await repository.AllReadOnly<Athlete>()
