@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Core.Services
 {
-	public class GymService : IGymService
+    public class GymService : IGymService
     {
         private readonly IRepository repository;
 
@@ -15,11 +15,31 @@ namespace FitnessTracker.Core.Services
             repository = _repository;
         }
 
-		/// <summary>
-		/// Return all Gyms.
-		/// </summary>
-		/// <returns></returns>
-		public async Task<IEnumerable<GymViewModel>> GetAllAsync()
+        /// <summary>
+        /// Method is used to change basic details for Gym.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<int> ChangeGymDetailsAsync(GymDetailsFormViewModel model)
+        {
+            var gym = await repository.All<Gym>()
+                .FirstAsync(g => g.Id == model.Id);
+
+            gym.Name = model.GymName;
+            gym.Address = model.Address;
+            gym.PhoneNumber = model.PhoneNumber;
+            gym.PricePerMonth = model.PricePerMonth;
+
+            await SaveGymAsync();
+
+            return gym.Id;
+        }
+
+        /// <summary>
+        /// Return all Gyms.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<GymViewModel>> GetAllAsync()
         {
             var model = await repository.AllReadOnly<Gym>()
                 .Select(g => new GymViewModel
@@ -66,6 +86,27 @@ namespace FitnessTracker.Core.Services
             }
 
             return model;
+        }
+
+        /// <summary>
+        /// Method returns basic details of Gym.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<GymDetailsFormViewModel> GetGymDetailsAsync(int id)
+        {
+            var gym = await repository.AllReadOnly<Gym>()
+                .Select(g => new GymDetailsFormViewModel
+                {
+                    Id = g.Id,
+                    GymName = g.Name,
+                    Address = g.Address,
+                    PhoneNumber = g.PhoneNumber,
+                    PricePerMonth = g.PricePerMonth
+                })
+                .FirstAsync(g => g.Id == id);
+
+            return gym;
         }
 
         /// <summary>
@@ -131,5 +172,14 @@ namespace FitnessTracker.Core.Services
 
             return owner.First();
         }
-	}
+
+        /// <summary>
+        /// Method saves changes to Data Base.
+        /// </summary>
+        /// <returns></returns>
+        public async Task SaveGymAsync()
+        {
+            await repository.SaveAsync();
+        }
+    }
 }
