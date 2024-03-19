@@ -28,7 +28,7 @@
         public const int GymPhoneNumberMinLength = 10;
         public const int GymPhoneNumberMaxLength = 12;
 
-        public const decimal GymMaxPricePerMonth = 120.00m;
+        public const string GymMaxPricePerMonth = "120.00";
 
         public const string DateFormat = "dd/MM/yyyy";
     }
