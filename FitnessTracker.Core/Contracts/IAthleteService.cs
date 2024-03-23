@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Core.Models.Athlete;
+using FitnessTracker.Infrastructure.Data.Models;
 
 namespace FitnessTracker.Core.Contracts
 {
@@ -52,5 +53,21 @@ namespace FitnessTracker.Core.Contracts
         /// </summary>
         /// <returns></returns>
         Task SaveAsync();
-    }
+
+        /// <summary>
+        /// Returns Athlete details to be edited.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<AthleteDetailsEditFormModel> FindByIdAsync(int id);
+
+        /// <summary>
+        /// Method that rewrite the data in athlete detail.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        Task EditDetailsAsync(AthleteDetailsEditFormModel model);
+
+        Task<bool> CheckUserId(string userId, int athleteId);
+	}
 }

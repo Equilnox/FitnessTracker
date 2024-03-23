@@ -2,12 +2,11 @@
 using FitnessTracker.Core.Models.Athlete;
 using FitnessTracker.Infrastructure.Data.Common;
 using FitnessTracker.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Core.Services
 {
-    public class AthleteService : IAthleteService
+	public class AthleteService : IAthleteService
     {
         private readonly IRepository repository;
 
@@ -201,5 +200,53 @@ namespace FitnessTracker.Core.Services
         {
             await repository.SaveAsync();
         }
-    }
+
+        /// <summary>
+        /// Returns Athlete details to be edited.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<AthleteDetailsEditFormModel> FindByIdAsync(int id)
+        {
+            var model = await repository.All<Athlete>()
+                .Select(a => new AthleteDetailsEditFormModel()
+                {
+                    Id = a.Id,
+                    FirstName = a.FirstName,
+                    LastName = a.LastName,
+                    Age = a.Age,
+                    Height = a.Height,
+                    Weight = a.Weight
+                })
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return model;
+        }
+
+		public async Task EditDetailsAsync(AthleteDetailsEditFormModel model)
+		{
+			var athlete = await repository.All<Athlete>().FirstAsync(a => a.Id == model.Id);
+
+            athlete.FirstName = model.FirstName;
+            athlete.LastName = model.LastName;
+            athlete.Age = model.Age;
+            athlete.Height = model.Height;
+            athlete.Weight = model.Weight;
+		}
+
+		public async Task<bool> CheckUserId(string userId, int athleteId)
+		{
+			var athlete = await repository.AllReadOnly<Athlete>()
+                .FirstAsync(a => a.Id == athleteId);
+
+            bool isValid = false;
+
+            if(userId == athlete.UserId)
+            {
+                isValid = true;
+            }
+
+            return isValid;
+		}
+	}
 }
