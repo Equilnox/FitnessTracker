@@ -8,5 +8,10 @@ namespace FitnessTracker.Extensions
         {
             return user.FindFirstValue(ClaimTypes.NameIdentifier);
         }
+
+        public static string Email(this ClaimsPrincipal user)
+        {
+            return user.FindFirstValue(ClaimTypes.Email);
+        }
     }
 }
