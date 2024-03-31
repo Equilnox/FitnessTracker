@@ -16,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IGymService, GymService>();
             services.AddScoped<IAthleteService, AthleteService>();
 			services.AddScoped<IAthleteGymService, AthleteGymService>();
+            services.AddScoped<IWorkoutService, WorkoutService>();
 
             return services;
         }
