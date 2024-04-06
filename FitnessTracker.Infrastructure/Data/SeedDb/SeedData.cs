@@ -30,6 +30,8 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 
         public Gym GymOne { get; set; }
 
+        public Gym GymTwo { get; set; }
+
         public AthleteGym TestAthleteOneGymOne { get; set; }
 
         public AthleteGym TestAthleteTwoGymOne { get; set; }
@@ -231,6 +233,17 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 PhoneNumber = "0888888888",
                 PricePerMonth = 40,
                 GymType = GymType.Public
+            };
+
+            GymTwo = new Gym()
+            {
+                Id = 2,
+                Name = "TestGymTwo",
+                OwnerId = "bcde2890-ad6a-4eb9-87da-59255f3cc66a",
+                Address = "Home",
+                PhoneNumber = "0888999888",
+                PricePerMonth = 0.00m,
+                GymType = GymType.Personal
             };
         }
 

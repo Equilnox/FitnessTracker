@@ -17,7 +17,7 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 .HasForeignKey<Gym>(g => g.OwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-			builder.HasData(new Gym[] { data.GymOne });
+			builder.HasData(new Gym[] { data.GymOne, data.GymTwo });
         }
     }
 }
