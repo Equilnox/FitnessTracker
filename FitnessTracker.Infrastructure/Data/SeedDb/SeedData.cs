@@ -34,6 +34,8 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 
         public AthleteGym TestAthleteOneGymOne { get; set; }
 
+        public AthleteGym TestAthleteTwoGymTwo { get; set; }
+
         public AthleteGym TestAthleteTwoGymOne { get; set; }
 
         public Workout TestWorkoutOne { get; set; }
@@ -267,7 +269,15 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 StartDate = DateTime.ParseExact("05/02/2024", formatProvider, cultureInfo),
                 EndDate = DateTime.ParseExact("05/03/2024", formatProvider, cultureInfo)
             };
-        }
+
+			TestAthleteTwoGymTwo = new AthleteGym()
+			{
+				AthleteId = TestAthleteTwo.Id,
+				GymId = GymTwo.Id,
+				StartDate = DateTime.ParseExact("05/02/2024", formatProvider, cultureInfo),
+				EndDate = DateTime.ParseExact("05/03/2024", formatProvider, cultureInfo)
+			};
+		}
 
         private void SeedWorkouts()
         {

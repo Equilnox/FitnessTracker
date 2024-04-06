@@ -13,7 +13,7 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 
             var data = new SeedData();
 
-            builder.HasData(new AthleteGym[] { data.TestAthleteOneGymOne, data.TestAthleteTwoGymOne });
+            builder.HasData(new AthleteGym[] { data.TestAthleteOneGymOne, data.TestAthleteTwoGymOne, data.TestAthleteTwoGymTwo });
         }
     }
 }
