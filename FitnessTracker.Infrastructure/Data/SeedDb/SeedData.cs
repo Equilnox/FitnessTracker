@@ -229,7 +229,8 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 OwnerId = "30d1ab20-e536-48ea-aa61-2db91207a880",
                 Address = "Somewhere in the hood. Don't know this is just for testing.",
                 PhoneNumber = "0888888888",
-                PricePerMonth = 40
+                PricePerMonth = 40,
+                GymType = GymType.Public
             };
         }
 

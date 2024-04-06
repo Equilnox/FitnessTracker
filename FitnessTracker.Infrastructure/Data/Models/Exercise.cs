@@ -24,12 +24,12 @@ namespace FitnessTracker.Infrastructure.Data.Models
 
         [Required]
         [Comment("Exercise targeted muscle. Can be one of following: " +
-            "1 = Compound move; " +
-            "2 = Chest muscles; " +
-            "3 = Back muscles; " +
-            "4 = Legs muscles; " +
-            "5 = Arms muscles; " +
-            "6 = Abdominal muscles.")]
+            "0 = Compound move; " +
+            "1 = Chest muscles; " +
+            "2 = Back muscles; " +
+            "3 = Legs muscles; " +
+            "4 = Arms muscles; " +
+            "5 = Abdominal muscles.")]
         public MuscleGroup MuscleGroup { get; set; }
 
         public virtual ICollection<Intensity> Intensities { get; set; } = new List<Intensity>();

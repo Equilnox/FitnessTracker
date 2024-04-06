@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FitnessTracker.Infrastructure.Data.Models.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -40,6 +41,12 @@ namespace FitnessTracker.Infrastructure.Data.Models
         [Column(TypeName = "decimal(18,2)")]
         [Comment("Gym membership price per month")]
         public decimal PricePerMonth { get; set; }
+
+        [Required]
+		[Comment("Gym type. Can be one of following: " +
+			"0 = Personal; " +
+			"1 = Public.")]
+		public GymType GymType { get; set; }
 
         public virtual ICollection<Workout> Workouts { get; set; } = new List<Workout>();
 
