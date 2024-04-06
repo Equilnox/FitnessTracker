@@ -5,10 +5,10 @@ namespace FitnessTracker.Core.Contracts
 	public interface IGymService
     {
         /// <summary>
-        /// Return all Gyms.
+        /// Return all Gyms that have there GymType property set to "Public".
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<GymViewModel>> GetAllAsync();
+        Task<IEnumerable<GymViewModel>> GetAllPublicAsync();
 
         /// <summary>
         /// Return specific Gym.
@@ -57,5 +57,7 @@ namespace FitnessTracker.Core.Contracts
         /// <param name="id"></param>
         /// <returns></returns>
         Task<GymDetailsFormViewModel> GetGymDetailsAsync(int id);
+
+        
     }
 }

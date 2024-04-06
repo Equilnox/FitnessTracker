@@ -17,7 +17,7 @@ namespace FitnessTracker.Controllers
 		[HttpGet]
 		public async Task<IActionResult> All()
 		{
-			var model = await service.GetAllAsync();
+			var model = await service.GetAllPublicAsync();
 
 			return View(model);
 		}

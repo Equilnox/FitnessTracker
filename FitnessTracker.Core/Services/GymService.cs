@@ -29,6 +29,7 @@ namespace FitnessTracker.Core.Services
             gym.Address = model.Address;
             gym.PhoneNumber = model.PhoneNumber;
             gym.PricePerMonth = model.PricePerMonth;
+            gym.GymType = model.GymType;
 
             await SaveGymAsync();
 
@@ -39,9 +40,10 @@ namespace FitnessTracker.Core.Services
         /// Return all Gyms.
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<GymViewModel>> GetAllAsync()
+        public async Task<IEnumerable<GymViewModel>> GetAllPublicAsync()
         {
             var model = await repository.AllReadOnly<Gym>()
+                .Where(g => g.GymType == Infrastructure.Data.Models.Enums.GymType.Public)
                 .Select(g => new GymViewModel
                 {
                     Id = g.Id,

@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FitnessTracker.Infrastructure.Data.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
 using static FitnessTracker.Infrastructure.Data.Constrains.ErrorMessages;
 
 namespace FitnessTracker.Core.Models.Gym
 {
-    /// <summary>
-    /// Class is used to Edit Gym Details.
-    /// </summary>
-    public class GymDetailsFormViewModel
+	/// <summary>
+	/// Class is used to Edit Gym Details.
+	/// </summary>
+	public class GymDetailsFormViewModel
     {
         /// <summary>
         /// Property for Gym Identifier.
@@ -37,10 +38,14 @@ namespace FitnessTracker.Core.Models.Gym
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; } = string.Empty;
 
-        /// <summary>
-        /// Property for Gym Price Per Month.
-        /// </summary>
-        [Required(ErrorMessage = RequiredFieldMessage)]
+		[Required(ErrorMessage = RequiredFieldMessage)]
+		[Display(Name = "Gym type")]
+		public GymType GymType { get; set; }
+
+		/// <summary>
+		/// Property for Gym Price Per Month.
+		/// </summary>
+		[Required(ErrorMessage = RequiredFieldMessage)]
         [Range(typeof(decimal), "0.00", GymMaxPricePerMonth, ErrorMessage = GymPriceRange)]
         [Display(Name = "Price per month")]
         public decimal PricePerMonth { get; set; }
