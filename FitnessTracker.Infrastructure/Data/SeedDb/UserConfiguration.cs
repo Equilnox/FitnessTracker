@@ -10,7 +10,7 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
         {
             var data = new SeedData();
 
-            builder.HasData(new IdentityUser[] { data.TestUserOne, data.TestUserTwo});
+            builder.HasData(new IdentityUser[] { data.TestUserOne, data.TestUserTwo, data.AdminUser });
         }
     }
 }

@@ -12,9 +12,13 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 
         public IdentityUser TestUserTwo { get; set; }
 
+        public IdentityUser AdminUser { get; set; }
+
         public Athlete TestAthleteOne { get; set; }
 
         public Athlete TestAthleteTwo { get; set; }
+
+        public Athlete AdminAthlete { get; set; }
 
         public Exercise ExerciseOne { get; set; }
 
@@ -32,11 +36,15 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 
         public Gym GymTwo { get; set; }
 
+        public Gym AdminGym { get; set; }
+
         public AthleteGym TestAthleteOneGymOne { get; set; }
 
         public AthleteGym TestAthleteTwoGymTwo { get; set; }
 
         public AthleteGym TestAthleteTwoGymOne { get; set; }
+
+        public AthleteGym AdminAthleteGym { get; set; }
 
         public Workout TestWorkoutOne { get; set; }
 
@@ -146,6 +154,17 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
             };
 
             TestUserTwo.PasswordHash = hasher.HashPassword(TestUserOne, "1234tesT");
+
+            AdminUser = new IdentityUser
+            {
+                Id = "99859188-64ff-41ec-a7c2-734c0a32e109",
+                UserName = "admin@mail.com",
+                NormalizedUserName = "ADMIN@MAIL.COM",
+                Email = "admin@mail.com",
+                NormalizedEmail = "ADMIN@MAIL.COM"
+            };
+
+            AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "Admin12345$");
         }
 
         private void SeedAthletes()
@@ -170,6 +189,17 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 Height = 180,
                 Weight = 123,
                 UserId = "bcde2890-ad6a-4eb9-87da-59255f3cc66a"
+            };
+
+            AdminAthlete = new Athlete()
+            {
+                Id = 3,
+                FirstName = "Coolest",
+                LastName = "Administrator",
+                Age = 20,
+                Height = 188,
+                Weight = 88,
+                UserId = "99859188-64ff-41ec-a7c2-734c0a32e109"
             };
         }
 
@@ -247,6 +277,17 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 PricePerMonth = 0.00m,
                 GymType = GymType.Personal
             };
+
+            AdminGym = new Gym()
+            {
+                Id = 3,
+                Name = "Admins gym",
+                OwnerId = "99859188-64ff-41ec-a7c2-734c0a32e109",
+                Address = "Who knows, hes the admin of the app.",
+                PhoneNumber = "0000000000",
+                PricePerMonth = 0.00m,
+                GymType = GymType.Personal
+            };
         }
 
         private void SeedAthletesGyms()
@@ -277,6 +318,14 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 				StartDate = DateTime.ParseExact("05/02/2024", formatProvider, cultureInfo),
 				EndDate = DateTime.ParseExact("05/03/2024", formatProvider, cultureInfo)
 			};
+
+            AdminAthleteGym = new AthleteGym()
+            {
+                AthleteId = AdminAthlete.Id,
+                GymId = AdminGym.Id,
+                StartDate = DateTime.MinValue,
+                EndDate = DateTime.MaxValue,
+            };
 		}
 
         private void SeedWorkouts()
