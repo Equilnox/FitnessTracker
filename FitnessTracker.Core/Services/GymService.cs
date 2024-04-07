@@ -232,9 +232,9 @@ namespace FitnessTracker.Core.Services
             if(gym.GymType.ToString() != model.Type)
             {
                 gym.GymType = (GymType)Enum.Parse(typeof(GymType), model.Type);
-            }
 
-            await repository.SaveAsync();
+                await repository.SaveAsync();
+            }
         }
     }
 }

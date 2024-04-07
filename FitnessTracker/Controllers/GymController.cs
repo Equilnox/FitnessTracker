@@ -102,7 +102,6 @@ namespace FitnessTracker.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ChangeGymType(GymTypeFormModel model)
 		{
-			;
 			if (!ModelState.IsValid)
 			{
 				return View(model);
