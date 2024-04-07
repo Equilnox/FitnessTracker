@@ -42,7 +42,6 @@ namespace FitnessTracker.Core.Services
 		/// <returns></returns>
 		public async Task AddPersonalGymAsync(GymFromModel personalGym)
 		{
-			;
 			var model = new Gym()
 			{
 				Name = personalGym.GymName,
