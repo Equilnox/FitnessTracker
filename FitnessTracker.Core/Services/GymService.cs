@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Core.Services
 {
-    public class GymService : IGymService
+	public class GymService : IGymService
     {
         private readonly IRepository repository;
 
@@ -36,11 +36,11 @@ namespace FitnessTracker.Core.Services
             return gym.Id;
         }
 
-        /// <summary>
-        /// Return all Gyms.
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IEnumerable<GymViewModel>> GetAllPublicAsync()
+		/// <summary>
+		/// Return all Gyms.
+		/// </summary>
+		/// <returns></returns>
+		public async Task<IEnumerable<GymViewModel>> GetAllPublicAsync()
         {
             var model = await repository.AllReadOnly<Gym>()
                 .Where(g => g.GymType == Infrastructure.Data.Models.Enums.GymType.Public)
@@ -64,17 +64,19 @@ namespace FitnessTracker.Core.Services
 		/// <returns></returns>
 		public async Task<GymDetailViewModel> GetGymAsync(int id)
         {
-            var model = await repository.AllReadOnly<Gym>()
+            var gymList = await repository.AllReadOnly<Gym>()
                 .Select(g => new GymDetailViewModel
                 {
-                    Id = id,
+                    Id = g.Id,
                     Name = g.Name,
                     Address = g.Address,
                     PhoneNumber = g.PhoneNumber,
                     OwnerId = g.OwnerId,
                     PricePerMonth = g.PricePerMonth.ToString(),
                 })
-                .FirstAsync(g => g.Id == id);
+                .ToListAsync();
+
+            var model = gymList.Find(g => g.Id == id);
 
             var owner = await GetOwnerName(model.OwnerId);
 
