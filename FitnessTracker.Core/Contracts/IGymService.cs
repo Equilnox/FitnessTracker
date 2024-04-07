@@ -58,6 +58,10 @@ namespace FitnessTracker.Core.Contracts
         /// <returns></returns>
         Task<GymDetailsFormViewModel> GetGymDetailsAsync(int id);
 
-        
+        /// <summary>
+        /// When a new user registers, the method will create a new Personal Gym. 
+        /// </summary>
+        /// <returns></returns>
+        Task AddPersonalGymAsync(GymFromModel personalGym);
     }
 }

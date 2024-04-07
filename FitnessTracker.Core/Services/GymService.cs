@@ -37,6 +37,39 @@ namespace FitnessTracker.Core.Services
         }
 
 		/// <summary>
+		/// When a new user registers, the method will create a new Personal Gym. 
+		/// </summary>
+		/// <returns></returns>
+		public async Task AddPersonalGymAsync(GymFromModel personalGym)
+		{
+			;
+			var model = new Gym()
+			{
+				Name = personalGym.GymName,
+				Address = personalGym.Address,
+				PhoneNumber = personalGym.PhoneNumber,
+				OwnerId = personalGym.OwnerId,
+				GymType = personalGym.GymType,
+				PricePerMonth = personalGym.PricePerMonth,
+			};
+
+			var athleteId = await repository.AllReadOnly<Athlete>()
+				.Where(a => a.UserId == personalGym.OwnerId)
+				.Select(a => a.Id)
+				.FirstOrDefaultAsync();
+
+			model.AthletesGyms.Add(new AthleteGym()
+			{
+				AthleteId = athleteId,
+				StartDate = DateTime.Now,
+				EndDate = DateTime.MaxValue
+			});
+
+			await repository.AddAsync(model);
+			await SaveGymAsync();
+		}
+
+		/// <summary>
 		/// Return all Gyms.
 		/// </summary>
 		/// <returns></returns>

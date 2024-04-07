@@ -1,5 +1,6 @@
 ﻿using FitnessTracker.Core.Contracts;
 using FitnessTracker.Core.Models.Athlete;
+using FitnessTracker.Core.Models.Gym;
 using FitnessTracker.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace FitnessTracker.Controllers
     public class AthleteController : Controller
     {
         private readonly IAthleteService service;
+        private readonly IGymService gymService;
 
-        public AthleteController(IAthleteService _service)
+        public AthleteController(IAthleteService _service, IGymService _gymService)
         {
             service = _service;
+            gymService = _gymService;
         }
 
         public async Task<IActionResult> Index()
@@ -49,6 +52,13 @@ namespace FitnessTracker.Controllers
             }
 
             await service.AddNewAthleteAsync(model, userId);
+
+            var personalGym = new GymFromModel()
+            {
+                OwnerId = userId
+            };
+            
+            await gymService.AddPersonalGymAsync(personalGym);
 
             return RedirectToAction(nameof(Index));
         }
