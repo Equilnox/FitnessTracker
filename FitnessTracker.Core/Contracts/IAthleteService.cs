@@ -68,6 +68,12 @@ namespace FitnessTracker.Core.Contracts
         /// <returns></returns>
         Task EditDetailsAsync(AthleteDetailsEditFormModel model);
 
-        Task<bool> CheckUserId(string userId, int athleteId);
+		/// <summary>
+		/// Method to check if the current user and athlete are the same person.
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <param name="athleteId"></param>
+		/// <returns></returns>
+		Task<bool> CheckUserId(string userId, int athleteId);
 	}
 }

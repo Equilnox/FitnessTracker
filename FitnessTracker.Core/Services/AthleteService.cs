@@ -223,6 +223,11 @@ namespace FitnessTracker.Core.Services
             return model;
         }
 
+        /// <summary>
+        /// Method is used for changing Athlete basic data in DB.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
 		public async Task EditDetailsAsync(AthleteDetailsEditFormModel model)
 		{
 			var athlete = await repository.All<Athlete>().FirstAsync(a => a.Id == model.Id);
@@ -234,6 +239,12 @@ namespace FitnessTracker.Core.Services
             athlete.Weight = model.Weight;
 		}
 
+        /// <summary>
+        /// Method to check if the current user and athlete are the same person.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="athleteId"></param>
+        /// <returns></returns>
 		public async Task<bool> CheckUserId(string userId, int athleteId)
 		{
 			var athlete = await repository.AllReadOnly<Athlete>()
