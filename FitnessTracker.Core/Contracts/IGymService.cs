@@ -63,5 +63,12 @@ namespace FitnessTracker.Core.Contracts
         /// </summary>
         /// <returns></returns>
         Task AddPersonalGymAsync(GymFromModel personalGym);
+
+        /// <summary>
+        /// Method that will change the type of the gym.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task ChangeGymTypeAsync(GymTypeFormModel model);
     }
 }

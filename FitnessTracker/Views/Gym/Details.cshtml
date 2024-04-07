@@ -12,12 +12,17 @@
     <h6 class="text">Owner: @Model.Owner.FirstName @Model.Owner.LastName</h6>
     <p class="text">Address: @Model.Address</p>
     <p class="text">Phone number: @Model.PhoneNumber</p>
-    @if(Model.OwnerId == ViewBag.UserId)
-    {   
-        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id">Edit gym details</a>
-    }
+    <div>
+        @if (Model.OwnerId == ViewBag.UserId)
+        {
+            <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id">Edit gym details</a>
+            <p></p>
+            <button type="button" class="btn btn-light btn-outline-dark" data-bs-toggle="modal" data-bs-target="#changeGymTypeModal">Change gym type</button>
+        }
+    </div>
 </div>
 <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+    <p class="text">Gym type: @Model.GymType</p>
     <p class="text">Price per month: @Model.PricePerMonth lv.</p>
 </div>
 @if(Model.OwnerId == ViewBag.UserId)
@@ -63,4 +68,42 @@
             }
         </tbody>
     </table>
+}
+<div class="modal fade" id="changeGymTypeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changeGymTypeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeGymTypeModalLabel">Change Gym Type</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="gymTypeForm">
+                    <div class="mb-3">
+                        <label for="type" class="form-label">Gym Type</label>
+                        <select for="type" class="form-select" id="type" name="type">
+                            @foreach (var item in Enum.GetNames(typeof(GymType)))
+                            {
+                                <option value="@item">@item.ToString()</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="visually-hidden">
+                        <label for="id" class="form-label">Id</label>
+                        <input for="id" type="text" class="form-control" id="id" name="id" value="@Model.Id">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-outline-dark">Apply Change</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+	<partial-name ="_ValidationScriptsPartial" />
+	<script src="~/js/jquery.change.gym.type.js"></script>
+	<script>
+		var changeGymTypeUrl = '@Url.Action("ChangeGymType", "Gym")';
+	</script>
 }

@@ -20,15 +20,6 @@
 		<input asp-for="GymName" class="form-control" type="text" placeholder="Gym Name.">
 	</div>
 	<div class="form-group">
-		<label asp-for="GymType"></label>
-		<select asp-for="GymType" class="form-select">
-			@foreach (var item in Enum.GetNames(typeof(GymType)))
-			{
-				<option value="@item">@item.ToString()</option>
-			}
-		</select>
-	</div>
-	<div class="form-group">
 		<label asp-for="Address"></label>
 		<input asp-for="Address" class="form-control" type="text" placeholder="Gym Address.">
 	</div>

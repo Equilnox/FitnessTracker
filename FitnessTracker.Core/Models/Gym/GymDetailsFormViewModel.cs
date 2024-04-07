@@ -38,10 +38,6 @@ namespace FitnessTracker.Core.Models.Gym
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; } = string.Empty;
 
-		[Required(ErrorMessage = RequiredFieldMessage)]
-		[Display(Name = "Gym type")]
-		public GymType GymType { get; set; }
-
 		/// <summary>
 		/// Property for Gym Price Per Month.
 		/// </summary>

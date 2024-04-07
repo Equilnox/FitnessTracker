@@ -98,5 +98,19 @@ namespace FitnessTracker.Controllers
 
 			return RedirectToAction(nameof(Details), new { id = gymId });
 		}
-	}
+
+		[HttpPost]
+		public async Task<IActionResult> ChangeGymType(GymTypeFormModel model)
+		{
+			;
+			if (!ModelState.IsValid)
+			{
+				return View(model);
+			}
+
+			await service.ChangeGymTypeAsync(model);
+
+			return RedirectToAction(nameof(Details), new { id = model.Id });
+		}
+    }
 }

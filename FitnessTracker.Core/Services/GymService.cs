@@ -2,11 +2,12 @@
 using FitnessTracker.Core.Models.Gym;
 using FitnessTracker.Infrastructure.Data.Common;
 using FitnessTracker.Infrastructure.Data.Models;
+using FitnessTracker.Infrastructure.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Core.Services
 {
-	public class GymService : IGymService
+    public class GymService : IGymService
     {
         private readonly IRepository repository;
 
@@ -29,7 +30,6 @@ namespace FitnessTracker.Core.Services
             gym.Address = model.Address;
             gym.PhoneNumber = model.PhoneNumber;
             gym.PricePerMonth = model.PricePerMonth;
-            gym.GymType = model.GymType;
 
             await SaveGymAsync();
 
@@ -103,6 +103,7 @@ namespace FitnessTracker.Core.Services
                     Name = g.Name,
                     Address = g.Address,
                     PhoneNumber = g.PhoneNumber,
+                    GymType = g.GymType.ToString(),
                     OwnerId = g.OwnerId,
                     PricePerMonth = g.PricePerMonth.ToString(),
                 })
@@ -215,6 +216,24 @@ namespace FitnessTracker.Core.Services
         /// <returns></returns>
         public async Task SaveGymAsync()
         {
+            await repository.SaveAsync();
+        }
+
+        /// <summary>
+        /// Method that will change the type of the gym.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task ChangeGymTypeAsync(GymTypeFormModel model)
+        {
+            var gym = await repository.All<Gym>()
+                .FirstOrDefaultAsync(g => g.Id == model.Id);
+
+            if(gym.GymType.ToString() != model.Type)
+            {
+                gym.GymType = (GymType)Enum.Parse(typeof(GymType), model.Type);
+            }
+
             await repository.SaveAsync();
         }
     }
