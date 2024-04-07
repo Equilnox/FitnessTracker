@@ -67,13 +67,16 @@ namespace FitnessTracker.Core.Services
 
 		public async Task<IEnumerable<GymToChooseViewModel>> GetGyms(int athleteId)
 		{
-			return await repository.AllReadOnly<Gym>()
+			var gyms = await repository.AllReadOnly<AthleteGym>()
+				.Where(g => g.AthleteId == athleteId)
 				.Select(g => new GymToChooseViewModel()
 				{
-					Id = g.Id,
-					Name = g.Name
+					Id = g.Gym.Id,
+					Name = g.Gym.Name
 				})
 				.ToListAsync();
+
+			return gyms;
 		}
 	}
 }
