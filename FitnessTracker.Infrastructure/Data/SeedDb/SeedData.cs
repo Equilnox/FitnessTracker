@@ -3,6 +3,7 @@ using FitnessTracker.Infrastructure.Data.Models;
 using FitnessTracker.Infrastructure.Data.Models.Enums;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using static FitnessTracker.Infrastructure.Data.Constrains.CustomClaims;
 
 namespace FitnessTracker.Infrastructure.Data.SeedDb
 {
@@ -10,9 +11,15 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
     {
         public IdentityUser TestUserOne { get; set; }
 
+        public IdentityUserClaim<string> TestUserOneClaim { get; set; }
+
         public IdentityUser TestUserTwo { get; set; }
 
+        public IdentityUserClaim<string> TestUserTwoClaim { get; set; }
+
         public IdentityUser AdminUser { get; set; }
+
+        public IdentityUserClaim<string> AdminUserClaim { get; set; }
 
         public Athlete TestAthleteOne { get; set; }
 
@@ -142,6 +149,14 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 NormalizedEmail = "testOne@mail.bg"
             };
 
+            TestUserOneClaim = new IdentityUserClaim<string>()
+            {
+                Id = 1,
+                UserId = "30d1ab20-e536-48ea-aa61-2db91207a880",
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "TestAthleteOneFirstName TestAthleteOneLastName"
+            };
+
             TestUserOne.PasswordHash = hasher.HashPassword(TestUserOne, "Test12345");
 
             TestUserTwo = new IdentityUser
@@ -153,6 +168,14 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 NormalizedEmail = "testTwo@mail.bg"
             };
 
+            TestUserTwoClaim = new IdentityUserClaim<string>()
+            {
+                Id = 2,
+                UserId = "bcde2890-ad6a-4eb9-87da-59255f3cc66a",
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "TestAthleteTwoFirstName TestAthleteTwoLastName"
+            };
+
             TestUserTwo.PasswordHash = hasher.HashPassword(TestUserOne, "1234tesT");
 
             AdminUser = new IdentityUser
@@ -162,6 +185,14 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 NormalizedUserName = "ADMIN@MAIL.COM",
                 Email = "admin@mail.com",
                 NormalizedEmail = "ADMIN@MAIL.COM"
+            };
+
+            AdminUserClaim = new IdentityUserClaim<string>()
+            {
+                Id = 3,
+                UserId = "99859188-64ff-41ec-a7c2-734c0a32e109",
+                ClaimType = UserFullNameClaim,
+                ClaimValue = "Coolest Administrator"
             };
 
             AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "Admin12345$");

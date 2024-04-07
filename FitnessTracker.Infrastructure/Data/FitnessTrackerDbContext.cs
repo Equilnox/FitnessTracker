@@ -21,6 +21,7 @@ namespace FitnessTracker.Infrastructure.Data
             builder.ApplyConfiguration(new AthletesGymConfiguration());
             builder.ApplyConfiguration(new WorkoutConfiguration());
             builder.ApplyConfiguration(new IntensityConfiguration());
+            builder.ApplyConfiguration(new UserClaimsConfiguration());
 
             base.OnModelCreating(builder);
         }
