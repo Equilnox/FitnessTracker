@@ -2,33 +2,46 @@
 
 <h2 class="text-center">@Model.Name</h2>
 <hr />
-<svg class="bd-placeholder-img float-md-top" width="100%" height="210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive floated image" preserveAspectRatio="xMidYMid slice" focusable="false">
-    <title>Placeholder</title>
-    <rect width="100%" height="100%" fill="#868e96"></rect>
-    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive floated image</text>
-</svg>
-<hr />
-<div class="d-grid gap-2 d-md-flex justify-content-md-between">
-    <h6 class="text">Owner: @Model.Owner.FirstName @Model.Owner.LastName</h6>
-    <p class="text">Address: @Model.Address</p>
-    <p class="text">Phone number: @Model.PhoneNumber</p>
-    <div>
-        @if (Model.OwnerId == ViewBag.UserId)
-        {
-            <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id">Edit gym details</a>
-            <p></p>
-            <button type="button" class="btn btn-light btn-outline-dark" data-bs-toggle="modal" data-bs-target="#changeGymTypeModal">Change gym type</button>
-        }
+
+<div class="container text-center">
+    <div class="rol">
+        <svg class="bd-placeholder-img float-md-top" width="100%" height="210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive floated image" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#868e96"></rect>
+            <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive floated image</text>
+        </svg>
+        <p></p>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                <h6 class="text">Owner: @Model.Owner.FirstName @Model.Owner.LastName</h6>
+                <h6 class="text">Gym type: @Model.GymType</h6>
+                <h6 class="text">Price per month: @Model.PricePerMonth lv.</h6>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                <h6 class="text">Address: @Model.Address</h6>
+                <h6 class="text">Phone number: @Model.PhoneNumber</h6>
+            </div>
+        </div>
+        <div class="col-2">
+            @if (Model.OwnerId == ViewBag.UserId)
+            {
+                <div class="btn-group-vertical" role="rowgroup" aria-label="Vertical button group">
+                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id">Edit gym details</a>
+                        <p></p>
+                        <button type="button" class="btn btn-light btn-outline-dark" data-bs-toggle="modal" data-bs-target="#changeGymTypeModal">Change gym type</button>
+                </div>
+            }
+        </div>
     </div>
 </div>
-<div class="d-grid gap-2 d-md-flex justify-content-md-between">
-    <p class="text">Gym type: @Model.GymType</p>
-    <p class="text">Price per month: @Model.PricePerMonth lv.</p>
-</div>
+<hr />
+<div class="container">
 @if(Model.OwnerId == ViewBag.UserId)
 {
-    <hr />
     <div class="d-grid gap-5 d-md-flex justify-content-md-between">
+        <p></p>
         <h2 class="text-center">Members</h2>
         <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="AddMember" asp-route-gymId="@Model.Id">Add member</a>
     </div>
@@ -69,6 +82,7 @@
         </tbody>
     </table>
 }
+</div>
 <div class="modal fade" id="changeGymTypeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changeGymTypeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
