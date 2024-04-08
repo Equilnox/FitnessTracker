@@ -18,14 +18,17 @@
 	<div class="form-group">
 		<label asp-for="UserEmail"></label>
 		<input asp-for="UserEmail" class="form-control" type="text" placeholder="@Model.UserEmail">
+		<span asp-validation-for="UserEmail" class="text-danger"></span>
 	</div>
 	<div class="form-group">
 		<label asp-for="StartDate"></label>
 		<input asp-for="StartDate" class="form-control" type="text" placeholder="@Model.StartDate">
+		<span asp-validation-for="StartDate" class="text-danger"></span>
 	</div>
 	<div class="form-group">
 		<label asp-for="EndDate"></label>
 		<input asp-for="EndDate" class="form-control" type="text" rows="3" placeholder="@Model.EndDate">
+		<span asp-validation-for="EndDate" class="text-danger"></span>
 	</div>
 	<div></div>
 	<hr />
