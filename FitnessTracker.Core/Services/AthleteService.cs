@@ -178,14 +178,8 @@ namespace FitnessTracker.Core.Services
 		/// <param name="model"></param>
 		/// <param name="userId"></param>
 		/// <returns></returns>
-		public async Task AddNewAthleteAsync(AthleteCreateFormModel model, string userId)
+		public async Task AddNewAthleteAsync(string userId)
         {
-            var user = await repository.All<ApplicationUser>()
-                .FirstOrDefaultAsync(x => x.Id == userId);
-
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-
             Athlete athlete = new Athlete()
             {
                 UserId = userId

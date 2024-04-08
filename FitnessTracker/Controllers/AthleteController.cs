@@ -1,13 +1,12 @@
 ﻿using FitnessTracker.Core.Contracts;
 using FitnessTracker.Core.Models.Athlete;
-using FitnessTracker.Core.Models.Gym;
 using FitnessTracker.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessTracker.Controllers
 {
-    [Authorize]
+	[Authorize]
     public class AthleteController : Controller
     {
         private readonly IAthleteService service;
@@ -23,44 +22,7 @@ namespace FitnessTracker.Controllers
         {
             var model = await service.GetAthlete(User.Id());
 
-            if (model == null)
-            {
-                return RedirectToAction(nameof(CreateAthlete));
-            }
-
             return View(model);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> CreateAthlete()
-        {
-            AthleteCreateFormModel model = new AthleteCreateFormModel();
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateAthlete(AthleteCreateFormModel model)
-        {
-            var userId = User.Id();
-
-            if (!ModelState.IsValid)
-            {
-                model = new AthleteCreateFormModel();
-
-                return View(model);
-            }
-
-            await service.AddNewAthleteAsync(model, userId);
-
-            var personalGym = new GymFromModel()
-            {
-                OwnerId = userId
-            };
-            
-            await gymService.AddPersonalGymAsync(personalGym);
-
-            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]

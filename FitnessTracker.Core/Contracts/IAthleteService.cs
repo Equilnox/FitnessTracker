@@ -1,9 +1,8 @@
 ﻿using FitnessTracker.Core.Models.Athlete;
-using FitnessTracker.Infrastructure.Data.Models;
 
 namespace FitnessTracker.Core.Contracts
 {
-    public interface IAthleteService
+	public interface IAthleteService
     {
         /// <summary>
         /// Return athlete data.
@@ -46,7 +45,7 @@ namespace FitnessTracker.Core.Contracts
         /// <param name="model"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task AddNewAthleteAsync(AthleteCreateFormModel model, string userId);
+        Task AddNewAthleteAsync(string userId);
 
         /// <summary>
         /// Save asynchronously new Athlete Entity.
