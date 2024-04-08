@@ -216,6 +216,8 @@ namespace FitnessTracker.Core.Services
                 .Select(a => new AthleteDetailsEditFormModel()
                 {
                     Id = a.Id,
+                    FirstName = a.User.FirstName,
+                    LastName = a.User.LastName,
                     Age = a.Age,
                     Height = a.Height,
                     Weight = a.Weight
