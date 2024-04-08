@@ -2,6 +2,7 @@
 using FitnessTracker.Core.Services;
 using FitnessTracker.Infrastructure.Data;
 using FitnessTracker.Infrastructure.Data.Common;
+using FitnessTracker.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +38,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<FitnessTrackerDbContext>();
 
             return services;

@@ -19,7 +19,7 @@
         public const int GymNameMinLength = 5;
         public const int GymNameMaxLength = 50;
 
-        public const int GymAddressMinLength = 10;
+        public const int GymAddressMinLength = 4;
         public const int GymAddressMaxLength = 250;
 
         public const int GymOwnerMinLength = 10;

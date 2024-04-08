@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Infrastructure.Data
 {
-    public class FitnessTrackerDbContext : IdentityDbContext
+    public class FitnessTrackerDbContext : IdentityDbContext<ApplicationUser>
     {
         public FitnessTrackerDbContext(DbContextOptions<FitnessTrackerDbContext> options)
             : base(options)

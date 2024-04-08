@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Infrastructure.Data.Models.Enums;
+using FitnessTracker.Infrastructure.Migrations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -30,7 +31,7 @@ namespace FitnessTracker.Infrastructure.Data.Models
         public string OwnerId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(OwnerId))]
-        public IdentityUser Owner { get; set; } = null!;
+        public ApplicationUser Owner { get; set; } = null!;
 
         [Required]
         [MaxLength(GymPhoneNumberMaxLength)]

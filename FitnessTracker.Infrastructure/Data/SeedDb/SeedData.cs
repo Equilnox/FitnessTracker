@@ -9,15 +9,15 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 {
     internal class SeedData
     {
-        public IdentityUser TestUserOne { get; set; }
+        public ApplicationUser TestUserOne { get; set; }
 
         public IdentityUserClaim<string> TestUserOneClaim { get; set; }
 
-        public IdentityUser TestUserTwo { get; set; }
+        public ApplicationUser TestUserTwo { get; set; }
 
         public IdentityUserClaim<string> TestUserTwoClaim { get; set; }
 
-        public IdentityUser AdminUser { get; set; }
+        public ApplicationUser AdminUser { get; set; }
 
         public IdentityUserClaim<string> AdminUserClaim { get; set; }
 
@@ -138,15 +138,17 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 
         private void SeedUsers()
         {
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<ApplicationUser>();
 
-            TestUserOne = new IdentityUser
+            TestUserOne = new ApplicationUser
             {
                 Id = "30d1ab20-e536-48ea-aa61-2db91207a880",
                 UserName = "testOne@mail.bg",
                 NormalizedUserName = "testOne@mail.bg",
                 Email = "testOne@mail.bg",
-                NormalizedEmail = "testOne@mail.bg"
+                NormalizedEmail = "testOne@mail.bg",
+                FirstName = "TestAthleteOneFirstName",
+                LastName = "TestAthleteOneLastName",
             };
 
             TestUserOneClaim = new IdentityUserClaim<string>()
@@ -159,13 +161,15 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 
             TestUserOne.PasswordHash = hasher.HashPassword(TestUserOne, "Test12345");
 
-            TestUserTwo = new IdentityUser
+            TestUserTwo = new ApplicationUser
             {
                 Id = "bcde2890-ad6a-4eb9-87da-59255f3cc66a",
                 UserName = "testTwo@mail.bg",
                 NormalizedUserName = "testTwo@mail.bg",
                 Email = "testTwo@mail.bg",
-                NormalizedEmail = "testTwo@mail.bg"
+                NormalizedEmail = "testTwo@mail.bg",
+                FirstName = "TestAthleteTwoFirstName",
+                LastName = "TestAthleteTwoLastName",
             };
 
             TestUserTwoClaim = new IdentityUserClaim<string>()
@@ -178,13 +182,15 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
 
             TestUserTwo.PasswordHash = hasher.HashPassword(TestUserOne, "1234tesT");
 
-            AdminUser = new IdentityUser
+            AdminUser = new ApplicationUser
             {
                 Id = "99859188-64ff-41ec-a7c2-734c0a32e109",
                 UserName = "admin@mail.com",
                 NormalizedUserName = "ADMIN@MAIL.COM",
                 Email = "admin@mail.com",
-                NormalizedEmail = "ADMIN@MAIL.COM"
+                NormalizedEmail = "ADMIN@MAIL.COM",
+                FirstName = "Coolest",
+                LastName = "Administrator",
             };
 
             AdminUserClaim = new IdentityUserClaim<string>()
@@ -203,8 +209,6 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
             TestAthleteOne = new Athlete()
             {
                 Id = 1,
-                FirstName = "TestAthleteOneFirstName",
-                LastName = "TestAthleteOneLastName",
                 Age = 25,
                 Height = 175,
                 Weight = 65,
@@ -214,8 +218,6 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
             TestAthleteTwo = new Athlete()
             {
                 Id = 2,
-                FirstName = "TestAthleteTwoFirstName",
-                LastName = "TestAthleteTwoLastName",
                 Age = 30,
                 Height = 180,
                 Weight = 123,
@@ -225,8 +227,6 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
             AdminAthlete = new Athlete()
             {
                 Id = 3,
-                FirstName = "Coolest",
-                LastName = "Administrator",
                 Age = 20,
                 Height = 188,
                 Weight = 88,

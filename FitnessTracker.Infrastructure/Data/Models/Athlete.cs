@@ -14,16 +14,6 @@ namespace FitnessTracker.Infrastructure.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(UserFirstNameMaxLength)]
-        [Comment("User first name.")]
-        public string FirstName { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(UserLastNameMaxLength)]
-        [Comment("User last name.")]
-        public string LastName { get; set; } = string.Empty;
-
-        [Required]
         [Comment("User profile picture")]
         public string ProfilePictureURL { get; set; } = string.Empty;
 
@@ -45,7 +35,7 @@ namespace FitnessTracker.Infrastructure.Data.Models
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; } = null!;
+        public ApplicationUser User { get; set; } = null!;
 
         public virtual ICollection<Workout> Workouts { get; set; } = new List<Workout>();
 

@@ -36,8 +36,8 @@ namespace FitnessTracker.Core.Services
                 .Select(a => new AthleteViewModel
                 {
                     Id = a.Id,
-                    FirstName = a.FirstName,
-                    LastName = a.LastName,
+                    FirstName = a.User.FirstName,
+                    LastName = a.User.LastName,
                     ProfilePictureURL = a.ProfilePictureURL,
                     Age = a.Age,
                     Height = a.Height,
@@ -180,10 +180,14 @@ namespace FitnessTracker.Core.Services
 		/// <returns></returns>
 		public async Task AddNewAthleteAsync(AthleteCreateFormModel model, string userId)
         {
+            var user = await repository.All<ApplicationUser>()
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
             Athlete athlete = new Athlete()
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
                 UserId = userId
 			};
 
@@ -212,8 +216,6 @@ namespace FitnessTracker.Core.Services
                 .Select(a => new AthleteDetailsEditFormModel()
                 {
                     Id = a.Id,
-                    FirstName = a.FirstName,
-                    LastName = a.LastName,
                     Age = a.Age,
                     Height = a.Height,
                     Weight = a.Weight
@@ -231,9 +233,10 @@ namespace FitnessTracker.Core.Services
 		public async Task EditDetailsAsync(AthleteDetailsEditFormModel model)
 		{
 			var athlete = await repository.All<Athlete>().FirstAsync(a => a.Id == model.Id);
+            var user = await repository.All<ApplicationUser>().FirstAsync(x => x.Id == athlete.UserId);
 
-            athlete.FirstName = model.FirstName;
-            athlete.LastName = model.LastName;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
             athlete.Age = model.Age;
             athlete.Height = model.Height;
             athlete.Weight = model.Weight;

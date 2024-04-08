@@ -178,7 +178,7 @@ namespace FitnessTracker.Core.Services
                 {
                     MemberId = a.AthleteId,
                     GymId = a.GymId,
-                    Name = $"{a.Athlete.FirstName} {a.Athlete.LastName}",
+                    Name = $"{a.Athlete.User.FirstName} {a.Athlete.User.LastName}",
                     Height = a.Athlete.Height,
                     Weight = a.Athlete.Weight,
                     StartDate = a.StartDate,
@@ -202,8 +202,8 @@ namespace FitnessTracker.Core.Services
                 .Where(a => a.UserId == UserId)
                 .Select(o => new GymOwner()
                 {
-                    FirstName = o.FirstName,
-                    LastName = o.LastName
+                    FirstName = o.User.FirstName,
+                    LastName = o.User.LastName
                 })
                 .ToListAsync();
 
