@@ -18,7 +18,7 @@ namespace FitnessTracker.Infrastructure.Data.Models
         public ApplicationUser User { get; set; } = null!;
 
         [Required]
-        [Comment("The date the request was made")]
+        [Comment("The date the request was made. Default value is 'DateTime.Now'")]
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
         [Comment("The date the request was processed")]
