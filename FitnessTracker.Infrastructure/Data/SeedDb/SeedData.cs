@@ -241,7 +241,8 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 Id = 1,
                 Name = "Pushups",
                 Description = "The push-up (press-up in British English) is a common calisthenics exercise beginning from the prone position. By raising and lowering the body using the arms, push-ups exercise the pectoral muscles, triceps, and anterior deltoids, with ancillary benefits to the rest of the deltoids, serratus anterior, coracobrachialis and the midsection as a whole.",
-                MuscleGroup = MuscleGroup.CompoundMove
+                MuscleGroup = MuscleGroup.CompoundMove,
+                IsApproved = true
             };
 
             ExerciseTwo = new Exercise()
@@ -249,7 +250,8 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 Id = 2,
                 Name = "Bench press",
                 Description = "The bench press, or chest press, is a weight training exercise where a person presses a weight upwards while lying horizontally on a weight training bench. Although the bench press is a compound movement, the muscles primarily used are the pectoralis major, the anterior deltoids, and the triceps, among other stabilizing muscles. A barbell is generally used to hold the weight, but a pair of dumbbells can also be used.",
-                MuscleGroup = MuscleGroup.ChestMuscles
+                MuscleGroup = MuscleGroup.ChestMuscles,
+                IsApproved = true
             };
 
             ExerciseThree = new Exercise()
@@ -257,7 +259,8 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 Id = 3,
                 Name = "Pull down",
                 Description = "The pull-down exercise is a strength training exercise designed to develop the latissimus dorsi muscle. It performs the functions of downward rotation and depression of the scapulae combined with adduction and extension of the shoulder joint.",
-                MuscleGroup = MuscleGroup.BackMuscles
+                MuscleGroup = MuscleGroup.BackMuscles,
+                IsApproved = true
             };
 
             ExerciseFour = new Exercise()
@@ -265,7 +268,8 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 Id = 4,
                 Name = "Squat",
                 Description = "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up. During the descent, the hip and knee joints flex while the ankle joint dorsiflexes; conversely the hip and knee joints extend and the ankle joint plantarflexes when standing up. Squats also help the hip muscles.",
-                MuscleGroup = MuscleGroup.LegsMuscles
+                MuscleGroup = MuscleGroup.LegsMuscles,
+                IsApproved = true
             };
 
             ExerciseFive = new Exercise()
@@ -273,7 +277,8 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 Id = 5,
                 Name = "Bicep curl",
                 Description = "The bicep curl mainly targets the biceps brachii, brachialis and brachioradialis muscles. The biceps is stronger at elbow flexion when the forearm is supinated (palms turned upward) and weaker when the forearm is pronated.[1] The brachioradialis is at its most effective when the palms are facing inward, and the brachialis is unaffected by forearm rotation. Therefore, the degree of forearm rotation affects the degree of muscle recruitment between the three muscles.",
-                MuscleGroup = MuscleGroup.ArmsMuscles
+                MuscleGroup = MuscleGroup.ArmsMuscles,
+                IsApproved = true
             };
 
             ExerciseSix = new Exercise()
@@ -281,7 +286,8 @@ namespace FitnessTracker.Infrastructure.Data.SeedDb
                 Id = 6,
                 Name = "Sit up",
                 Description = "The sit-up (or curl-up) is an abdominal endurance training exercise to strengthen, tighten and tone the abdominal muscles. It is similar to a crunch (crunches target the rectus abdominis and also work the external and internal obliques), but sit-ups have a fuller range of motion and condition additional muscles.",
-                MuscleGroup = MuscleGroup.AbdominalMuscles
+                MuscleGroup = MuscleGroup.AbdominalMuscles,
+                IsApproved = true
             };
         }
 

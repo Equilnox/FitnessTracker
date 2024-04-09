@@ -33,5 +33,11 @@ namespace FitnessTracker.Infrastructure.Data.Models
         public MuscleGroup MuscleGroup { get; set; }
 
         public virtual ICollection<Intensity> Intensities { get; set; } = new List<Intensity>();
+
+        public virtual ICollection<Requests> Requests { get; set; } = new List<Requests>();
+
+        [Required]
+        [Comment("A boolean check that represents if the Exercise is Approved by the admin. Default value is false. When value is set to true the Exercise is shown in the page.")]
+        public bool IsApproved { get; set; } = false;
     }
 }

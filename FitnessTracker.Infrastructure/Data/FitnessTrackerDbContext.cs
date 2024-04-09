@@ -37,5 +37,7 @@ namespace FitnessTracker.Infrastructure.Data
         public DbSet<Gym> Gyms { get; set; }
 
         public DbSet<AthleteGym> AthletesGyms { get; set; }
+
+        public DbSet<Requests> Requests { get; set; }
     }
 }
