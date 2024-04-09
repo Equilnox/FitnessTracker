@@ -4,9 +4,10 @@
 	ViewBag.Title = "All exercises.";
 }
 
-<div class="d-grid gap-5 d-md-flex justify-content-md-center">
-<h2 class ="text-center">@ViewBag.Title</h2>
-<a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="Create">Add Exercise</a>
+<div class="d-grid gap-5 d-md-flex justify-content-md-between">
+    <p></p>
+    <h2 class ="text-center">@ViewBag.Title</h2>
+    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Request" asp-action="AddExercise">Request New Exercise</a>
 </div>
 <hr />
 
@@ -30,6 +31,7 @@
                                     <p class="card-text text-warp text-truncate" style="max-width: 500px">@item.Description</p>
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                         <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Request" asp-action="EditExercise" asp-route-id="@item.Id">Request Edit</a>
                                     </div>
                                 </div>
                             </div>

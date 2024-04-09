@@ -76,55 +76,5 @@ namespace FitnessTracker.Controllers
 
 			return RedirectToAction(nameof(All));
 		}
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-			var exerciseToEdit = await service.FindExerciseAsync(id);
-
-            if (exerciseToEdit == null)
-            {
-                return BadRequest();
-            }
-
-            if (User.IsAdmin() == false)
-            {
-                return Unauthorized();
-            }
-
-            var model = new ExerciseFormModel()
-            {
-                Id = exerciseToEdit.Id,
-                Name = exerciseToEdit.Name,
-                Description = exerciseToEdit.Description,
-                MuscleGroup = exerciseToEdit.MuscleGroup.ToString()
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit(ExerciseFormModel model)
-		{
-			Exercise? editedExercise = await service.FindExerciseAsync(model.Id);
-
-			if (editedExercise == null)
-			{
-				return BadRequest();
-			}
-
-			if (!ModelState.IsValid)
-			{
-				return View(model);
-			}
-
-			editedExercise.Name = model.Name;
-			editedExercise.Description = model.Description;
-			editedExercise.MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup);
-
-			await service.SaveAsync();
-
-			return RedirectToAction(nameof(Details), new { id = editedExercise.Id });
-		}
     }
 }
