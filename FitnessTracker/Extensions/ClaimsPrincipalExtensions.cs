@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using static FitnessTracker.Core.Constants.RoleConstants;
 
 namespace FitnessTracker.Extensions
 {
@@ -12,6 +13,11 @@ namespace FitnessTracker.Extensions
         public static string Email(this ClaimsPrincipal user)
         {
             return user.FindFirstValue(ClaimTypes.Email);
+        }
+
+        public static bool IsAdmin(this ClaimsPrincipal user)
+        {
+            return user.IsInRole(AdministratorRole);
         }
     }
 }

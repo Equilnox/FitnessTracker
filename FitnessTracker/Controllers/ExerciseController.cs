@@ -1,12 +1,9 @@
 ﻿using FitnessTracker.Core.Contracts;
 using FitnessTracker.Core.Models.Exercise;
-using FitnessTracker.Infrastructure.Data;
+using FitnessTracker.Extensions;
 using FitnessTracker.Infrastructure.Data.Models;
 using FitnessTracker.Infrastructure.Data.Models.Enums;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace FitnessTracker.Controllers
 {
@@ -55,6 +52,11 @@ namespace FitnessTracker.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            if (User.IsAdmin() == false)
+            {
+                return Unauthorized();
+            }
+
             var model = new ExerciseFormModel();
 
             return View(model);
@@ -85,7 +87,12 @@ namespace FitnessTracker.Controllers
                 return BadRequest();
             }
 
-			var model = new ExerciseFormModel()
+            if (User.IsAdmin() == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = new ExerciseFormModel()
             {
                 Id = exerciseToEdit.Id,
                 Name = exerciseToEdit.Name,

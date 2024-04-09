@@ -39,7 +39,7 @@ namespace FitnessTracker.Controllers
 
             bool userIsAthlete = await service.CheckUserId(userId, id);
 
-            if (userIsAthlete == false)
+            if (userIsAthlete == false && User.IsAdmin() == false)
             {
                 return Unauthorized();
             }

@@ -56,7 +56,7 @@ namespace FitnessTracker.Controllers
 
 			var userId = User.Id();
 
-			if(gymDetails.OwnerId != userId)
+			if(gymDetails.OwnerId != userId && User.IsAdmin() == false)
 			{
 				return Unauthorized();
 			}
