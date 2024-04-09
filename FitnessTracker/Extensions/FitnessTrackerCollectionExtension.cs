@@ -39,6 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services
                 .AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<FitnessTrackerDbContext>();
 
             return services;
