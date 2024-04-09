@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitnessTracker.Core.Services
 {
-	public class ExerciseService : IExerciseService
+    public class ExerciseService : IExerciseService
 	{
 		private readonly IRepository repository;
 
@@ -23,6 +23,7 @@ namespace FitnessTracker.Core.Services
 		public async Task<IEnumerable<ExerciseViewModel>> GetAllAsync()
 		{
 			return await repository.AllReadOnly<Exercise>()
+				.Where(e => e.IsApproved == true)
 				.Select(e => new ExerciseViewModel
 				{
 					Id = e.Id,
@@ -99,10 +100,10 @@ namespace FitnessTracker.Core.Services
 		{
 			var newExercise = new Exercise()
 			{
-				Name = model.Name,
-				Description = model.Description,
-				MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup)
-			};
+                Name = model.Name,
+                Description = model.Description,
+                MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup)
+            };
 
 			await repository.AddAsync(newExercise);
 			await SaveAsync();
