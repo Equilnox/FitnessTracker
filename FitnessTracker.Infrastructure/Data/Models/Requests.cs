@@ -1,7 +1,8 @@
-﻿using FitnessTracker.Infrastructure.Data.Models.Enums;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
+using static FitnessTracker.Infrastructure.Data.Constrains.ErrorMessages;
 
 namespace FitnessTracker.Infrastructure.Data.Models
 {
@@ -25,8 +26,9 @@ namespace FitnessTracker.Infrastructure.Data.Models
         public DateTime? DateDone { get; set; }
 
         [Required]
+        [MaxLength(RequestTypeMaxLength)]
         [Comment("Type of request. Can be Add Exercise = 0, Edit Exercise = 1")]
-        public RequestType RequestType { get; set; }
+        public string RequestType { get; set; } = string.Empty;
 
         [Required]
         [Comment("Exercise identifier")]
@@ -36,14 +38,17 @@ namespace FitnessTracker.Infrastructure.Data.Models
         [Comment("Property for Exercise")]
         public Exercise Exercise { get; set; } = null!;
 
+        [MaxLength(ExerciseNameMaxLength)]
         [Comment("Property for Changing Exercise Name")]
         public string ExerciseNewName { get; set; } = string.Empty;
 
+        [MaxLength(ExerciseDescriptionMaxLength)]
         [Comment("Property for Changing Exercise Description")]
         public string ExerciseNewDescription { get; set; } = string.Empty;
 
         [Required]
-        [Comment("Request status. Can be Pending = 0, Done = 1 or Failed = 2")]
-        public RequestStatus RequestStatus { get; set; } = RequestStatus.Pending;
+        [MaxLength(RequestStatusMaxLength)]
+        [Comment("Request status. Can be Pending = 0 or Done = 1")]
+        public string RequestStatus { get; set; } = string.Empty;
     }
 }

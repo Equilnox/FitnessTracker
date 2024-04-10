@@ -31,5 +31,8 @@
         public const string GymMaxPricePerMonth = "120.00";
 
         public const string DateFormat = "dd/MM/yyyy";
+
+        public const int RequestTypeMaxLength = 20;
+        public const int RequestStatusMaxLength = 20;
     }
 }

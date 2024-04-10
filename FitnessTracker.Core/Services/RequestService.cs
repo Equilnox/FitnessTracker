@@ -27,7 +27,8 @@ namespace FitnessTracker.Core.Services
                     Description = model.Description,
                     MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup)
                 },
-                RequestType = RequestType.AddExercise
+                RequestType = RequestType.AddExercise.ToString(),
+                RequestStatus = RequestStatus.Pending.ToString()
             };
 
             await repository.AddAsync(newRequest);
@@ -40,7 +41,7 @@ namespace FitnessTracker.Core.Services
                 .FirstAsync(r => r.Id == id);
 
             request.DateDone = DateTime.Now;
-            request.RequestStatus = RequestStatus.Done;
+            request.RequestStatus = RequestStatus.Done.ToString();
             request.Exercise.Name = request.ExerciseNewName;
             request.Exercise.Description = request.ExerciseNewDescription;
 
@@ -54,7 +55,7 @@ namespace FitnessTracker.Core.Services
 
             if (requests != null)
             {
-                requests.RequestStatus = RequestStatus.Done;
+                requests.RequestStatus = RequestStatus.Done.ToString();
                 requests.DateDone = DateTime.Now;
                 requests.Exercise.IsApproved = true;
                 await repository.SaveAsync();
@@ -82,7 +83,7 @@ namespace FitnessTracker.Core.Services
                 Exercise = exercise,
                 ExerciseNewName = model.NewName,
                 ExerciseNewDescription = model.NewDescription,
-                RequestType = RequestType.EditExercise
+                RequestType = RequestType.EditExercise.ToString()
             };
 
             await repository.AddAsync(newRequest);
@@ -92,7 +93,7 @@ namespace FitnessTracker.Core.Services
 		public async Task<IEnumerable<SubmittedRequestViewModel>> GetDoneRequestsAsync()
 		{
 			return await repository.AllReadOnly<Requests>()
-				.Where(r => r.RequestStatus == RequestStatus.Done)
+				.Where(r => r.RequestStatus == RequestStatus.Done.ToString())
 				.Select(r => new SubmittedRequestViewModel()
 				{
 					Id = r.Id,
@@ -110,7 +111,7 @@ namespace FitnessTracker.Core.Services
 		public async Task<IEnumerable<SubmittedRequestViewModel>> GetPendingRequestsAsync()
         {
             return await repository.AllReadOnly<Requests>()
-                .Where(r => r.RequestStatus == RequestStatus.Pending)
+                .Where(r => r.RequestStatus == RequestStatus.Pending.ToString())
                 .Select(r => new SubmittedRequestViewModel()
                 {
                     Id = r.Id,
@@ -128,7 +129,7 @@ namespace FitnessTracker.Core.Services
         public async Task<SubmittedRequestViewModel> GetRequestsAsync(int id)
         {
             return await repository.All<Requests>()
-                .Where(r => r.RequestStatus == RequestStatus.Pending)
+                .Where(r => r.RequestStatus == RequestStatus.Pending.ToString())
                 .Select(r => new SubmittedRequestViewModel()
                 {
                     Id = r.Id,
