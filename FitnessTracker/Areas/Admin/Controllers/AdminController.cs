@@ -29,7 +29,7 @@ namespace FitnessTracker.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Done()
 		{
-			var model = await requestService.GetPendingRequestsAsync();
+			var model = await requestService.GetDoneRequestsAsync();
 
 			return View(model);
 		}
