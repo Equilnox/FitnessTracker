@@ -48,33 +48,5 @@ namespace FitnessTracker.Controllers
 
             return View(model);
         }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            if (User.IsAdmin() == false)
-            {
-                return Unauthorized();
-            }
-
-            var model = new ExerciseFormModel();
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(ExerciseFormModel model)
-		{
-			if (!ModelState.IsValid)
-			{
-				model = new ExerciseFormModel();
-
-				return View(model);
-			}
-
-			await service.AddNewAsync(model);
-
-			return RedirectToAction(nameof(All));
-		}
     }
 }

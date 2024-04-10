@@ -61,7 +61,7 @@ namespace FitnessTracker.Core.Services
             }
         }
 
-		public async Task EditExerciseAsync(EditExerciseFormModel model, string userId)
+        public async Task EditExerciseAsync(EditExerciseFormModel model, string userId)
         {
             Exercise exercise = await repository.All<Exercise>()
                 .FirstAsync(e => e.Id == model.Id);
@@ -87,6 +87,60 @@ namespace FitnessTracker.Core.Services
 
             await repository.AddAsync(newRequest);
             await repository.SaveAsync();
+        }
+
+		public async Task<IEnumerable<SubmittedRequestViewModel>> GetDoneRequestsAsync()
+		{
+			return await repository.AllReadOnly<Requests>()
+				.Where(r => r.RequestStatus == RequestStatus.Done)
+				.Select(r => new SubmittedRequestViewModel()
+				{
+					Id = r.Id,
+					DateCreated = r.DateCreated.ToShortDateString(),
+					UserEmail = r.User.Email,
+					ExerciseName = r.Exercise.Name,
+					ExerciseDescription = r.Exercise.Description,
+					ExerciseNewName = r.ExerciseNewName,
+					ExerciseNewDescription = r.ExerciseNewDescription,
+					RequestType = r.RequestType.ToString()
+				})
+				.ToListAsync();
+		}
+
+		public async Task<IEnumerable<SubmittedRequestViewModel>> GetPendingRequestsAsync()
+        {
+            return await repository.AllReadOnly<Requests>()
+                .Where(r => r.RequestStatus == RequestStatus.Pending)
+                .Select(r => new SubmittedRequestViewModel()
+                {
+                    Id = r.Id,
+                    DateCreated = r.DateCreated.ToShortDateString(),
+                    UserEmail = r.User.Email,
+                    ExerciseName = r.Exercise.Name,
+                    ExerciseDescription = r.Exercise.Description,
+                    ExerciseNewName = r.ExerciseNewName,
+                    ExerciseNewDescription = r.ExerciseNewDescription,
+                    RequestType = r.RequestType.ToString()
+                })
+                .ToListAsync();
+        }
+
+        public async Task<SubmittedRequestViewModel> GetRequestsAsync(int id)
+        {
+            return await repository.All<Requests>()
+                .Where(r => r.RequestStatus == RequestStatus.Pending)
+                .Select(r => new SubmittedRequestViewModel()
+                {
+                    Id = r.Id,
+                    DateCreated = r.DateCreated.ToShortDateString(),
+                    UserEmail = r.User.Email,
+                    ExerciseName = r.Exercise.Name,
+                    ExerciseDescription = r.Exercise.Description,
+                    RequestType = r.RequestType.ToString(),
+                    ExerciseNewName = r.ExerciseNewName,
+                    ExerciseNewDescription = r.ExerciseNewDescription
+                })
+                .FirstAsync(r => r.Id == id);
         }
     }
 }

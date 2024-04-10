@@ -10,11 +10,6 @@ namespace FitnessTracker.Core.Models.Exercise
 	public class ExerciseFormModel
 	{
 		/// <summary>
-		/// Property for Exercise Identifier.
-		/// </summary>
-		public int Id { get; set; }
-
-		/// <summary>
 		/// Property for Exercise Name.
 		/// </summary>
 		[Required(ErrorMessage = RequiredFieldMessage)]

@@ -1,0 +1,26 @@
+﻿@model SubmittedRequestViewModel
+
+<h2 class="fw-bold text-center">@Model.RequestType</h2>
+<hr />
+<div class="clearfix">
+	<svg class="bd-placeholder-img col-md-6 float-md-end mb-3 ms-md-3" width="100%" height="210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive floated image" preserveAspectRatio="xMidYMid slice" focusable="false">
+		<title>Placeholder</title>
+		<rect width="100%" height="100%" fill="#868e96"></rect>
+		<text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive floated image</text>
+	</svg>
+	<h3 class="text" style="max-width: auto">Exercise name: @Model.ExerciseName</h3>
+	<p class="text" style="max-width: auto">Exercise description: @Model.ExerciseDescription</p>
+	<p class="text" style="max-width: auto">Date created: @Model.DateCreated</p>
+	<p class="text" style="max-width: auto">Submitted by: @Model.UserEmail</p>
+	@if (Model.RequestType == RequestType.EditExercise.ToString())
+	{
+		<div>
+			<h4 class="text-center text-primary">Suggested changes</h4>
+			<p class="text" style="max-width: auto">Suggested name: @Model.ExerciseNewName</p>
+			<p class="text" style="max-width: auto">Suggested description: @Model.ExerciseNewDescription</p>
+		</div>
+	}
+</div>
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+	<a class="btn btn-success btn-outline-light btn-toolbar" asp-area="Admin" asp-controller="Admin" asp-action="ApproveExercise" asp-route-id="@Model.Id">Approve exercise</a>
+</div>

@@ -100,9 +100,10 @@ namespace FitnessTracker.Core.Services
 		{
 			var newExercise = new Exercise()
 			{
-                Name = model.Name,
-                Description = model.Description,
-                MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup)
+				Name = model.Name,
+				Description = model.Description,
+				MuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.MuscleGroup),
+				IsApproved = true
             };
 
 			await repository.AddAsync(newExercise);
