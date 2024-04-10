@@ -9,7 +9,7 @@ namespace FitnessTracker.Core.Services
 {
 	public class RequestService : IRequestService
     {
-        public readonly IRepository repository;
+        private readonly IRepository repository;
 
         public RequestService(IRepository _repository)
         {
