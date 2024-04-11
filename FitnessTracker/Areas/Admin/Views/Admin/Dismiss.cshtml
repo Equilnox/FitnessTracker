@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SubmittedRequestViewModel>
+
+@{
+    ViewBag.Title = "Dismissed requests.";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@if (Model.Any())
+{
+    <h4 class="text-center">Hello Administrator, you have dismissed @Model.Count() requests.</h4>
+    <p></p>
+    @foreach (var requestType in Enum.GetNames(typeof(RequestType)))
+    {
+        @if (Model.Any(r => r.RequestType == requestType))
+        {
+            <ol class="list-group">
+                <li class="list-group-item justify-content-between">
+                    <div class="ms-1 me-auto">
+                        <h4 class="fw-bold text-center">@requestType</h4>
+                        <div class="container text-center">
+                            <div class="row row-cols-auto row-cols-md-3 g-4">
+                                @foreach (var item in Model)
+                                {
+                                    @if (item.RequestType == requestType.ToString())
+                                    {
+                                        <div class="card h-100">
+                                            <div class="card-header">
+                                                <h5 class="fw-bold text-center">@item.ExerciseName</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <h6 class="card-text text-start text-truncate" style="max-width: 500px">Submitted by: @item.UserEmail</h6>
+                                                <p class="card-text text-start text-truncate" style="max-width: 500px">Date created: @item.DateCreated</p>
+                                                <p class="card-text text-start text-truncate" style="max-width: 500px">Date approved: @item.DateApproved</p>
+                                                <p class="card-text text-start text-truncate" style="max-width: 500px">Description: @item.ExerciseDescription</p>
+                                                <p class="card-text text-start text-truncate" style="max-width: 500px">Muscle group: @item.ExerciseMuscleGroup</p>
+                                                @if (item.RequestType == RequestType.EditExercise.ToString())
+                                                {
+                                                    <p class="card-text text-start text-truncate" style="max-width: 500px">Suggested name: @item.ExerciseNewName</p>
+                                                    <p class="card-text text-start text-truncate" style="max-width: 500px">Suggested description: @item.ExerciseNewDescription</p>
+                                                    <p class="card-text text-start text-truncate" style="max-width: 500px">Suggested muscle group: @item.ChaneMuscleGroup</p>
+                                                }
+                                                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                                    <a class="btn btn-primary btn-outline-light btn-toolbar" asp-controller="Admin" asp-action="RequestDetails" asp-route-id="@item.Id">Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        }
+    }
+}
+else
+{
+    <h4 class="text-center">You have not dismissed any requests.</h4>
+}

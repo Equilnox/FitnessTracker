@@ -35,6 +35,14 @@ namespace FitnessTracker.Areas.Admin.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> Dismiss()
+		{
+			var model = await requestService.GetDismissedRequestsAsync();
+
+			return View(model);
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> RequestDetails(int id) 
 		{
 			var model = await requestService.GetRequestsAsync(id);
@@ -57,6 +65,14 @@ namespace FitnessTracker.Areas.Admin.Controllers
 
             return Json(new { succsess = true });
         }
+
+		[HttpPost]
+		public async Task<IActionResult> DismissRequest(int id)
+		{
+			await requestService.Dismiss(id);
+
+			return Json(new { succsess = true });
+		}
 
 		[HttpGet]
 		public IActionResult AddExercise()

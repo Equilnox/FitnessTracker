@@ -38,6 +38,7 @@
     	{
     		<button type="button" class="btn btn-success btn-outline-light" data-bs-toggle="modal" data-bs-target="#approveChanges">Approve Changes</button>
     	}
+        <button type="button" class="btn btn-danger btn-outline-dark" data-bs-toggle="modal" data-bs-target="#dismissRequest">Dismiss Request</button>
     </div>
 }
 <div class="modal fade" id="approveExercise" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="approveExercise" aria-hidden="true">
@@ -88,12 +89,38 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="dismissRequest" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="dismissRequest" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dismissRequest">Dismiss request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="dismissRequest">
+                    <div class="mb-3">
+                        <p class="text-center text-info">Dismissing the request is also a choice.</p>
+                    </div>
+                    <div class="visually-hidden">
+                        <label for="id" class="form-label">Id</label>
+                        <input for="id" type="text" class="form-control" id="id" name="id" value="@Model.Id">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-danger btn-outline-dark">Dismiss Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts {
 	<partial-name ="_ValidationScriptsPartial" />
 	<script src="~/js/jquery.approve.exercise.js"></script>
 	<script src="~/js/jquery.approve.changes.js"></script>
+	<script src="~/js/jquery.dismiss.request.js"></script>
 	<script>
 		var approveExerciseUrl = '@Url.Action("ApproveExercise", "Admin")';
         var approveChangesUrl = '@Url.Action("ApproveChanges", "Admin")';
+        var dismissRequestUrl = '@Url.Action("DismissRequest", "Admin")';
 	</script>
 }

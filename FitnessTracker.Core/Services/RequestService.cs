@@ -8,7 +8,7 @@ using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
 
 namespace FitnessTracker.Core.Services
 {
-	public class RequestService : IRequestService
+    public class RequestService : IRequestService
     {
         private readonly IRepository repository;
 
@@ -69,6 +69,19 @@ namespace FitnessTracker.Core.Services
             }
         }
 
+        public async Task Dismiss(int id)
+        {
+            var request = await repository.All<Requests>()
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if(request != null)
+            {
+                request.RequestStatus = RequestStatus.Dismissed.ToString();
+                request.DateDone = DateTime.Now;
+                await repository.SaveAsync();
+            }
+        }
+
         public async Task EditExerciseAsync(EditExerciseFormModel model, string userId)
         {
             Exercise exercise = await repository.All<Exercise>()
@@ -92,7 +105,30 @@ namespace FitnessTracker.Core.Services
             await repository.SaveAsync();
         }
 
-		public async Task<IEnumerable<SubmittedRequestViewModel>> GetDoneRequestsAsync()
+        public async Task<IEnumerable<SubmittedRequestViewModel>> GetDismissedRequestsAsync()
+        {
+            return await repository.AllReadOnly<Requests>()
+                .Where(r => r.RequestStatus == RequestStatus.Dismissed.ToString())
+                .OrderByDescending(r => r.DateDone)
+                .Select(r => new SubmittedRequestViewModel
+                {
+                    Id = r.Id,
+                    DateCreated = r.DateCreated.ToString(DateFormat),
+                    UserEmail = r.User.Email,
+                    ExerciseName = r.ExerciseName,
+                    ExerciseDescription = r.ExerciseDescription,
+                    ExerciseMuscleGroup = r.MuscleGroupe,
+                    ExerciseNewName = r.ExerciseNewName,
+                    ExerciseNewDescription = r.ExerciseNewDescription,
+                    RequestType = r.RequestType.ToString(),
+                    ChaneMuscleGroup = r.ChangeMuscleGroup.ToString(),
+                    DateApproved = r.DateDone.ToString(),
+                    RequestStatus = r.RequestStatus.ToString(),
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<SubmittedRequestViewModel>> GetDoneRequestsAsync()
 		{
 			return await repository.AllReadOnly<Requests>()
 				.Where(r => r.RequestStatus == RequestStatus.Done.ToString())

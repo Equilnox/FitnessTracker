@@ -8,6 +8,8 @@ namespace FitnessTracker.Core.Contracts
 
         Task<IEnumerable<SubmittedRequestViewModel>> GetDoneRequestsAsync();
 
+        Task<IEnumerable<SubmittedRequestViewModel>> GetDismissedRequestsAsync();
+
         Task<SubmittedRequestViewModel> GetRequestsAsync(int id);
 
         Task AddExerciseAsync(AddExerciseFormModel model, string userId);
@@ -17,5 +19,7 @@ namespace FitnessTracker.Core.Contracts
         Task ApproveExerciseAsync(int id);
 
         Task ApproveChangesAsync(int id);
+
+        Task Dismiss(int id);
     }
 }

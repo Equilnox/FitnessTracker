@@ -3,6 +3,7 @@
     public enum RequestStatus
     {
         Pending = 0,
-        Done = 1
+        Done = 1,
+        Dismissed = 2
     }
 }
