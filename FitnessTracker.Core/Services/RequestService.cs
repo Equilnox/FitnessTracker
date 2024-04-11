@@ -4,7 +4,6 @@ using FitnessTracker.Infrastructure.Data.Common;
 using FitnessTracker.Infrastructure.Data.Models;
 using FitnessTracker.Infrastructure.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
-using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
 
 namespace FitnessTracker.Core.Services
 {
@@ -113,7 +112,7 @@ namespace FitnessTracker.Core.Services
                 .Select(r => new SubmittedRequestViewModel
                 {
                     Id = r.Id,
-                    DateCreated = r.DateCreated.ToString(DateFormat),
+                    DateCreated = r.DateCreated.ToString(),
                     UserEmail = r.User.Email,
                     ExerciseName = r.ExerciseName,
                     ExerciseDescription = r.ExerciseDescription,
@@ -136,7 +135,7 @@ namespace FitnessTracker.Core.Services
 				.Select(r => new SubmittedRequestViewModel()
 				{
 					Id = r.Id,
-					DateCreated = r.DateCreated.ToString(DateFormat),
+					DateCreated = r.DateCreated.ToString(),
 					UserEmail = r.User.Email,
 					ExerciseName = r.ExerciseName,
 					ExerciseDescription = r.ExerciseDescription,
@@ -159,7 +158,7 @@ namespace FitnessTracker.Core.Services
                 .Select(r => new SubmittedRequestViewModel()
                 {
                     Id = r.Id,
-                    DateCreated = r.DateCreated.ToString(DateFormat),
+                    DateCreated = r.DateCreated.ToString(),
                     UserEmail = r.User.Email,
                     ExerciseName = r.ExerciseName,
                     ExerciseDescription = r.ExerciseDescription,
@@ -180,7 +179,7 @@ namespace FitnessTracker.Core.Services
                 .Select(r => new SubmittedRequestViewModel()
                 {
                     Id = r.Id,
-                    DateCreated = r.DateCreated.ToString(DateFormat),
+                    DateCreated = r.DateCreated.ToString(),
                     UserEmail = r.User.Email,
                     ExerciseName = r.Exercise.Name,
                     ExerciseDescription = r.Exercise.Description,

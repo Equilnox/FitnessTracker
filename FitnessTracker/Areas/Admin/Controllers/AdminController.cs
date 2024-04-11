@@ -1,10 +1,11 @@
 ﻿using FitnessTracker.Core.Contracts;
 using FitnessTracker.Core.Models.Exercise;
+using FitnessTracker.Infrastructure.Data.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessTracker.Areas.Admin.Controllers
 {
-	public class AdminController : AdminBaseController
+    public class AdminController : AdminBaseController
 	{
 		private readonly IRequestService requestService;
 		private readonly IExerciseService exerciseService;
@@ -47,7 +48,21 @@ namespace FitnessTracker.Areas.Admin.Controllers
 		{
 			var model = await requestService.GetRequestsAsync(id);
 
-			return View(model);
+            DateTime date = DateTime.Parse(model.DateCreated);
+            string dateCreated = date.ToShortDateString();
+
+            string dateDone = string.Empty;
+
+            if (model.RequestStatus != RequestStatus.Pending.ToString())
+            {
+                date = DateTime.Parse(model.DateApproved);
+				dateDone = date.ToShortDateString();
+            }
+
+            ViewBag.DateDone = dateDone;
+			ViewBag.DateCreated = dateCreated;
+
+            return View(model);
 		}
 
 		[HttpPost]

@@ -1,5 +1,6 @@
 ﻿@model SubmittedRequestViewModel
 
+
 <h2 class="fw-bold text-center">@Model.RequestType</h2>
 <hr />
 <div class="clearfix">
@@ -12,10 +13,14 @@
 	<p class="text" style="max-width: auto">Exercise description: @Model.ExerciseDescription</p>
 	<p class="text" style="max-width: auto">Muscle group: @Model.ExerciseMuscleGroup</p>
 	<p class="text" style="max-width: auto">Submitted by: @Model.UserEmail</p>
-	<p class="text" style="max-width: auto">Date created: @Model.DateCreated</p>
+    <p class="text" style="max-width: auto">Date created: @ViewBag.DateCreated</p>
     @if(Model.RequestStatus == RequestStatus.Done.ToString())
     {
-        <p class="text" style="max-width: auto">Date approved: @Model.DateApproved</p>
+        <p class="text" style="max-width: auto">Date approved: @ViewBag.DateDone</p>
+    }
+    else if (Model.RequestStatus == RequestStatus.Dismissed.ToString())
+    {
+        <p class="text" style="max-width: auto">Date dismissed: @ViewBag.DateDone</p>
     }
     @if (Model.RequestType == RequestType.EditExercise.ToString())
 	{
