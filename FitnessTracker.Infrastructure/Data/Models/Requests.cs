@@ -39,6 +39,21 @@ namespace FitnessTracker.Infrastructure.Data.Models
         [Comment("Property for Exercise")]
         public Exercise Exercise { get; set; } = null!;
 
+        [Required]
+        [MaxLength(ExerciseNameMaxLength)]
+        [Comment("Property for current exercise name")]
+        public string ExerciseName { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(ExerciseDescriptionMaxLength)]
+        [Comment("Property for current exercise description")]
+        public string ExerciseDescription { get; set; } = string.Empty;
+
+        [Required]
+        [MaxLength(ExerciseMuscleGroupeMaxLength)]
+        [Comment("Property for current exercise muscle group")]
+        public string MuscleGroupe { get; set; } = string.Empty;
+
         [MaxLength(ExerciseNameMaxLength)]
         [Comment("Property for Changing Exercise Name")]
         public string ExerciseNewName { get; set; } = string.Empty;

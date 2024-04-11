@@ -8,6 +8,8 @@
         public const int ExerciseDescriptionMinLength = 10;
         public const int ExerciseDescriptionMaxLength = 500;
 
+        public const int ExerciseMuscleGroupeMaxLength = 20;
+
         public const int UserFirstNameMinLength = 3;
         public const int UserFirstNameMaxLength = 25;
 
