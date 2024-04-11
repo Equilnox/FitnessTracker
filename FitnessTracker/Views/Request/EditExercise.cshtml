@@ -19,10 +19,6 @@
 					<label asp-for="Description"></label>
 					<input asp-for="Description" class="form-control" type="text" value="@Model.Description" readonly>
 				</div>
-				<div class="form-group">
-					<label asp-for="MuscleGroup"></label>
-					<input asp-for="MuscleGroup" class="form-control" type="text" value="@Model.MuscleGroup" readonly>
-				</div>
 				<div class="form-group visually-hidden">
 					<label asp-for="Id"></label>
 					<input asp-for="Id" class="form-control" type="text" rows="3" value="@Model.Id" readonly>
@@ -41,15 +37,6 @@
 					<label asp-for="NewDescription"></label>
 					<input asp-for="NewDescription" class="form-control" type="text" placeholder="@Model.NewDescription">
 					<span asp-validation-for="NewDescription" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="ChangeMuscleGroup"></label>
-					<select asp-for="ChangeMuscleGroup" class="form-select">
-						@foreach (var item in Enum.GetNames(typeof(MuscleGroup)))
-						{
-							<option value="@item">@item.ToString()</option>
-						}
-					</select>
 				</div>
 			</div>
 		</div>

@@ -4,7 +4,6 @@ using FitnessTracker.Infrastructure.Data.Common;
 using FitnessTracker.Infrastructure.Data.Models;
 using FitnessTracker.Infrastructure.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
-using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
 
 namespace FitnessTracker.Core.Services
 {
@@ -22,9 +21,6 @@ namespace FitnessTracker.Core.Services
             var newRequest = new Requests()
             {
                 UserId = userId,
-                ExerciseName = model.Name,
-                ExerciseDescription = model.Description,
-                MuscleGroupe = model.MuscleGroup,
                 Exercise = new Exercise()
                 {
                     Name = model.Name,
@@ -42,14 +38,12 @@ namespace FitnessTracker.Core.Services
         public async Task ApproveChangesAsync(int id)
         {
             var request = await repository.All<Requests>()
-                .Include(x => x.Exercise)
                 .FirstAsync(r => r.Id == id);
 
             request.DateDone = DateTime.Now;
             request.RequestStatus = RequestStatus.Done.ToString();
             request.Exercise.Name = request.ExerciseNewName;
             request.Exercise.Description = request.ExerciseNewDescription;
-            request.Exercise.MuscleGroup = request.ChangeMuscleGroup;
 
             await repository.SaveAsync();
         }
@@ -57,8 +51,7 @@ namespace FitnessTracker.Core.Services
         public async Task ApproveExerciseAsync(int id)
         {
             var requests = await repository.All<Requests>()
-                .Include(e => e.Exercise)
-                .FirstOrDefaultAsync(r => r.Id == id);
+                .FirstOrDefaultAsync(e => e.Id == id);
 
             if (requests != null)
             {
@@ -74,18 +67,23 @@ namespace FitnessTracker.Core.Services
             Exercise exercise = await repository.All<Exercise>()
                 .FirstAsync(e => e.Id == model.Id);
 
+            if (string.IsNullOrEmpty(model.NewName))
+            {
+                model.NewName = exercise.Name;
+            }
+
+            if (string.IsNullOrEmpty(model.NewDescription))
+            {
+                model.NewDescription = exercise.Description;
+            }
+
             var newRequest = new Requests()
             {
                 UserId = userId,
                 Exercise = exercise,
-                ExerciseName = model.Name,
-                ExerciseDescription = model.Description,
-                MuscleGroupe = model.MuscleGroup,
                 ExerciseNewName = model.NewName,
                 ExerciseNewDescription = model.NewDescription,
-                ChangeMuscleGroup = (MuscleGroup)Enum.Parse(typeof(MuscleGroup), model.ChangeMuscleGroup),
-                RequestType = RequestType.EditExercise.ToString(),
-                RequestStatus = RequestStatus.Pending.ToString()
+                RequestType = RequestType.EditExercise.ToString()
             };
 
             await repository.AddAsync(newRequest);
@@ -96,21 +94,16 @@ namespace FitnessTracker.Core.Services
 		{
 			return await repository.AllReadOnly<Requests>()
 				.Where(r => r.RequestStatus == RequestStatus.Done.ToString())
-                .OrderByDescending(r => r.DateDone)
 				.Select(r => new SubmittedRequestViewModel()
 				{
 					Id = r.Id,
-					DateCreated = r.DateCreated.ToString(DateFormat),
+					DateCreated = r.DateCreated.ToShortDateString(),
 					UserEmail = r.User.Email,
-					ExerciseName = r.ExerciseName,
-					ExerciseDescription = r.ExerciseDescription,
-                    ExerciseMuscleGroup = r.MuscleGroupe,
+					ExerciseName = r.Exercise.Name,
+					ExerciseDescription = r.Exercise.Description,
 					ExerciseNewName = r.ExerciseNewName,
 					ExerciseNewDescription = r.ExerciseNewDescription,
-					RequestType = r.RequestType.ToString(),
-                    ChaneMuscleGroup = r.ChangeMuscleGroup.ToString(),
-                    DateApproved = r.DateDone.ToString(),
-                    RequestStatus = r.RequestStatus.ToString(),
+					RequestType = r.RequestType.ToString()
 				})
 				.ToListAsync();
 		}
@@ -119,21 +112,16 @@ namespace FitnessTracker.Core.Services
         {
             return await repository.AllReadOnly<Requests>()
                 .Where(r => r.RequestStatus == RequestStatus.Pending.ToString())
-                .OrderBy(r => r.DateCreated)
                 .Select(r => new SubmittedRequestViewModel()
                 {
                     Id = r.Id,
-                    DateCreated = r.DateCreated.ToString(DateFormat),
+                    DateCreated = r.DateCreated.ToShortDateString(),
                     UserEmail = r.User.Email,
-                    ExerciseName = r.ExerciseName,
-                    ExerciseDescription = r.ExerciseDescription,
-                    ExerciseMuscleGroup = r.MuscleGroupe,
+                    ExerciseName = r.Exercise.Name,
+                    ExerciseDescription = r.Exercise.Description,
                     ExerciseNewName = r.ExerciseNewName,
                     ExerciseNewDescription = r.ExerciseNewDescription,
-                    RequestType = r.RequestType.ToString(),
-                    ChaneMuscleGroup = r.ChangeMuscleGroup.ToString(),
-                    DateApproved = r.DateDone.ToString(),
-                    RequestStatus = r.RequestStatus.ToString(),
+                    RequestType = r.RequestType.ToString()
                 })
                 .ToListAsync();
         }
@@ -141,20 +129,17 @@ namespace FitnessTracker.Core.Services
         public async Task<SubmittedRequestViewModel> GetRequestsAsync(int id)
         {
             return await repository.All<Requests>()
+                .Where(r => r.RequestStatus == RequestStatus.Pending.ToString())
                 .Select(r => new SubmittedRequestViewModel()
                 {
                     Id = r.Id,
-                    DateCreated = r.DateCreated.ToString(DateFormat),
+                    DateCreated = r.DateCreated.ToShortDateString(),
                     UserEmail = r.User.Email,
                     ExerciseName = r.Exercise.Name,
                     ExerciseDescription = r.Exercise.Description,
-                    ExerciseMuscleGroup = r.MuscleGroupe,
                     RequestType = r.RequestType.ToString(),
                     ExerciseNewName = r.ExerciseNewName,
-                    ExerciseNewDescription = r.ExerciseNewDescription,
-                    RequestStatus = r.RequestStatus.ToString(),
-                    DateApproved = r.DateDone.ToString(),
-                    ChaneMuscleGroup = r.ChangeMuscleGroup.ToString()
+                    ExerciseNewDescription = r.ExerciseNewDescription
                 })
                 .FirstAsync(r => r.Id == id);
         }
