@@ -10,17 +10,90 @@
 	</svg>
 	<h3 class="text" style="max-width: auto">Exercise name: @Model.ExerciseName</h3>
 	<p class="text" style="max-width: auto">Exercise description: @Model.ExerciseDescription</p>
-	<p class="text" style="max-width: auto">Date created: @Model.DateCreated</p>
+	<p class="text" style="max-width: auto">Muscle group: @Model.ExerciseMuscleGroup</p>
 	<p class="text" style="max-width: auto">Submitted by: @Model.UserEmail</p>
-	@if (Model.RequestType == RequestType.EditExercise.ToString())
+	<p class="text" style="max-width: auto">Date created: @Model.DateCreated</p>
+    @if(Model.RequestStatus == RequestStatus.Done.ToString())
+    {
+        <p class="text" style="max-width: auto">Date approved: @Model.DateApproved</p>
+    }
+    @if (Model.RequestType == RequestType.EditExercise.ToString())
 	{
 		<div>
 			<h4 class="text-center text-primary">Suggested changes</h4>
 			<p class="text" style="max-width: auto">Suggested name: @Model.ExerciseNewName</p>
 			<p class="text" style="max-width: auto">Suggested description: @Model.ExerciseNewDescription</p>
+			<p class="text" style="max-width: auto">Suggested muscle group: @Model.ChaneMuscleGroup</p>
 		</div>
 	}
 </div>
-<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-	<a class="btn btn-success btn-outline-light btn-toolbar" asp-area="Admin" asp-controller="Admin" asp-action="ApproveExercise" asp-route-id="@Model.Id">Approve exercise</a>
+@if(Model.RequestStatus == RequestStatus.Pending.ToString())
+{   
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    	@if (Model.RequestType == RequestType.AddExercise.ToString())
+    	{
+    		<button type="button" class="btn btn-success btn-outline-light" data-bs-toggle="modal" data-bs-target="#approveExercise">Approve Exercise</button>
+    	}
+    	else
+    	{
+    		<button type="button" class="btn btn-success btn-outline-light" data-bs-toggle="modal" data-bs-target="#approveChanges">Approve Changes</button>
+    	}
+    </div>
+}
+<div class="modal fade" id="approveExercise" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="approveExercise" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approveExercise">Approve Exercise</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="approveExercise">
+                    <div class="mb-3">
+                       <p class="text-center text-info">Did you check every detail about the new exercise.</p>
+                    </div>
+                    <div class="visually-hidden">
+                        <label for="id" class="form-label">Id</label>
+                        <input for="id" type="text" class="form-control" id="id" name="id" value="@Model.Id">
+                    </div>
+                    <div>
+						<button type="submit" class="btn btn-success btn-outline-light">Approve Exercise</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="modal fade" id="approveChanges" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="approveChanges" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approveChanges">Approve Changes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="approveChanges">
+                    <div class="mb-3">
+                        <p class="text-center text-info">Do you agree with the suggested changes to the exercise.</p>
+                    </div>
+                    <div class="visually-hidden">
+                        <label for="id" class="form-label">Id</label>
+                        <input for="id" type="text" class="form-control" id="id" name="id" value="@Model.Id">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success btn-outline-light">Approve Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+	<partial-name ="_ValidationScriptsPartial" />
+	<script src="~/js/jquery.approve.exercise.js"></script>
+	<script src="~/js/jquery.approve.changes.js"></script>
+	<script>
+		var approveExerciseUrl = '@Url.Action("ApproveExercise", "Admin")';
+        var approveChangesUrl = '@Url.Action("ApproveChanges", "Admin")';
+	</script>
+}

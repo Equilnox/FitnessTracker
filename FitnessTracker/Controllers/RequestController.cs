@@ -54,7 +54,9 @@ namespace FitnessTracker.Controllers
 			{
 				Id = exerciseToEdit.Id,
 				Name = exerciseToEdit.Name,
-				Description = exerciseToEdit.Description
+				Description = exerciseToEdit.Description,
+				MuscleGroup = exerciseToEdit.MuscleGroup,
+				ChangeMuscleGroup = exerciseToEdit.MuscleGroup
 			};
 
 			return View(model);
@@ -68,12 +70,16 @@ namespace FitnessTracker.Controllers
 				int exerciseId = model.Id;
 				string exerciseName = model.Name;
 				string exerciseDescription = model.Description;
+				string muscleGroup = model.MuscleGroup;
+				string changeMuscleGroup = model.ChangeMuscleGroup;
 
 				model = new EditExerciseFormModel()
 				{
 					Id = exerciseId,
 					Name = exerciseName,
-					Description = exerciseDescription
+					Description = exerciseDescription,
+					MuscleGroup = muscleGroup,
+					ChangeMuscleGroup= changeMuscleGroup
 				};
 
 				return View(model);

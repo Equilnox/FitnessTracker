@@ -43,12 +43,20 @@ namespace FitnessTracker.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public async Task ApproveExercise(int id)
+		public async Task<IActionResult> ApproveExercise(int id)
 		{
 			await requestService.ApproveExerciseAsync(id);
 
-			RedirectToAction(nameof(Index));
+			return Json( new { succsess = true });
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> ApproveChanges(int id)
+		{
+			await requestService.ApproveChangesAsync(id);
+
+            return Json(new { succsess = true });
+        }
 
 		[HttpGet]
 		public IActionResult AddExercise()
