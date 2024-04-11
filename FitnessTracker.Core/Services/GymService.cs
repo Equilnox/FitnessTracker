@@ -236,5 +236,19 @@ namespace FitnessTracker.Core.Services
                 await repository.SaveAsync();
             }
         }
+
+        public async Task<bool> GymExistsAsync(int id)
+        {
+            return await repository.AllReadOnly<Gym>()
+                .AnyAsync(g => g.Id == id);
+        }
+
+
+        public async Task<bool> GymIsPublic(int id)
+        {
+            return await repository.AllReadOnly<Gym>()
+                .Where(g => g.GymType == GymType.Public)
+                .AnyAsync(g => g.Id == id);
+        }
     }
 }

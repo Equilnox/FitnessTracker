@@ -118,5 +118,12 @@ namespace FitnessTracker.Core.Services
 		{
 			await repository.SaveAsync();
 		}
-	}
+
+
+        public async Task<bool> ExerciseExists(int id)
+		{
+			return await repository.AllReadOnly<Exercise>()
+				.AnyAsync(e => e.Id == id);
+		}
+    }
 }

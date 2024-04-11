@@ -70,5 +70,9 @@ namespace FitnessTracker.Core.Contracts
         /// <param name="id"></param>
         /// <returns></returns>
         Task ChangeGymTypeAsync(GymTypeFormModel model);
+
+        Task<bool> GymExistsAsync(int id);
+
+        Task<bool> GymIsPublic(int id);
     }
 }

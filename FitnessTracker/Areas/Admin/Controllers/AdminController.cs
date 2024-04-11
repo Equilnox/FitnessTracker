@@ -46,6 +46,11 @@ namespace FitnessTracker.Areas.Admin.Controllers
 		[HttpGet]
 		public async Task<IActionResult> RequestDetails(int id) 
 		{
+			if (await requestService.RequestExistsAsync(id) == false)
+			{
+				return BadRequest();
+			}
+
 			var model = await requestService.GetRequestsAsync(id);
 
             DateTime date = DateTime.Parse(model.DateCreated);

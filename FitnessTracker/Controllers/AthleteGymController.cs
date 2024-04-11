@@ -1,6 +1,7 @@
 ﻿using FitnessTracker.Core.Contracts;
 using FitnessTracker.Core.Models.AthleteGym;
 using Microsoft.AspNetCore.Mvc;
+using static FitnessTracker.Core.Constants.ModelStateErrors;
 
 namespace FitnessTracker.Controllers
 {
@@ -62,7 +63,8 @@ namespace FitnessTracker.Controllers
 
 			if (await service.AthleteExists(model.UserEmail) == false)
 			{
-				//TODO Add Error Message!!
+				ModelState.AddModelError(ErrorKeyWhenUserDoesNotExists, UserDoesNotExists);
+
 				model = new NewMembershipFormModel()
 				{
 					GymId = gymId
@@ -75,8 +77,8 @@ namespace FitnessTracker.Controllers
 
 			if(athleteId <= 0)
 			{
+				ModelState.AddModelError(ErrorKeyWhenThereAreTwoIdenticalEmails, MultipleUsersWithSameEmail);
 
-				//TODO Add Error Message!!
 				model = new NewMembershipFormModel()
 				{
 					GymId = gymId

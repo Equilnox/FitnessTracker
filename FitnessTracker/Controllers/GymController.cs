@@ -25,6 +25,16 @@ namespace FitnessTracker.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
+			if (await service.GymExistsAsync(id) == false)
+			{
+				return BadRequest();
+			}
+
+			if (await service.GymIsPublic(id) == false)
+			{
+				return BadRequest();
+			}
+
 			var userId = User.Id();
 
 			var model = await service.GetGymAsync(id);
@@ -51,8 +61,13 @@ namespace FitnessTracker.Controllers
 
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
-		{
-			var gymDetails = await service.GetGymAsync(id);
+        {
+            if (await service.GymExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            var gymDetails = await service.GetGymAsync(id);
 
 			var userId = User.Id();
 

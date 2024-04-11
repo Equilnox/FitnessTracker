@@ -37,14 +37,15 @@ namespace FitnessTracker.Controllers
 			return View(model.ToList());
 		}
 
+        [HttpGet]
 		public async Task<IActionResult> Details(int id)
         {
-			var model = await service.FindExerciseAsNoTracingAsync(id);
-
-            if(model == null)
+            if(await service.ExerciseExists(id) == false)
             {
-                return RedirectToAction(nameof(All));
+                return BadRequest();
             }
+
+			var model = await service.FindExerciseAsNoTracingAsync(id);
 
             return View(model);
         }

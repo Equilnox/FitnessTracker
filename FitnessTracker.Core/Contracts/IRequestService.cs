@@ -21,5 +21,7 @@ namespace FitnessTracker.Core.Contracts
         Task ApproveChangesAsync(int id);
 
         Task Dismiss(int id);
+
+        Task<bool> RequestExistsAsync(int id);
     }
 }

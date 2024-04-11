@@ -44,5 +44,7 @@ namespace FitnessTracker.Core.Contracts
 		/// </summary>
 		/// <returns></returns>
 		Task SaveAsync();
+
+		Task<bool> ExerciseExists(int id);
 	}
 }
