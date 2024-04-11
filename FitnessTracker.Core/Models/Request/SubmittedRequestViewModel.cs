@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 
 namespace FitnessTracker.Core.Models.Request
 {
@@ -20,10 +21,20 @@ namespace FitnessTracker.Core.Models.Request
 		[Display(Name = "Exercise description")]
 		public string ExerciseDescription { get; set; } = string.Empty;
 
+		[Display(Name = "Exercise muscle group")]
+		public string ExerciseMuscleGroup { get; set; } = string.Empty;
+
 		[Display(Name = "Suggested new name")]
 		public string ExerciseNewName { get; set; } = string.Empty;
 
 		[Display(Name = "Suggested new description")]
 		public string ExerciseNewDescription { get; set; } = string.Empty;
+
+		[Display(Name = "Suggested change for muscle group")]
+		public string ChaneMuscleGroup { get; set; } = string.Empty;
+
+		public string? DateApproved { get; set; }
+
+		public string RequestStatus { get; set; } = string.Empty;
 	}
 }
