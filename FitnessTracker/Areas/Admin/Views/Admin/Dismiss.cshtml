@@ -9,7 +9,7 @@
 
 @if (Model.Any())
 {
-    <h4 class="text-center">Hello Administrator, you have dismissed @Model.Count() requests.</h4>
+    <h4 class="text-center">Administrator, you have dismissed @Model.Count() requests.</h4>
     <p></p>
     @foreach (var requestType in Enum.GetNames(typeof(RequestType)))
     {
