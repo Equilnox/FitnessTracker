@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FitnessTracker.Infrastructure.Data.Models.Enums;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
@@ -45,6 +46,9 @@ namespace FitnessTracker.Infrastructure.Data.Models
         [MaxLength(ExerciseDescriptionMaxLength)]
         [Comment("Property for Changing Exercise Description")]
         public string ExerciseNewDescription { get; set; } = string.Empty;
+
+        [Comment("Property for changing exercise targeted muscle group")]
+        public MuscleGroup ChangeMuscleGroup { get; set; }
 
         [Required]
         [MaxLength(RequestStatusMaxLength)]
