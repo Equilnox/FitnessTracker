@@ -51,7 +51,7 @@ namespace FitnessTracker.Controllers
         {
             if (await exerciseService.ExerciseExists(id) == false)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             var exerciseToEdit = await exerciseService.FindExerciseAsNoTracingAsync(id);
