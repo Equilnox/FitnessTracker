@@ -1,9 +1,11 @@
-﻿namespace FitnessTracker.Core.Models.Exercise
+﻿using FitnessTracker.Core.Contracts;
+
+namespace FitnessTracker.Core.Models.Exercise
 {
     /// <summary>
     /// Class is used for Viewing Exercises.
     /// </summary>
-	public class ExerciseViewModel
+	public class ExerciseViewModel : IExerciseModel
     {
         /// <summary>
         /// Property for Exercise Identifier.

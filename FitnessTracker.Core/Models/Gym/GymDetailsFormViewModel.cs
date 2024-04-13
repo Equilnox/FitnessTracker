@@ -1,4 +1,5 @@
-﻿using FitnessTracker.Infrastructure.Data.Models.Enums;
+﻿using FitnessTracker.Core.Contracts;
+using FitnessTracker.Infrastructure.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
 using static FitnessTracker.Infrastructure.Data.Constrains.ErrorMessages;
@@ -8,7 +9,7 @@ namespace FitnessTracker.Core.Models.Gym
 	/// <summary>
 	/// Class is used to Edit Gym Details.
 	/// </summary>
-	public class GymDetailsFormViewModel
+	public class GymDetailsFormViewModel :IGymModel
     {
         /// <summary>
         /// Property for Gym Identifier.
@@ -21,7 +22,7 @@ namespace FitnessTracker.Core.Models.Gym
         [Required(ErrorMessage = RequiredFieldMessage)]
         [StringLength(GymNameMaxLength, MinimumLength = GymNameMinLength, ErrorMessage = StringLengthMessage)]
         [Display(Name = "Gym name")]
-        public string GymName { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Property for Gym Address.

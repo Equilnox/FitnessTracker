@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FitnessTracker.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 using static FitnessTracker.Infrastructure.Data.Constrains.DataConstrains;
 using static FitnessTracker.Infrastructure.Data.Constrains.ErrorMessages;
 
@@ -7,7 +8,7 @@ namespace FitnessTracker.Core.Models.Athlete
 	/// <summary>
 	/// Class used for Edit View.
 	/// </summary>
-	public class AthleteDetailsEditFormModel
+	public class AthleteDetailsEditFormModel : IAthleteModel
 	{
 		/// <summary>
 		/// Property for Athlete Identifier.

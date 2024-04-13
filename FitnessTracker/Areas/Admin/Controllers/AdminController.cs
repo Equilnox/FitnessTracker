@@ -71,7 +71,7 @@ namespace FitnessTracker.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> ApproveExercise(int id)
+		public async Task<IActionResult> ApproveExercise(int id, string information)
 		{
 			await requestService.ApproveExerciseAsync(id);
 
@@ -79,7 +79,7 @@ namespace FitnessTracker.Areas.Admin.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> ApproveChanges(int id)
+		public async Task<IActionResult> ApproveChanges(int id, string information)
 		{
 			await requestService.ApproveChangesAsync(id);
 
@@ -87,7 +87,7 @@ namespace FitnessTracker.Areas.Admin.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> DismissRequest(int id)
+		public async Task<IActionResult> DismissRequest(int id, string information)
 		{
 			await requestService.Dismiss(id);
 

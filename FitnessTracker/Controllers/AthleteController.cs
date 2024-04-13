@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Core.Contracts;
+using FitnessTracker.Core.Extensions;
 using FitnessTracker.Core.Models.Athlete;
 using FitnessTracker.Extensions;
 using Microsoft.AspNetCore.Authorization;
@@ -26,11 +27,16 @@ namespace FitnessTracker.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int id, string information)
         {
             var model = await service.FindByIdAsync(id);
 
             if(model == null)
+            {
+                return BadRequest();
+            }
+
+            if(information != model.GetAthleteInformation())
             {
                 return BadRequest();
             }

@@ -1,9 +1,11 @@
-﻿namespace FitnessTracker.Core.Models.Athlete
+﻿using FitnessTracker.Core.Contracts;
+
+namespace FitnessTracker.Core.Models.Athlete
 {
     /// <summary>
     /// Class is used for Athletes Home Page.
     /// </summary>
-    public class AthleteViewModel
+    public class AthleteViewModel : IAthleteModel
     {
         /// <summary>
         /// Property for Athlete identifier.

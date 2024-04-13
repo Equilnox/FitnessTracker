@@ -30,8 +30,10 @@
                                 <div class="card-body">
                                     <p class="card-text text-warp text-truncate" style="max-width: 500px">@item.Description</p>
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Request" asp-action="EditExercise" asp-route-id="@item.Id">Request Edit</a>
+                                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="Details" 
+                                            asp-route-id="@item.Id" asp-route-information="@item.GetExerciseInformation()">Details</a>
+                                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Request" asp-action="EditExercise"
+                                            asp-route-id="@item.Id" asp-route-information="@item.GetExerciseInformation()">Request Edit</a>
                                     </div>
                                 </div>
                             </div>

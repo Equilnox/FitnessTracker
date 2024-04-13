@@ -1,13 +1,15 @@
 ﻿$('#dismissRequest').submit(function (e) {
     e.preventDefault();
 
-    // Extract exercise data from the form
+    // Extract request data from the form
     var id = $('#id').val();
 
     // Create an AJAX request to submit the form data
     $.ajax({
         url: dismissRequestUrl,
-        type: 'POST',
+        type: 'POST', headers: {
+            RequestVerificationToken: $('#dismissAntiForgeryToken').val() // Include the anti-forgery token value
+        },
         data: {
             id: id,
         },

@@ -1,17 +1,24 @@
 ﻿$('#gymTypeForm').submit(function (e) {
     e.preventDefault();
 
-    // Extract exercise data from the form
+    // Extract gym data from the form
     var id = $('#id').val();
     var type = $('#type').val();
+    var name = $('#name').val();
+    var address = $('#address').val();
 
     // Create an AJAX request to submit the form data
     $.ajax({
         url: changeGymTypeUrl,
         type: 'POST',
+        headers: {
+            RequestVerificationToken: $('#antiForgeryToken').val() // Include the anti-forgery token value
+        },
         data: {
             id: id,
-            type: type
+            type: type,
+            name: name,
+            address: address
         },
         success: function (response) {
             // Handle success response

@@ -1,13 +1,16 @@
 ﻿$('#approveExercise').submit(function (e) {
     e.preventDefault();
 
-    // Extract exercise data from the form
+    // Extract request data from the form
     var id = $('#id').val();
 
     // Create an AJAX request to submit the form data
     $.ajax({
         url: approveExerciseUrl,
         type: 'POST',
+        headers: {
+            RequestVerificationToken: $('#approveExerciseAntiForgeryToken').val() // Include the anti-forgery token value
+        },
         data: {
             id: id,
         },

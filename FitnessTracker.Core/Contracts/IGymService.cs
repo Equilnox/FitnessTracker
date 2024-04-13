@@ -36,7 +36,7 @@ namespace FitnessTracker.Core.Contracts
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<int> GetGymIdByUserIdAsync(string userId);
+        Task<MyGymViewModel> GetGymByUserIdAsync(string userId);
 
         /// <summary>
         /// Method saves changes to Data Basa.

@@ -1,9 +1,11 @@
-﻿namespace FitnessTracker.Core.Models.Gym
+﻿using FitnessTracker.Core.Contracts;
+
+namespace FitnessTracker.Core.Models.Gym
 {
     /// <summary>
     /// Class is used for Viewing Gym Details.
     /// </summary>
-    public class GymDetailViewModel
+    public class GymDetailViewModel : IGymModel
     {
         /// <summary>
         /// Property for Gym Identifier.

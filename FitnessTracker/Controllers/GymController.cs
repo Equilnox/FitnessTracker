@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Core.Contracts;
+using FitnessTracker.Core.Extensions;
 using FitnessTracker.Core.Models.Gym;
 using FitnessTracker.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -23,21 +24,26 @@ namespace FitnessTracker.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Details(int id)
+		public async Task<IActionResult> Details(int id, string information)
 		{
 			if (await service.GymExistsAsync(id) == false)
 			{
 				return BadRequest();
 			}
+			
+			var userId = User.Id();
 
-			if (await service.GymIsPublic(id) == false)
+			var model = await service.GetGymAsync(id);
+
+			if (await service.GymIsPublic(id) == false && model.OwnerId != userId)
 			{
 				return BadRequest();
 			}
 
-			var userId = User.Id();
-
-			var model = await service.GetGymAsync(id);
+			if (information != model.GetGymInformation())
+			{
+				return BadRequest();
+			}
 
 			ViewBag.UserId = userId;
 
@@ -49,18 +55,18 @@ namespace FitnessTracker.Controllers
 		{
 			var userId = User.Id();
 
-			var gymId = await service.GetGymIdByUserIdAsync(userId);
+			var gym = await service.GetGymByUserIdAsync(userId);
 
-			if(gymId != 0)
+			if(gym.OwnerId != userId)
 			{
-				return RedirectToAction(nameof(Details), new { id = gymId });
+				return Unauthorized();
 			}
 
-			return Unauthorized();
+			return RedirectToAction(nameof(Details), new { id = gym.Id, information = gym.GetGymInformation() });
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Edit(int id)
+		public async Task<IActionResult> Edit(int id, string information)
         {
             if (await service.GymExistsAsync(id) == false)
             {
@@ -79,11 +85,16 @@ namespace FitnessTracker.Controllers
 			var model = new GymDetailsFormViewModel()
 			{
 				Id = gymDetails.Id,
-				GymName = gymDetails.Name,
+				Name = gymDetails.Name,
 				Address = gymDetails.Address,
 				PhoneNumber = gymDetails.PhoneNumber,
 				PricePerMonth = decimal.Parse(gymDetails.PricePerMonth)
 			};
+
+			if(information != model.GetGymInformation())
+			{
+				return BadRequest();
+			}
 
 			return View(model);
 		}
@@ -100,7 +111,7 @@ namespace FitnessTracker.Controllers
 				model = new GymDetailsFormViewModel()
 				{
 					Id = gymId,
-					GymName = gym.GymName,
+					Name = gym.Name,
 					Address = gym.Address,
 					PhoneNumber = gym.PhoneNumber,
 					PricePerMonth = gym.PricePerMonth
@@ -111,7 +122,7 @@ namespace FitnessTracker.Controllers
 
 			gymId = await service.ChangeGymDetailsAsync(model);
 
-			return RedirectToAction(nameof(Details), new { id = gymId });
+			return RedirectToAction(nameof(Details), new { id = gymId, information = model.GetGymInformation() });
 		}
 
 		[HttpPost]
@@ -124,7 +135,7 @@ namespace FitnessTracker.Controllers
 
 			await service.ChangeGymTypeAsync(model);
 
-			return RedirectToAction(nameof(Details), new { id = model.Id });
+			return RedirectToAction(nameof(Details), new { id = model.Id, information = model.GetGymInformation() });
 		}
     }
 }

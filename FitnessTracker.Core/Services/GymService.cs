@@ -26,7 +26,7 @@ namespace FitnessTracker.Core.Services
             var gym = await repository.All<Gym>()
                 .FirstAsync(g => g.Id == model.Id);
 
-            gym.Name = model.GymName;
+            gym.Name = model.Name;
             gym.Address = model.Address;
             gym.PhoneNumber = model.PhoneNumber;
             gym.PricePerMonth = model.PricePerMonth;
@@ -136,7 +136,7 @@ namespace FitnessTracker.Core.Services
                 .Select(g => new GymDetailsFormViewModel
                 {
                     Id = g.Id,
-                    GymName = g.Name,
+                    Name = g.Name,
                     Address = g.Address,
                     PhoneNumber = g.PhoneNumber,
                     PricePerMonth = g.PricePerMonth
@@ -151,19 +151,20 @@ namespace FitnessTracker.Core.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<int> GetGymIdByUserIdAsync(string userId)
+        public async Task<MyGymViewModel> GetGymByUserIdAsync(string userId)
         {
-            var gymId = await repository.AllReadOnly<Gym>()
+            var gym = await repository.AllReadOnly<Gym>()
                 .Where(g => g.OwnerId == userId)
-                .Select(g => g.Id)
-                .ToListAsync();
+                .Select(g => new MyGymViewModel()
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                    Address = g.Address,
+                    OwnerId = g.OwnerId
+                })
+                .FirstAsync();
 
-            if(gymId.Count == 1)
-            {
-                return gymId.First();
-            }
-
-            return 0;
+            return gym;
         }
 
         /// <summary>

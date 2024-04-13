@@ -1,7 +1,6 @@
 ﻿using FitnessTracker.Core.Contracts;
+using FitnessTracker.Core.Extensions;
 using FitnessTracker.Core.Models.Exercise;
-using FitnessTracker.Extensions;
-using FitnessTracker.Infrastructure.Data.Models;
 using FitnessTracker.Infrastructure.Data.Models.Enums;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,7 +37,7 @@ namespace FitnessTracker.Controllers
 		}
 
         [HttpGet]
-		public async Task<IActionResult> Details(int id)
+		public async Task<IActionResult> Details(int id, string information)
         {
             if(await service.ExerciseExists(id) == false)
             {
@@ -46,6 +45,11 @@ namespace FitnessTracker.Controllers
             }
 
 			var model = await service.FindExerciseAsNoTracingAsync(id);
+
+            if(information != model.GetExerciseInformation())
+            {
+                return BadRequest();
+            }
 
             return View(model);
         }

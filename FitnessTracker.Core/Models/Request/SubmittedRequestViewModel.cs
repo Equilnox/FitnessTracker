@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+﻿using FitnessTracker.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitnessTracker.Core.Models.Request
 {
-	public class SubmittedRequestViewModel
+    public class SubmittedRequestViewModel : IRequestModel
 	{
 		public int Id { get; set; }
 

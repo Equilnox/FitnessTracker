@@ -28,7 +28,7 @@
                     <p class="card-text text--warp text-truncate" style="max-width: 500px">Price per month: @item.PricePerMonth lv.</p>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Details" asp-route-id="@item.Id" asp-route-information="@item.GetGymInformation()">Details</a>
                 </div>
             </div>
         </div>

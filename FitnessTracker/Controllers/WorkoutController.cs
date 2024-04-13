@@ -94,6 +94,7 @@ namespace FitnessTracker.Controllers
 		}
 
 		[HttpPost]
+		[IgnoreAntiforgeryToken]
 		public IActionResult AddExercise(WorkoutIntensitiesFormModel model)
 		{
 			if (!ModelState.IsValid)

@@ -12,7 +12,10 @@
     // Create an AJAX request to submit the form data
     $.ajax({
         url: addExerciseUrl,
-        type: 'POST',
+        type: 'POST', 
+        headers: {
+            RequestVerificationToken: $('#addWorkoutAntiForgeryToken').val() // Include the anti-forgery token value
+        },
         data: {
             exerciseMuscleGroup: exerciseMuscleGroup,
             exerciseId: exerciseId,

@@ -1,4 +1,5 @@
 ﻿@model GymDetailViewModel
+@inject IAntiforgery AntiForgery
 
 <h2 class="text-center">@Model.Name</h2>
 <hr />
@@ -28,7 +29,7 @@
             @if (Model.OwnerId == ViewBag.UserId)
             {
                 <div class="btn-group-vertical" role="rowgroup" aria-label="Vertical button group">
-                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id">Edit gym details</a>
+                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id" asp-route-information="@Model.GetGymInformation()">Edit gym details</a>
                         <p></p>
                         <button type="button" class="btn btn-light btn-outline-dark" data-bs-toggle="modal" data-bs-target="#changeGymTypeModal">Change gym type</button>
                 </div>
@@ -101,9 +102,20 @@
                             }
                         </select>
                     </div>
-                    <div class="visually-hidden">
+                    <div class="form-group visually-hidden">
                         <label for="id" class="form-label">Id</label>
-                        <input for="id" type="text" class="form-control" id="id" name="id" value="@Model.Id">
+                        <input for="id" type="text" class="form-control" id="id" name="id" value="@Model.Id" readonly>
+                    </div>
+                    <div class="form-group visually-hidden">
+                        <label for="name" class="form-label">Name</label>
+                        <input for="name" type="text" class="form-control" id="name" name="name" value="@Model.Name" readonly>
+                    </div>
+                    <div class="form-group visually-hidden">
+                        <label for="address" class="form-label">Address</label>
+                        <input for="address" type="text" class="form-control" id="address" name="address" value="@Model.Address" readonly>
+                    </div>
+                    <div>
+                        <input type="hidden" id="antiForgeryToken" value="@AntiForgery.GetAndStoreTokens(Context).RequestToken" />
                     </div>
                     <div>
                         <button type="submit" class="btn btn-primary btn-outline-dark">Apply Change</button>
