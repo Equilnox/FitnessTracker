@@ -33,7 +33,7 @@ namespace FitnessTracker.Controllers
 
             if(model == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             if(information != model.GetAthleteInformation())

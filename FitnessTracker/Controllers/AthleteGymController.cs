@@ -63,14 +63,7 @@ namespace FitnessTracker.Controllers
 
 			if (await service.AthleteExists(model.UserEmail) == false)
 			{
-				ModelState.AddModelError(ErrorKeyWhenUserDoesNotExists, UserDoesNotExists);
-
-				model = new NewMembershipFormModel()
-				{
-					GymId = gymId
-				};
-
-				return View(model);
+				return NotFound();
 			}
 
 			var athleteId = await service.GetAthleteId(model.UserEmail);

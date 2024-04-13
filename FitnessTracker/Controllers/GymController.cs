@@ -28,7 +28,7 @@ namespace FitnessTracker.Controllers
 		{
 			if (await service.GymExistsAsync(id) == false)
 			{
-				return BadRequest();
+				return NotFound();
 			}
 			
 			var userId = User.Id();
