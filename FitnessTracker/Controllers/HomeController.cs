@@ -15,17 +15,27 @@ namespace FitnessTracker.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
+            if (User?.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Athlete");
+            }
 
-        public IActionResult Privacy()
-        {
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int statusCode)
         {
+            if(statusCode == 404)
+            {
+                return View("Error404");
+            }
+
+            if(statusCode == 401)
+            {
+                return View("Error401");
+            }
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

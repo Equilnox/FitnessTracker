@@ -1,0 +1,84 @@
+﻿@model AthleteViewModel
+
+@{
+	ViewBag.Title = $"Welcome to your home page, {Model.FirstName} {Model.LastName}";
+}
+
+<h4 class="text-center">@ViewBag.Title</h4>
+<hr />
+<div class="flex-row justify-content-start">
+    <div class="col">
+        <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image cap" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#868e96"></rect>
+                    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
+                </svg>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Hight: @Model.Height</li>
+                <li class="list-group-item">Weight: @Model.Weight</li>
+                <li class="list-group-item">Age: @Model.Age</li>
+            </ul>
+            <div class="card-footer">
+                <a class="btn btn-light btn-outline-dark btn-sm" asp-controller="Athlete" asp-action="Edit" asp-route-id="@Model.Id" asp-route-information="@Model.GetAthleteInformation()">Edit details</a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <hr />
+        <h4 class="text-lg-center">Gym memberships.</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Start date</th>
+                    <th scope="col">Expire date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var gym in Model.AthletesGym)
+                {
+                    <tr>
+                        <td>@gym.GymName</td>
+                        <td>@gym.StartDate.ToShortDateString()</td>
+                        <td>
+                            @if (gym.EndDate < DateTime.Now)
+                            {
+                                <p class="text-danger">@gym.EndDate.ToShortDateString()</p>
+                            }
+                            else
+                            {
+                                @gym.EndDate.ToShortDateString()
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <hr />
+    </div>
+</div>
+<div class="d-grid gap-5 d-md-flex justify-content-md-between">
+    <h3 class="text-center">Workouts</h3>
+    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Workout" asp-action="AddWorkout">Add Workout</a>
+</div>
+<p></p>
+<div></div>
+@foreach (var workout in Model.Workouts)
+{
+    <div class="card">
+        <div class="card-header">
+            @workout.WorkoutType ; Date of workout: @workout.Date ; Performed at gym: @workout.GymName
+        </div>
+        <div class="card-body">
+        <ul class="list-group list-group-flush">
+            @foreach (var exercise in workout.Exercises)
+            {
+                <li class="list-group-item">Exercise name: @exercise.ExerciseName ; Exercise Sets: @exercise.Sets ; Exercise Repetitions: @exercise.Repetitions ; Average time per set: @exercise.Seconds</li>
+            }
+        </ul>
+        </div>
+    </div>
+}

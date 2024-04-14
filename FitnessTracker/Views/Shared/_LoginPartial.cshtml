@@ -1,10 +1,19 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+﻿@using FitnessTracker.Infrastructure.Data.Models
+@using Microsoft.AspNetCore.Identity
+@using static FitnessTracker.Core.Constants.RoleConstants;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    if (User.IsInRole(AdministratorRole))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-primary" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin area</a>
+        </li>
+    }
+    
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>

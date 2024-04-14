@@ -1,0 +1,49 @@
+﻿@model ExerciseFormModel
+
+@{
+	ViewBag.Title = "Add exercises";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"] != null)
+{
+	<div class="alert alert-danger" role="alert">
+		@ViewData.ModelState["Error"].Errors.First().ErrorMessage
+	</div>
+}
+
+<form method="post">
+	<div class="form-group">
+		<label asp-for="Name"></label>
+		<input asp-for="Name" class="form-control" type="text" placeholder="Exercise name.">
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Description"></label>
+		<input asp-for="Description" class="form-control" type="text" rows="4" placeholder="Exercise description">
+		<span asp-validation-for="Description" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="MuscleGroup"></label>
+		<select asp-for="MuscleGroup" class="form-select">
+			@foreach (var item in Enum.GetNames(typeof(MuscleGroup)))
+			{
+				<option value="@item">@item.ToString()</option>
+			}
+		</select>
+	</div>
+	<div></div>
+	<hr />
+	<div></div>
+	<div>
+		<div class="d-grid gap-5 d-md-flex justify-content-md-center">
+			<input class="btn btn-light btn-outline-dark btn-toolbar" type="submit" value="Save" />
+		</div>
+	</div>
+</form>
+
+@section Scripts {
+	<partial-name ="_ValidationScriptsPartial" />
+}

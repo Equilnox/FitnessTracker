@@ -1,6 +1,11 @@
-﻿using FitnessTracker.Data;
+﻿using FitnessTracker.Core.Contracts;
+using FitnessTracker.Core.Services;
+using FitnessTracker.Infrastructure.Data;
+using FitnessTracker.Infrastructure.Data.Common;
+using FitnessTracker.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -8,14 +13,23 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IExerciseService, ExerciseService>();
+            services.AddScoped<IGymService, GymService>();
+            services.AddScoped<IAthleteService, AthleteService>();
+			services.AddScoped<IAthleteGymService, AthleteGymService>();
+            services.AddScoped<IWorkoutService, WorkoutService>();
+            services.AddScoped<IRequestService, RequestService>();
+
             return services;
         }
 
         public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<FitnessTrackerDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -25,8 +39,9 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<FitnessTrackerDbContext>();
 
             return services;
         }

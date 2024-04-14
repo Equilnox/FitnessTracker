@@ -1,0 +1,135 @@
+﻿@model GymDetailViewModel
+@inject IAntiforgery AntiForgery
+
+<h2 class="text-center">@Model.Name</h2>
+<hr />
+
+<div class="container text-center">
+    <div class="rol">
+        <svg class="bd-placeholder-img float-md-top" width="100%" height="210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive floated image" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#868e96"></rect>
+            <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive floated image</text>
+        </svg>
+        <p></p>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                <h6 class="text">Owner: @Model.Owner.FirstName @Model.Owner.LastName</h6>
+                <h6 class="text">Gym type: @Model.GymType</h6>
+                <h6 class="text">Price per month: @Model.PricePerMonth lv.</h6>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+                <h6 class="text">Address: @Model.Address</h6>
+                <h6 class="text">Phone number: @Model.PhoneNumber</h6>
+            </div>
+        </div>
+        <div class="col-2">
+            @if (Model.OwnerId == ViewBag.UserId)
+            {
+                <div class="btn-group-vertical" role="rowgroup" aria-label="Vertical button group">
+                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Gym" asp-action="Edit" asp-route-id="@Model.Id" asp-route-information="@Model.GetGymInformation()">Edit gym details</a>
+                        <p></p>
+                        <button type="button" class="btn btn-light btn-outline-dark" data-bs-toggle="modal" data-bs-target="#changeGymTypeModal">Change gym type</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<hr />
+<div class="container">
+@if(Model.OwnerId == ViewBag.UserId)
+{
+    <div class="d-grid gap-5 d-md-flex justify-content-md-between">
+        <p></p>
+        <h2 class="text-center">Members</h2>
+        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="AddMember" asp-route-gymId="@Model.Id">Add member</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Hight</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Start date</th>
+                <th scope="col">Expire date</th>
+                <th scope="col">Renew</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model.Members)
+            {
+                <tr>
+                    <td>@member.Name</td>
+                    <td>@member.Height</td>
+                    <td>@member.Weight</td>
+                    <td>@member.StartDate.ToShortDateString()</td>
+                    <td>
+                        @if (member.EndDate < DateTime.Now)
+                        {
+                            <p class="text-danger">@member.EndDate.ToShortDateString()</p>
+                        }
+                        else
+                        {
+                            @member.EndDate.ToShortDateString()
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="Renew" asp-route-athleteId="@member.MemberId" asp-route-gymId="@Model.Id">Renew</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+</div>
+<div class="modal fade" id="changeGymTypeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changeGymTypeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeGymTypeModalLabel">Change Gym Type</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="gymTypeForm">
+                    <div class="mb-3">
+                        <label for="type" class="form-label">Gym Type</label>
+                        <select for="type" class="form-select" id="type" name="type">
+                            @foreach (var item in Enum.GetNames(typeof(GymType)))
+                            {
+                                <option value="@item">@item.ToString()</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group visually-hidden">
+                        <label for="id" class="form-label">Id</label>
+                        <input for="id" type="text" class="form-control" id="id" name="id" value="@Model.Id" readonly>
+                    </div>
+                    <div class="form-group visually-hidden">
+                        <label for="name" class="form-label">Name</label>
+                        <input for="name" type="text" class="form-control" id="name" name="name" value="@Model.Name" readonly>
+                    </div>
+                    <div class="form-group visually-hidden">
+                        <label for="address" class="form-label">Address</label>
+                        <input for="address" type="text" class="form-control" id="address" name="address" value="@Model.Address" readonly>
+                    </div>
+                    <div>
+                        <input type="hidden" id="antiForgeryToken" value="@AntiForgery.GetAndStoreTokens(Context).RequestToken" />
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-outline-dark">Apply Change</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+	<partial-name ="_ValidationScriptsPartial" />
+	<script src="~/js/jquery.change.gym.type.js"></script>
+	<script>
+		var changeGymTypeUrl = '@Url.Action("ChangeGymType", "Gym")';
+	</script>
+}

@@ -1,0 +1,157 @@
+﻿@model WorkoutFormModel
+@inject IAntiforgery AntiForgery
+
+@{
+	ViewBag.Title = "Add workout";
+
+	IEnumerable<WorkoutIntensitiesFormModel> workoutData = ViewBag.WorkoutData;
+	IEnumerable<ExerciseToChooseViewModel> exercises = ViewBag.Exercises;
+	IEnumerable<GymToChooseViewModel> gyms = ViewBag.Gyms;
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"] != null)
+{
+	<div class="alert alert-danger" role="alert">
+		@ViewData.ModelState["Error"].Errors.First().ErrorMessage
+	</div>
+}
+<hr />
+<form method="post">
+	<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+		<div class="form-group">
+			<label asp-for="GymId" class="control-label"></label>
+			<select asp-for="GymId" class="form-select" id="gymId">
+				@foreach (var gym in gyms)
+				{
+					<option value="@gym.Id">@gym.Name</option>
+				}
+			</select>
+			<span asp-validation-for="GymId" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="WorkoutDate" class="control-label"></label>
+			<input asp-for="WorkoutDate" class="form-control" type="text" placeholder="Workout date" id="workoutDate">
+			<span asp-validation-for="WorkoutDate" class="text-danger"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="WorkoutType" class="control-label"></label>
+			<select asp-for="WorkoutType" class="form-select" id="workoutType">
+				@foreach (var item in Enum.GetNames(typeof(WorkoutType)))
+				{
+					<option value="@item">@item.ToString()</option>
+				}
+			</select>
+		</div>
+		<div class="d-grid gap-5 d-md-flex justify-content-md-center">
+			<div>
+				<p></p>
+				<input class="btn btn-light btn-outline-dark" type="submit" value="Save" />
+			</div>
+		</div>
+	</div>
+	<div class="d-grid gap-5 d-md-flex justify-content-md-between">
+		<p></p>
+		<h4 class="text-center">Exercises</h4>
+		<button type="button" class="btn btn-light btn-outline-dark" data-bs-toggle="modal" data-bs-target="#addExerciseModal">Add exercise</button>
+	</div>
+	<div>
+		<p></p>
+	</div>
+	<div class="rol">
+		@if (workoutData.Count() > 0)
+		{
+			<div class="col">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Muscle group</th>
+							<th scope="col">Exercise name</th>
+							<th scope="col">Weight Lifted</th>
+							<th scope="col">Repetitions</th>
+							<th scope="col">Sets</th>
+							<th scope="col">Seconds</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var exercise in workoutData)
+						{
+							<tr>
+								<td>@exercise.ExerciseMuscleGroup</td>
+								<td>@exercises.First(e => e.Id == exercise.ExerciseId).Name</td>
+								<td>@exercise.LiftedWeight</td>
+								<td>@exercise.Repetitions</td>
+								<td>@exercise.Sets</td>
+								<td>@exercise.Seconds</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+				<hr />
+			</div>
+		}
+	</div>
+</form>
+<div class="modal fade" id="addExerciseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addExerciseModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="addExerciseModalLabel">Add Exercise</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="addExerciseForm">
+					<div class="mb-3">
+						<label for="exerciseMuscleGroup" class="form-label">Muscle Group</label>
+						<select for="exerciseMuscleGroup" class="form-select" id="exerciseMuscleGroup" name="exerciseName">
+							@foreach (var item in Enum.GetNames(typeof(MuscleGroup)))
+							{
+								<option value="@item">@item.ToString()</option>
+							}
+						</select>
+					</div>
+					<div>
+						<label for="exerciseId" class="form-label">Exercise</label>
+						<select for="exerciseId" class="form-select" id="exerciseId" name="exerciseName">
+							@foreach (var exercise in exercises)
+							{
+								<option value="@exercise.Id">@exercise.Name</option>
+							}
+						</select>
+					</div>
+					<div>
+						<label for="liftedWeight" class="form-label">Lifted Weight</label>
+						<input for="liftedWeight" type="text" class="form-control" id="liftedWeight" name="Weight lifted">
+					</div>
+					<div>
+						<label for="repetitions" class="form-label">Repetitions</label>
+						<input for="repetitions" type="text" class="form-control" id="repetitions" name="Repetitions">
+					</div>
+					<div>
+						<label for="sets" class="form-label">Sets</label>
+						<input for="sets" type="text" class="form-control" id="sets" name="Sets">
+					</div>
+					<div>
+						<label for="seconds" class="form-label">Seconds</label>
+						<input for="seconds" type="text" class="form-control" id="seconds" name="Seconds">
+					</div>
+					<div>
+						<input type="hidden" id="addWorkoutAntiForgeryToken" value="@AntiForgery.GetAndStoreTokens(Context).RequestToken" />
+					</div>
+					<div>
+						<button type="submit" class="btn btn-light btn-outline-dark">Add Exercise to Workout</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<partial-name ="_ValidationScriptsPartial" />
+	<script src="~/js/jquery.add.exercise.to.workout.js"></script>
+	<script>
+		var addExerciseUrl = '@Url.Action("AddExercise", "Workout")';
+	</script>
+}
