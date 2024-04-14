@@ -9,7 +9,10 @@
 <div class="d-grid gap-5 d-md-flex justify-content-md-between">
     <p></p>
     <h2 class ="text-center">@ViewBag.Title</h2>
-    <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Request" asp-action="AddExercise">Request New Exercise</a>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Request" asp-action="AddExercise">Request New Exercise</a>
+    }
 </div>
 <hr />
 
