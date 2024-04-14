@@ -1,11 +1,13 @@
 ﻿using FitnessTracker.Core.Contracts;
 using FitnessTracker.Core.Extensions;
 using FitnessTracker.Core.Models.AthleteGym;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static FitnessTracker.Core.Constants.ModelStateErrors;
 
 namespace FitnessTracker.Controllers
 {
+	[Authorize]
     public class AthleteGymController : Controller
     {
 		private readonly IAthleteGymService service;
