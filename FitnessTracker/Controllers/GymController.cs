@@ -2,10 +2,12 @@
 using FitnessTracker.Core.Extensions;
 using FitnessTracker.Core.Models.Gym;
 using FitnessTracker.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessTracker.Controllers
 {
+	[Authorize]
 	public class GymController : Controller
 	{
 		private readonly IGymService service;
