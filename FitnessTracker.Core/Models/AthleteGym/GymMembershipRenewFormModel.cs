@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FitnessTracker.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitnessTracker.Core.Models.AthleteGym
 {
-    /// <summary>
-    /// Class is used to Renew a membership of an Athlete.
-    /// </summary>
-    public class GymMembershipRenewFormModel
+	/// <summary>
+	/// Class is used to Renew a membership of an Athlete.
+	/// </summary>
+	public class GymMembershipRenewFormModel : IGymModel
     {
         /// <summary>
         /// Property for Athlete Identifier.
@@ -28,5 +29,9 @@ namespace FitnessTracker.Core.Models.AthleteGym
         /// </summary>
         [Required]
         public string EndDate { get; set; } = string.Empty;
-    }
+
+        public string Name { get; set; } = string.Empty;
+
+		public string Address { get; set; } = string.Empty;
+	}
 }

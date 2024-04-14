@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FitnessTracker.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 using static FitnessTracker.Infrastructure.Data.Constrains.ErrorMessages;
 
 namespace FitnessTracker.Core.Models.AthleteGym
@@ -6,12 +7,13 @@ namespace FitnessTracker.Core.Models.AthleteGym
 	/// <summary>
 	/// Class is used for Adding New Member for Gym.
 	/// </summary>
-	public class NewMembershipFormModel
+	public class NewMembershipFormModel : IGymModel
 	{
 		/// <summary>
 		/// Property for Gym Identifier.
 		/// </summary>
 		public int GymId { get; set; }
+
 
 		/// <summary>
 		/// Property for User Email.
@@ -31,5 +33,9 @@ namespace FitnessTracker.Core.Models.AthleteGym
 		/// </summary>
 		[Required(ErrorMessage = RequiredFieldMessage)]
 		public string EndDate { get; set; } = string.Empty;
+
+		public string Name { get; set; } = string.Empty;
+
+		public string Address { get; set; } = string.Empty;
 	}
 }

@@ -44,7 +44,8 @@
     <div class="d-grid gap-5 d-md-flex justify-content-md-between">
         <p></p>
         <h2 class="text-center">Members</h2>
-        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="AddMember" asp-route-gymId="@Model.Id">Add member</a>
+        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="AddMember" 
+            asp-route-gymId="@Model.Id" asp-route-information="@Model.GetGymInformation()">Add member</a>
     </div>
     <table class="table">
         <thead>
@@ -76,7 +77,8 @@
                         }
                     </td>
                     <td>
-                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="Renew" asp-route-athleteId="@member.MemberId" asp-route-gymId="@Model.Id">Renew</a>
+                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="AthleteGym" asp-action="Renew" asp-route-athleteId="@member.MemberId"
+                            asp-route-gymId="@Model.Id" asp-route-information="@Model.GetGymInformation()">Renew</a>
                     </td>
                 </tr>
             }
