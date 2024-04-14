@@ -17,6 +17,7 @@ namespace FitnessTracker.Controllers
 			service = _service;
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> All()
 		{
@@ -25,6 +26,7 @@ namespace FitnessTracker.Controllers
 			return View(model);
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> Details(int id, string information)
 		{
