@@ -1,4 +1,6 @@
-﻿@model List<ExerciseViewModel>
+﻿@using FitnessTracker.Infrastructure.Data.Models
+@model List<ExerciseViewModel>
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
 	ViewBag.Title = "All exercises.";
@@ -32,8 +34,11 @@
                                     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                         <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Exercise" asp-action="Details" 
                                             asp-route-id="@item.Id" asp-route-information="@item.GetExerciseInformation()">Details</a>
-                                        <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Request" asp-action="EditExercise"
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            <a class="btn btn-light btn-outline-dark btn-toolbar" asp-controller="Request" asp-action="EditExercise"
                                             asp-route-id="@item.Id" asp-route-information="@item.GetExerciseInformation()">Request Edit</a>
+                                        }
                                     </div>
                                 </div>
                             </div>
