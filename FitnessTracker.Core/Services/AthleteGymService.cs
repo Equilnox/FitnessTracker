@@ -89,5 +89,11 @@ namespace FitnessTracker.Core.Services
 
 			return 0;
 		}
+
+		public async Task<bool> AthleteIsMember(int athleteId, int gymId)
+		{
+			return await repository.All<AthleteGym>()
+				.AnyAsync(ag => ag.AthleteId == athleteId && ag.GymId == gymId);
+		}
 	}
 }

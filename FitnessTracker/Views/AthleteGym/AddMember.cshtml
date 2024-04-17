@@ -30,6 +30,12 @@
 		<input asp-for="EndDate" class="form-control" type="text" rows="3" placeholder="@Model.EndDate">
 		<span asp-validation-for="EndDate" class="text-danger"></span>
 	</div>
+	<div>
+		<input asp-for=Name class="visually-hidden" value="@Model.Name" />
+	</div>
+	<div>
+		<input asp-for=Address class="visually-hidden" value="@Model.Address" />
+	</div>
 	<div></div>
 	<hr />
 	<div></div>

@@ -1,26 +1,50 @@
 ﻿using FitnessTracker.Core.Contracts;
+using FitnessTracker.Core.Extensions;
 using FitnessTracker.Core.Models.AthleteGym;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static FitnessTracker.Core.Constants.ModelStateErrors;
 
 namespace FitnessTracker.Controllers
 {
+	[Authorize]
     public class AthleteGymController : Controller
     {
 		private readonly IAthleteGymService service;
+		private readonly IGymService gymService;
 
-        public AthleteGymController(IAthleteGymService _service)
+        public AthleteGymController(IAthleteGymService _service, IGymService _gymService)
         {
             service = _service;
+			gymService = _gymService;
         }
 
         [HttpGet]
-		public IActionResult Renew(int athleteId, int gymId)
+		public async Task<IActionResult> Renew(int athleteId, int gymId, string information)
 		{
+
+			var gym = await gymService.GetGymAsync(gymId);
+
+			var gymInformation = gym.GetGymInformation();
+
+			if (information != gymInformation)
+			{
+				return BadRequest();
+			}
+
+			var athleteIsMember = await service.AthleteIsMember(athleteId, gymId);
+
+			if (athleteIsMember == false)
+			{
+				return NotFound();
+			}
+
 			var model = new GymMembershipRenewFormModel()
 			{
 				AthleteId = athleteId,
-				GymId = gymId
+				GymId = gymId,
+				Name = gym.Name,
+				Address = gym.Address
 			};
 
 			return View(model);
@@ -42,15 +66,26 @@ namespace FitnessTracker.Controllers
 
 			await service.RenewAsync(model);
 
-			return RedirectToAction("Details", "Gym", new { id = model.GymId });;
+			return RedirectToAction("Details", "Gym", new { id = model.GymId, information = model.GetGymInformation() });;
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> AddMember(int gymId)
+		public async Task<IActionResult> AddMember(int gymId, string information)
 		{
+			var gym = await gymService.GetGymAsync(gymId);
+
+			var gymInformation = gym.GetGymInformation();
+
+			if (information != gymInformation)
+			{
+				return BadRequest();
+			}
+
 			var newMember = new NewMembershipFormModel()
 			{
-				GymId = gymId
+				GymId = gymId,
+				Name = gym.Name,
+				Address = gym.Address
 			};
 
 			return View(newMember);
@@ -92,7 +127,7 @@ namespace FitnessTracker.Controllers
 
 			await service.AddNewMember(model, athleteId);
 
-			return RedirectToAction("Details", "Gym", new { id = model.GymId });
+			return RedirectToAction("Details", "Gym", new { id = model.GymId, information = model.GetGymInformation() });
 		}
 	}
 }

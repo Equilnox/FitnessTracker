@@ -1,11 +1,13 @@
 ﻿using FitnessTracker.Core.Contracts;
 using FitnessTracker.Core.Models.Workout;
 using FitnessTracker.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
 namespace FitnessTracker.Controllers
 {
+	[Authorize]
 	public class WorkoutController : Controller
 	{
 		private readonly IWorkoutService service;

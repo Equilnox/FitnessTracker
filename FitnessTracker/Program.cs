@@ -63,7 +63,17 @@ app.UseEndpoints(endpoints =>
         pattern: "Athlete/Edit/{id}/{information}",
         defaults: new { Controller = "Athlete", Action = "Edit" });
 
+	endpoints.MapControllerRoute(
+		name: "Add New Member",
+		pattern: "AthleteGym/AddMember/{gymId}/{information}",
+		defaults: new { Controller = "AthleteGym", Action = "AddMember" });
+
     endpoints.MapControllerRoute(
+        name: "Renew Member",
+        pattern: "AthleteGym/Renew/{gymId}/{athleteId}/{information}",
+        defaults: new { Controller = "AthleteGym", Action = "Renew" });
+
+	endpoints.MapControllerRoute(
         name: "areas",
         pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 

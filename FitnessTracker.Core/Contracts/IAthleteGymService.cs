@@ -32,5 +32,7 @@ namespace FitnessTracker.Core.Contracts
 		/// <param name="userEmail"></param>
 		/// <returns></returns>
 		Task<int> GetAthleteId(string userEmail);
+
+		Task<bool> AthleteIsMember(int athleteId, int gymId);
 	}
 }

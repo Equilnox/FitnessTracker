@@ -2,10 +2,12 @@
 using FitnessTracker.Core.Extensions;
 using FitnessTracker.Core.Models.Gym;
 using FitnessTracker.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessTracker.Controllers
 {
+	[Authorize]
 	public class GymController : Controller
 	{
 		private readonly IGymService service;
@@ -15,6 +17,7 @@ namespace FitnessTracker.Controllers
 			service = _service;
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> All()
 		{
@@ -23,6 +26,7 @@ namespace FitnessTracker.Controllers
 			return View(model);
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> Details(int id, string information)
 		{
